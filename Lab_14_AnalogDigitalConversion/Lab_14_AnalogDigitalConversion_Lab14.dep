@@ -1,13 +1,0 @@
-Dependencies for Project 'Lab_14_AnalogDigitalConversion', Target 'Lab14': (DO NOT MODIFY !)
-F (.\startup.s)(0x519AECF4)(--cpu Cortex-M4 --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
-F (.\Nokia5110.c)(0x54A18BF2)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\nokia5110.o --omf_browse .\nokia5110.crf --depend .\nokia5110.d)
-I (Nokia5110.h)(0x54A18BF2)
-F (.\ADC.c)(0x5779D0E4)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\adc.o --omf_browse .\adc.crf --depend .\adc.d)
-I (ADC.h)(0x5779D0E5)
-I (tm4c123gh6pm.h)(0x51D4C512)
-F (.\AnalogDigitalConversion.c)(0x5779D30F)(-c --cpu Cortex-M4 -D__EVAL -g -O0 --apcs=interwork --split_sections --signed_chars -I.. -I..\..\..-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_LM4F120H5QR-o .\analogdigitalconversion.o --omf_browse .\analogdigitalconversion.crf --depend .\analogdigitalconversion.d)
-I (ADC.h)(0x5779D0E5)
-I (tm4c123gh6pm.h)(0x51D4C512)
-I (Nokia5110.h)(0x54A18BF2)
-I (TExaS.h)(0x569BD23C)
-F (.\texas.o)(0x569BD036)()
