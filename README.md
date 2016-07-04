@@ -2,8 +2,8 @@
 Contains all labs of the course UTAustinX: UT.6.03x Embedded Systems - Shape the World
 
 ## About the course
-This course is instructed by Prof. Jonathan Valvano and Dr. Ramesh Yerraballi and can be found at:
-https://www.edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-03x.
+This course is instructed by Prof. Jonathan Valvano and Dr. Ramesh Yerraballi and can be found
+[here](https://edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-03x).
 
 ## About my projects
 From <b>Lab02_HelloLaunchPad</b> to <b>Lab14_AnalogDigitalConversion</b> and an additional <b>Lab16_IoT</b>,
@@ -13,4 +13,9 @@ Only <b>Lab15_SpaceInvaders</b> is unfinished due to my lack of graphic processi
 in the near future.
 
 ## Software and Hardware requirements
-To be able to compile and debug these projects, please follow the instructions in Requirements.docx in this repo.
+To be able to fabricate these projects, please follow the instructions in
+[Software Requirements.pdf](../Sofware Requirements.pdf)
+and [Kit Requirements.pdf](../Kit Requirements.pdf).
+
+## Issues
+If anyone sees anything wrong, please feel free to [let me know](https://github.com/phil3c7r0n/ut.6.03x/issues/new).
