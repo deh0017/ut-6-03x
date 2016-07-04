@@ -14,8 +14,8 @@ in the near future.
 
 ## Software and Hardware requirements
 To be able to fabricate these projects, please follow the instructions in
-[Software Requirements.pdf](../Sofware Requirements.pdf)
-and [Kit Requirements.pdf](../Kit Requirements.pdf).
+[Software Requirements.pdf](/Software%20Requirements.pdf)
+and [Kit Requirements.pdf](/Kit%20Requirements.pdf).
 
 ## Issues
 If anyone sees anything wrong, please feel free to [let me know](https://github.com/phil3c7r0n/ut.6.03x/issues/new).
