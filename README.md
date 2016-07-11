@@ -13,9 +13,11 @@ Only <b>Lab15_SpaceInvaders</b> is unfinished due to my lack of graphic processi
 in the near future.
 
 ## Software and Hardware Requirements
-To be able to fabricate these projects, please follow the instructions in
+To be able to debug and upload these projects to the LaunchPad, please follow the instructions in
 [Software Requirements.pdf](/Software%20Requirements.pdf)
 and [Kit Requirements.pdf](/Kit%20Requirements.pdf).
+
+Click [here](https://drive.google.com/open?id=0B_BEuwvumKEUVURXRm5nRmZsWmM) to download Keil uVision 4 and TExaSware.
 
 ## Issues
 If anyone sees anything wrong, please feel free to [let me know](https://github.com/phil3c7r0n/ut.6.03x/issues/new).
