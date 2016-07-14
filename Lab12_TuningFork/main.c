@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 12: Tuning Fork
 
-Name: TuningFork.c
+Name: main.c
 
 Description: Using SysTick periodic interrupt, create a frequency of 440Hz
 just as you do when striking a tuning fork.
@@ -13,7 +13,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

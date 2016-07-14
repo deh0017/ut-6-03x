@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 5: Functions in C
 
-Name: FunctionsInC.c
+Name: main.c
 
 Description: Calculate the area of a rectangle
     If Length or Width is in the close interval [3,20]
@@ -15,7 +15,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

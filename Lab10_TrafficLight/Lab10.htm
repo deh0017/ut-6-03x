@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Lab10.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Lab10.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Jul 04 13:23:18 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jul 14 11:56:26 2016
 <BR><P>
 <H3>Maximum Stack Usage =         64 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -784,7 +784,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 </UL>
 
-<P><STRONG><a name="[9f]"></a>Ports_Init</STRONG> (Thumb, 234 bytes, Stack size 8 bytes, trafficlight.o(i.Ports_Init))
+<P><STRONG><a name="[9f]"></a>Ports_Init</STRONG> (Thumb, 234 bytes, Stack size 8 bytes, main.o(i.Ports_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Ports_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -807,15 +807,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5A_Handler
 </UL>
 
-<P><STRONG><a name="[a0]"></a>SysTick_Init</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, trafficlight.o(i.SysTick_Init))
+<P><STRONG><a name="[a0]"></a>SysTick_Init</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(i.SysTick_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[97]"></a>SysTick_Wait</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, trafficlight.o(i.SysTick_Wait))
+<P><STRONG><a name="[97]"></a>SysTick_Wait</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, main.o(i.SysTick_Wait))
 <BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait1ms
 </UL>
 
-<P><STRONG><a name="[96]"></a>SysTick_Wait1ms</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, trafficlight.o(i.SysTick_Wait1ms))
+<P><STRONG><a name="[96]"></a>SysTick_Wait1ms</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, main.o(i.SysTick_Wait1ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysTick_Wait1ms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait
@@ -858,7 +858,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Scope
 </UL>
 
-<P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 194 bytes, Stack size 0 bytes, trafficlight.o(i.main))
+<P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 194 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
 <LI>Call Chain = main &rArr; TExaS_Init &rArr; ADC1_Init
 </UL>

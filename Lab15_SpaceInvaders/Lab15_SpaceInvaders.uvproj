@@ -421,11 +421,6 @@
               <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>SpaceInvaders.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\SpaceInvaders.c</FilePath>
-            </File>
-            <File>
               <FileName>TExaS.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\TExaS.c</FilePath>
@@ -454,6 +449,11 @@
               <FileName>Tick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

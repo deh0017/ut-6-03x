@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 6: Branching Functions Delays
 
-Name: BranchingFunctionsDelays.c
+Name: main.c
 
 Description:
     None of SW1 and SW2 is pressed: LED is steady blue
@@ -14,7 +14,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

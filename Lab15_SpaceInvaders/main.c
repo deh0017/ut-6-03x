@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: SpaceInvaders.c
+Name: main.c
 
 Description: Mandatory file which contains interrupts routines and
 the main thread
@@ -13,7 +13,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

@@ -411,9 +411,9 @@
               <FilePath>.\startup.s</FilePath>
             </File>
             <File>
-              <FileName>BranchingFunctionsDelays.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\BranchingFunctionsDelays.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

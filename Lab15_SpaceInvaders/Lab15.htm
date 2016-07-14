@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Lab15.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Lab15.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Jul 04 13:30:33 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jul 14 11:59:48 2016
 <BR><P>
 <H3>Maximum Stack Usage =         64 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -127,12 +127,12 @@ Function Pointers
  <LI><a href="#[47]">SSI3_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[9]">SVC_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[29]">SysCtl_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[c]">SysTick_Handler</a> from spaceinvaders.o(i.SysTick_Handler) referenced from startup.o(RESET)
+ <LI><a href="#[c]">SysTick_Handler</a> from main.o(i.SysTick_Handler) referenced from startup.o(RESET)
  <LI><a href="#[20]">Timer0A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[21]">Timer0B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[22]">Timer1A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[23]">Timer1B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
- <LI><a href="#[24]">Timer2A_Handler</a> from spaceinvaders.o(i.Timer2A_Handler) referenced from startup.o(RESET)
+ <LI><a href="#[24]">Timer2A_Handler</a> from main.o(i.Timer2A_Handler) referenced from startup.o(RESET)
  <LI><a href="#[25]">Timer2B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[30]">Timer3A_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
  <LI><a href="#[31]">Timer3B_Handler</a> from startup.o(RESET) referenced from startup.o(RESET)
@@ -723,8 +723,8 @@ Global Symbols
 <P><STRONG><a name="[dd]"></a>Random32</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, random.o(.text), UNUSED)
 
 <P><STRONG><a name="[9b]"></a>Random</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, random.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
-<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<BR><BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
 </UL>
 
 <P><STRONG><a name="[de]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -854,7 +854,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b7]"></a>NoEnemy</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, spaceinvaders.o(i.NoEnemy))
+<P><STRONG><a name="[b7]"></a>NoEnemy</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, main.o(i.NoEnemy))
 <BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -876,9 +876,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_DrawFullImage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
 </UL>
 
 <P><STRONG><a name="[a0]"></a>Nokia5110_DrawFullImage</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_DrawFullImage))
@@ -928,11 +928,11 @@ Global Symbols
 <P><STRONG><a name="[94]"></a>Nokia5110_PrintBMP</STRONG> (Thumb, 420 bytes, Stack size 36 bytes, nokia5110.o(i.Nokia5110_PrintBMP))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = Nokia5110_PrintBMP
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Ship_Init
+<BR>[Called By]<UL><LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Ship_Init
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Init
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bunker_Init
-<LI><a href="#[c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
 <P><STRONG><a name="[9f]"></a>Nokia5110_SetCursor</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, nokia5110.o(i.Nokia5110_SetCursor))
@@ -965,7 +965,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 398 bytes, Stack size 8 bytes, spaceinvaders.o(i.SysTick_Handler))
+<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 398 bytes, Stack size 8 bytes, main.o(i.SysTick_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = SysTick_Handler &rArr; Nokia5110_DisplayBuffer &rArr; Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
@@ -992,7 +992,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[24]"></a>Timer2A_Handler</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, spaceinvaders.o(i.Timer2A_Handler))
+<P><STRONG><a name="[24]"></a>Timer2A_Handler</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, main.o(i.Timer2A_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Timer2A_Handler &rArr; DAC_Shoot
 </UL>
 <BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Shoot
@@ -1022,22 +1022,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 </UL>
 
-<P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, spaceinvaders.o(i.main))
+<P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
 <LI>Call Chain = main &rArr; Missiles_And_Lasers &rArr; Nokia5110_DisplayBuffer &rArr; Nokia5110_DrawFullImage &rArr; Nokia5110_SetCursor
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2_Init
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NoEnemy
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer2_Init
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Init
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Init
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Ship_Init
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missiles_And_Lasers
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Missile_Init
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Laser_Init
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Enemy_Init
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Init
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bunker_Init
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC0_Init
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NoEnemy
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Random_Init
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_SetCursor
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutUDec

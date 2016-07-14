@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 2: Hello LaunchPad
 
-Name: HelloLaunchPad.c
+Name: main.c
 
 Description: If the left switch SW1 is 
     not pressed: the LED toggles blue-red
@@ -14,7 +14,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

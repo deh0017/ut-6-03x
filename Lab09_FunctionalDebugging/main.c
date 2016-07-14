@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 9: Functional Debugging
 
-Name: FunctionalDebugging.c
+Name: main.c
 
 Description:
     Learn how to debug using Logic Analyzer
@@ -17,7 +17,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

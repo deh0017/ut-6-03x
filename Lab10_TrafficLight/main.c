@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 10: Traffic Light
 
-Name: TrafficLight.c
+Name: main.c
 
 Description:
     Simulate a traffic light system with three modes:
@@ -14,7 +14,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

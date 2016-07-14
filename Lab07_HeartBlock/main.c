@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 7: Heart Block
 
-Name: HeartBlock.c
+Name: main.c
 
 Description:
     SW1 is released: Green light turns on and waits
@@ -16,7 +16,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

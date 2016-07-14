@@ -496,9 +496,9 @@
               <FilePath>..\utils\ustdlib.c</FilePath>
             </File>
             <File>
-              <FileName>IoT.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\IoT.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

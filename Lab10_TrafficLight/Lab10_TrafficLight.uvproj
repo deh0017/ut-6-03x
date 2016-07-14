@@ -411,9 +411,9 @@
               <FilePath>.\startup.s</FilePath>
             </File>
             <File>
-              <FileName>TrafficLight.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\TrafficLight.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

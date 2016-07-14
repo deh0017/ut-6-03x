@@ -421,9 +421,9 @@
               <FilePath>.\ADC.c</FilePath>
             </File>
             <File>
-              <FileName>AnalogDigitalConversion.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\AnalogDigitalConversion.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

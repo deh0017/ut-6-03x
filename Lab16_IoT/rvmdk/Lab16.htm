@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\rvmdk\Lab16.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\rvmdk\Lab16.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Jul 04 13:33:20 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Thu Jul 14 12:00:19 2016
 <BR><P>
 <H3>Maximum Stack Usage =        704 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -35,8 +35,8 @@ Function Pointers
  <LI><a href="#[3]">IntDefaultHandler</a> from startup_rvmdk.o(RESET) referenced 112 times from startup_rvmdk.o(RESET)
  <LI><a href="#[1]">NmiSR</a> from startup_rvmdk.o(RESET) referenced from startup_rvmdk.o(RESET)
  <LI><a href="#[14]">Reset_Handler</a> from startup_rvmdk.o(RESET) referenced from startup_rvmdk.o(RESET)
- <LI><a href="#[a]">SimpleLinkNetAppEventHandler</a> from iot.o(i.SimpleLinkNetAppEventHandler) referenced from driver.o(i._SlDrvClassifyRxMsg)
- <LI><a href="#[9]">SimpleLinkWlanEventHandler</a> from iot.o(i.SimpleLinkWlanEventHandler) referenced from driver.o(i._SlDrvClassifyRxMsg)
+ <LI><a href="#[a]">SimpleLinkNetAppEventHandler</a> from main.o(i.SimpleLinkNetAppEventHandler) referenced from driver.o(i._SlDrvClassifyRxMsg)
+ <LI><a href="#[9]">SimpleLinkWlanEventHandler</a> from main.o(i.SimpleLinkWlanEventHandler) referenced from driver.o(i._SlDrvClassifyRxMsg)
  <LI><a href="#[5]">UARTStdioIntHandler</a> from uartstdio.o(i.UARTStdioIntHandler) referenced from startup_rvmdk.o(RESET)
  <LI><a href="#[8]">_SlDrvDeviceEventHandler</a> from device.o(i._SlDrvDeviceEventHandler) referenced from driver.o(i._SlDrvClassifyRxMsg)
  <LI><a href="#[b]">_SlDrvMsgReadSpawnCtx</a> from driver.o(i._SlDrvMsgReadSpawnCtx) referenced from driver.o(i._SlDrvMsgReadCmdCtx)
@@ -50,7 +50,7 @@ Function Pointers
  <LI><a href="#[12]">_sl_HandleAsync_PingResponse</a> from netapp.o(i._sl_HandleAsync_PingResponse) referenced from driver.o(.constdata)
  <LI><a href="#[f]">_sl_HandleAsync_Select</a> from socket.o(i._sl_HandleAsync_Select) referenced from driver.o(.constdata)
  <LI><a href="#[13]">_sl_HandleAsync_Stop</a> from device.o(i._sl_HandleAsync_Stop) referenced from driver.o(.constdata)
- <LI><a href="#[6]">main</a> from iot.o(i.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
+ <LI><a href="#[6]">main</a> from main.o(i.main) referenced from entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
 <P>
 <H3>
@@ -204,7 +204,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_PingResponse
 </UL>
 
-<P><STRONG><a name="[21]"></a>Crash</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, iot.o(i.Crash))
+<P><STRONG><a name="[21]"></a>Crash</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, main.o(i.Crash))
 <BR><BR>[Calls]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_RedToggle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -306,7 +306,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_Open
 </UL>
 
-<P><STRONG><a name="[31]"></a>LCD_Init</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, iot.o(i.LCD_Init))
+<P><STRONG><a name="[31]"></a>LCD_Init</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, main.o(i.LCD_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = LCD_Init &rArr; UARTStdioConfig &rArr; UARTFlushTx
 </UL>
 <BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_Init
@@ -318,7 +318,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[27]"></a>LCD_OutString</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, iot.o(i.LCD_OutString))
+<P><STRONG><a name="[27]"></a>LCD_OutString</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, main.o(i.LCD_OutString))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = LCD_OutString &rArr; UARTprintf &rArr; UARTvprintf &rArr; UARTwrite &rArr; UARTPrimeTransmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Nokia5110_OutString
@@ -412,7 +412,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_Open
 </UL>
 
-<P><STRONG><a name="[3c]"></a>SimpleLinkHttpServerCallback</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, iot.o(i.SimpleLinkHttpServerCallback))
+<P><STRONG><a name="[3c]"></a>SimpleLinkHttpServerCallback</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, main.o(i.SimpleLinkHttpServerCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = SimpleLinkHttpServerCallback &rArr; LCD_OutString &rArr; UARTprintf &rArr; UARTvprintf &rArr; UARTwrite &rArr; UARTPrimeTransmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_OutString
@@ -420,14 +420,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvNetAppEventHandler
 </UL>
 
-<P><STRONG><a name="[a]"></a>SimpleLinkNetAppEventHandler</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, iot.o(i.SimpleLinkNetAppEventHandler))
+<P><STRONG><a name="[a]"></a>SimpleLinkNetAppEventHandler</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(i.SimpleLinkNetAppEventHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = SimpleLinkNetAppEventHandler &rArr; LCD_OutString &rArr; UARTprintf &rArr; UARTvprintf &rArr; UARTwrite &rArr; UARTPrimeTransmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_OutString
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> driver.o(i._SlDrvClassifyRxMsg)
 </UL>
-<P><STRONG><a name="[9]"></a>SimpleLinkWlanEventHandler</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, iot.o(i.SimpleLinkWlanEventHandler))
+<P><STRONG><a name="[9]"></a>SimpleLinkWlanEventHandler</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, main.o(i.SimpleLinkWlanEventHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = SimpleLinkWlanEventHandler &rArr; LCD_OutString &rArr; UARTprintf &rArr; UARTvprintf &rArr; UARTwrite &rArr; UARTPrimeTransmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_OutString
@@ -514,7 +514,7 @@ Global Symbols
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTStdioIntHandler
 </UL>
 
-<P><STRONG><a name="[45]"></a>WlanConnect</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, iot.o(i.WlanConnect))
+<P><STRONG><a name="[45]"></a>WlanConnect</STRONG> (Thumb, 54 bytes, Stack size 24 bytes, main.o(i.WlanConnect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = WlanConnect &rArr; sl_WlanConnect &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlAsyncEventGenericHandler &rArr; _sl_HandleAsync_PingResponse &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsMainLoopTask
@@ -953,7 +953,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[6]"></a>main</STRONG> (Thumb, 174 bytes, Stack size 0 bytes, iot.o(i.main))
+<P><STRONG><a name="[6]"></a>main</STRONG> (Thumb, 174 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 704<LI>Call Chain = main &rArr; configureSimpleLinkToDefaultState &rArr; sl_NetAppMDNSUnRegisterService &rArr; sl_NetAppMDNSRegisterUnregisterService &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlAsyncEventGenericHandler &rArr; _sl_HandleAsync_PingResponse &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Start
@@ -1285,7 +1285,7 @@ Local Symbols
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTStdioIntHandler
 </UL>
 
-<P><STRONG><a name="[23]"></a>CreateConnection</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, iot.o(i.CreateConnection))
+<P><STRONG><a name="[23]"></a>CreateConnection</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, main.o(i.CreateConnection))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = CreateConnection &rArr; sl_Connect &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlAsyncEventGenericHandler &rArr; _sl_HandleAsync_PingResponse &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_OutString
@@ -1297,7 +1297,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getWeather
 </UL>
 
-<P><STRONG><a name="[6a]"></a>configureSimpleLinkToDefaultState</STRONG> (Thumb, 218 bytes, Stack size 80 bytes, iot.o(i.configureSimpleLinkToDefaultState))
+<P><STRONG><a name="[6a]"></a>configureSimpleLinkToDefaultState</STRONG> (Thumb, 218 bytes, Stack size 80 bytes, main.o(i.configureSimpleLinkToDefaultState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 704<LI>Call Chain = configureSimpleLinkToDefaultState &rArr; sl_NetAppMDNSUnRegisterService &rArr; sl_NetAppMDNSRegisterUnregisterService &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlAsyncEventGenericHandler &rArr; _sl_HandleAsync_PingResponse &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_NetAppMDNSUnRegisterService
@@ -1316,7 +1316,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>getWeather</STRONG> (Thumb, 266 bytes, Stack size 16 bytes, iot.o(i.getWeather))
+<P><STRONG><a name="[76]"></a>getWeather</STRONG> (Thumb, 266 bytes, Stack size 16 bytes, main.o(i.getWeather))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = getWeather &rArr; sl_NetAppDnsGetHostByName &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlAsyncEventGenericHandler &rArr; _sl_HandleAsync_PingResponse &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_NetAppDnsGetHostByName
@@ -1333,7 +1333,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[75]"></a>initializeAppVariables</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, iot.o(i.initializeAppVariables))
+<P><STRONG><a name="[75]"></a>initializeAppVariables</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, main.o(i.initializeAppVariables))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = initializeAppVariables
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4

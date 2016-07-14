@@ -17,7 +17,7 @@
 ".\rvmdk\wlan.o"
 ".\rvmdk\uartstdio.o"
 ".\rvmdk\ustdlib.o"
-".\rvmdk\iot.o"
+".\rvmdk\main.o"
 "..\driverlib\rvmdk\driverlib.lib"
 --library_type=microlib --strict --scatter "cc31000_starter.sct"
 

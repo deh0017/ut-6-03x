@@ -8,7 +8,7 @@ Section Cross References
     startup.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(RESET) refers to startup.o(STACK) for StackMem
-    startup.o(RESET) refers to tuningfork.o(i.SysTick_Handler) for SysTick_Handler
+    startup.o(RESET) refers to main.o(i.SysTick_Handler) for SysTick_Handler
     startup.o(RESET) refers to texas.o(i.GPIOPortA_Handler) for GPIOPortA_Handler
     startup.o(RESET) refers to texas.o(i.GPIOPortB_Handler) for GPIOPortB_Handler
     startup.o(RESET) refers to texas.o(i.GPIOPortE_Handler) for GPIOPortE_Handler
@@ -18,10 +18,10 @@ Section Cross References
     startup.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(.text) refers to startup.o(HEAP) for HeapMem
     startup.o(.text) refers to startup.o(STACK) for StackMem
-    tuningfork.o(i.main) refers to texas.o(i.TExaS_Init) for TExaS_Init
-    tuningfork.o(i.main) refers to tuningfork.o(i.Sound_Init) for Sound_Init
-    tuningfork.o(i.main) refers to startup.o(.text) for EnableInterrupts
-    tuningfork.o(i.main) refers to tuningfork.o(.data) for Switch
+    main.o(i.main) refers to texas.o(i.TExaS_Init) for TExaS_Init
+    main.o(i.main) refers to main.o(i.Sound_Init) for Sound_Init
+    main.o(i.main) refers to startup.o(.text) for EnableInterrupts
+    main.o(i.main) refers to main.o(.data) for Switch
     texas.o(i.Decrypt) refers to texas.o(.bss) for EncriptedMagicCode
     texas.o(i.Decrypt) refers to texas.o(.constdata) for DeScramble
     texas.o(i.Encrypt) refers to texas.o(i.SetCode) for SetCode
@@ -78,7 +78,7 @@ Section Cross References
     rtentry2.o(.ARM.Collect$$rtentry$$00000008) refers to boardinit2.o(.text) for _platform_post_stackheap_init
     rtentry2.o(.ARM.Collect$$rtentry$$0000000A) refers to libinit.o(.ARM.Collect$$libinit$$00000000) for __rt_lib_init
     rtentry2.o(.ARM.Collect$$rtentry$$0000000B) refers to boardinit3.o(.text) for _platform_post_lib_init
-    rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to tuningfork.o(i.main) for main
+    rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to main.o(i.main) for main
     rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to exit.o(.text) for exit
     rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$00000001) for .ARM.Collect$$rtentry$$00000001
     rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$00000008) for .ARM.Collect$$rtentry$$00000008
@@ -248,8 +248,8 @@ Image Symbol Table
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
     ../fplib/usenofp.s                       0x00000000   Number         0  usenofp.o ABSOLUTE
     TExaS.c                                  0x00000000   Number         0  texas.o ABSOLUTE
-    TuningFork.c                             0x00000000   Number         0  tuningfork.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    main.c                                   0x00000000   Number         0  main.o ABSOLUTE
     startup.s                                0x00000000   Number         0  startup.o ABSOLUTE
     !!!main                                  0x00000284   Section        8  __main.o(!!!main)
     !!!scatter                               0x0000028c   Section       52  __scatter.o(!!!scatter)
@@ -312,16 +312,16 @@ Image Symbol Table
     i.SetCode                                0x000005c4   Section        0  texas.o(i.SetCode)
     i.SetCourse                              0x000005dc   Section        0  texas.o(i.SetCourse)
     i.SetGrade                               0x000005f4   Section        0  texas.o(i.SetGrade)
-    i.Sound_Init                             0x000006c0   Section        0  tuningfork.o(i.Sound_Init)
+    i.Sound_Init                             0x000006c0   Section        0  main.o(i.Sound_Init)
     i.SpecialBGTest1_End                     0x00000794   Section        0  texas.o(i.SpecialBGTest1_End)
     i.SpecialBGTest1_Periodic                0x000008d0   Section        0  texas.o(i.SpecialBGTest1_Periodic)
     i.SpecialBGTest1_Start                   0x00000934   Section        0  texas.o(i.SpecialBGTest1_Start)
-    i.SysTick_Handler                        0x00000a8c   Section        0  tuningfork.o(i.SysTick_Handler)
+    i.SysTick_Handler                        0x00000a8c   Section        0  main.o(i.SysTick_Handler)
     i.TExaS_Init                             0x00000aa4   Section        0  texas.o(i.TExaS_Init)
     i.Timer4A_Handler                        0x00000c6c   Section        0  texas.o(i.Timer4A_Handler)
     i.Timer5A_Handler                        0x00000c8c   Section        0  texas.o(i.Timer5A_Handler)
     i.UART_Init                              0x0000129c   Section        0  texas.o(i.UART_Init)
-    i.main                                   0x00001334   Section        0  tuningfork.o(i.main)
+    i.main                                   0x00001334   Section        0  main.o(i.main)
     x$fpl$dcmpinf                            0x00001394   Section       24  dcmpi.o(x$fpl$dcmpinf)
     x$fpl$dfltu                              0x000013ac   Section       38  dflt_clz.o(x$fpl$dfltu)
     x$fpl$dleqf                              0x000013d4   Section      120  dleqf.o(x$fpl$dleqf)
@@ -329,7 +329,7 @@ Image Symbol Table
     x$fpl$drleqf                             0x000014e8   Section      108  drleqf.o(x$fpl$drleqf)
     .constdata                               0x00001554   Section     7304  texas.o(.constdata)
     x$fpl$usenofp                            0x00001554   Section        0  usenofp.o(x$fpl$usenofp)
-    .data                                    0x20000000   Section        2  tuningfork.o(.data)
+    .data                                    0x20000000   Section        2  main.o(.data)
     .data                                    0x20000004   Section       76  texas.o(.data)
     previousTime                             0x20000020   Data           4  texas.o(.data)
     RealGrade                                0x20000024   Data           4  texas.o(.data)
@@ -345,7 +345,7 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$ROPI$EBA8$UX$STANDARDLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
-    __ARM_use_no_argv                        0x00000000   Number         0  tuningfork.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
     __Vectors                                0x00000000   Data           0  startup.o(RESET)
     __ARM_exceptions_init                     - Undefined Weak Reference
     __alloca_initialize                       - Undefined Weak Reference
@@ -566,16 +566,16 @@ Image Symbol Table
     SetCode                                  0x000005c5   Thumb Code    20  texas.o(i.SetCode)
     SetCourse                                0x000005dd   Thumb Code    20  texas.o(i.SetCourse)
     SetGrade                                 0x000005f5   Thumb Code   196  texas.o(i.SetGrade)
-    Sound_Init                               0x000006c1   Thumb Code   170  tuningfork.o(i.Sound_Init)
+    Sound_Init                               0x000006c1   Thumb Code   170  main.o(i.Sound_Init)
     SpecialBGTest1_End                       0x00000795   Thumb Code   180  texas.o(i.SpecialBGTest1_End)
     SpecialBGTest1_Periodic                  0x000008d1   Thumb Code    80  texas.o(i.SpecialBGTest1_Periodic)
     SpecialBGTest1_Start                     0x00000935   Thumb Code   306  texas.o(i.SpecialBGTest1_Start)
-    SysTick_Handler                          0x00000a8d   Thumb Code    18  tuningfork.o(i.SysTick_Handler)
+    SysTick_Handler                          0x00000a8d   Thumb Code    18  main.o(i.SysTick_Handler)
     TExaS_Init                               0x00000aa5   Thumb Code   324  texas.o(i.TExaS_Init)
     Timer4A_Handler                          0x00000c6d   Thumb Code    20  texas.o(i.Timer4A_Handler)
     Timer5A_Handler                          0x00000c8d   Thumb Code  1532  texas.o(i.Timer5A_Handler)
     UART_Init                                0x0000129d   Thumb Code   126  texas.o(i.UART_Init)
-    main                                     0x00001335   Thumb Code    86  tuningfork.o(i.main)
+    main                                     0x00001335   Thumb Code    86  main.o(i.main)
     __fpl_dcmp_Inf                           0x00001395   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
     __aeabi_ui2d                             0x000013ad   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
     _dfltu                                   0x000013ad   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
@@ -605,7 +605,7 @@ Image Symbol Table
     DeScramble                               0x000031bc   Data          32  texas.o(.constdata)
     Region$$Table$$Base                      0x000031dc   Number         0  anon$$obj.o(Region$$Table)
     Region$$Table$$Limit                     0x000031fc   Number         0  anon$$obj.o(Region$$Table)
-    Switch                                   0x20000000   Data           2  tuningfork.o(.data)
+    Switch                                   0x20000000   Data           2  main.o(.data)
     InPort                                   0x20000004   Data           4  texas.o(.data)
     OutPort                                  0x20000008   Data           4  texas.o(.data)
     BgTestStatus                             0x2000000c   Data           1  texas.o(.data)
@@ -709,16 +709,16 @@ Memory Map of the image
     0x000005c4   0x00000018   Code   RO           50    i.SetCode           texas.o
     0x000005dc   0x00000018   Code   RO           51    i.SetCourse         texas.o
     0x000005f4   0x000000cc   Code   RO           52    i.SetGrade          texas.o
-    0x000006c0   0x000000d4   Code   RO           12    i.Sound_Init        tuningfork.o
+    0x000006c0   0x000000d4   Code   RO           12    i.Sound_Init        main.o
     0x00000794   0x0000013c   Code   RO           54    i.SpecialBGTest1_End  texas.o
     0x000008d0   0x00000064   Code   RO           55    i.SpecialBGTest1_Periodic  texas.o
     0x00000934   0x00000158   Code   RO           56    i.SpecialBGTest1_Start  texas.o
-    0x00000a8c   0x00000018   Code   RO           13    i.SysTick_Handler   tuningfork.o
+    0x00000a8c   0x00000018   Code   RO           13    i.SysTick_Handler   main.o
     0x00000aa4   0x000001c8   Code   RO           59    i.TExaS_Init        texas.o
     0x00000c6c   0x00000020   Code   RO           61    i.Timer4A_Handler   texas.o
     0x00000c8c   0x00000610   Code   RO           62    i.Timer5A_Handler   texas.o
     0x0000129c   0x00000098   Code   RO           65    i.UART_Init         texas.o
-    0x00001334   0x00000060   Code   RO           14    i.main              tuningfork.o
+    0x00001334   0x00000060   Code   RO           14    i.main              main.o
     0x00001394   0x00000018   Code   RO          238    x$fpl$dcmpinf       fz_ws.l(dcmpi.o)
     0x000013ac   0x00000026   Code   RO          227    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
     0x000013d2   0x00000002   PAD
@@ -734,7 +734,7 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000002   Data   RW           15    .data               tuningfork.o
+    0x20000000   0x00000002   Data   RW           15    .data               main.o
     0x20000002   0x00000002   PAD
     0x20000004   0x0000004c   Data   RW           71    .data               texas.o
 
@@ -757,12 +757,12 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
+       332         58          0          2          0       2823   main.o
        692        632          0          0       1024        868   startup.o
       3716        550       7304         76        628      23288   texas.o
-       332         58          0          2          0       2867   tuningfork.o
 
     ----------------------------------------------------------------------
-      4740       1240       7336         80       1652      27023   Object Totals
+      4740       1240       7336         80       1652      26979   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          2          0          0   (incl. Padding)
 
@@ -818,8 +818,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5460       1264       7336         80       1752      26543   Grand Totals
-      5460       1264       7336         80       1752      26543   ELF Image Totals
+      5460       1264       7336         80       1752      26499   Grand Totals
+      5460       1264       7336         80       1752      26499   ELF Image Totals
       5460       1264       7336         80          0          0   ROM Totals
 
 ==============================================================================

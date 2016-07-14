@@ -16,7 +16,7 @@ I (..\cc3100\simplelink\include\wlan.h)(0x53A31F2E)
 I (..\cc3100\simplelink\include\device.h)(0x54F3DE90)
 I (..\cc3100\simplelink\include\netcfg.h)(0x53A31F2E)
 I (..\cc3100\simplelink\include\wlan_rx_filters.h)(0x53A31F2E)
-I (..\tm4c123gh6pm.h)(0x51D4D322)
+I (..\tm4c123gh6pm.h)(0x577EE058)
 I (..\inc/hw_memmap.h)(0x5388DEF8)
 I (..\inc/hw_ssi.h)(0x5388DEF8)
 I (..\inc/hw_types.h)(0x5388DEF8)
@@ -275,7 +275,7 @@ I (..\driverlib/debug.h)(0x5388DEBA)
 I (..\utils/ustdlib.h)(0x5388DF0C)
 I (C:\Keil\ARM\ARMCC\include\stdarg.h)(0x51C89844)
 I (C:\Keil\ARM\ARMCC\include\time.h)(0x51C89844)
-F (.\IoT.c)(0x5779DA05)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I.. -I..\ -I..\..\..\.. -I..\cc3100 -I..\cc3100\platform\ek-tm4c123gxl -I..\cc3100\simplelink\include -I..\cc3100\simplelink\source --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_TM4C123GH6PM -D_POSIX_SOURCE -DUART_BUFFERED -DTARGET_IS_TM4C123_RB1-o .\rvmdk\iot.o --omf_browse .\rvmdk\iot.crf --depend .\rvmdk\iot.d)
+F (.\main.c)(0x5779DA05)(-c --cpu Cortex-M4.fp -D__EVAL -D__MICROLIB -g -O2 --apcs=interwork --split_sections -I.. -I..\ -I..\..\..\.. -I..\cc3100 -I..\cc3100\platform\ek-tm4c123gxl -I..\cc3100\simplelink\include -I..\cc3100\simplelink\source --c99-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Luminary-Drvmdk -DPART_TM4C123GH6PM -D_POSIX_SOURCE -DUART_BUFFERED -DTARGET_IS_TM4C123_RB1-o .\rvmdk\main.o --omf_browse .\rvmdk\main.crf --depend .\rvmdk\main.d)
 I (..\cc3100\simplelink\include\simplelink.h)(0x53A31F2E)
 I (..\cc3100\platform\ek-tm4c123gxl\user.h)(0x53A31F2E)
 I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C89844)

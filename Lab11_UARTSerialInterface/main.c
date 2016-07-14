@@ -3,7 +3,7 @@
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 11: UART - Serial Interface
 
-Name: UARTSerialInterface.c
+Name: main.c
 
 Description:
     Convert numbers into ASCII strings and
@@ -14,7 +14,7 @@ Compatibility: EK-TM4C123GXL
 Phi Luu
 David Douglas High School
 Portland, OR
-July 03, 2016
+July 14, 2016
 
 *******************************************************************************/
 

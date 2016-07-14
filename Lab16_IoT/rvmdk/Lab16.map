@@ -89,8 +89,8 @@ Section Cross References
     driver.o(i._SlDrvClassifyRxMsg) refers to driver.o(.data) for .data
     driver.o(i._SlDrvClassifyRxMsg) refers to netapp.o(i._SlDrvNetAppEventHandler) for _SlDrvNetAppEventHandler
     driver.o(i._SlDrvClassifyRxMsg) refers to device.o(i._SlDrvDeviceEventHandler) for _SlDrvDeviceEventHandler
-    driver.o(i._SlDrvClassifyRxMsg) refers to iot.o(i.SimpleLinkWlanEventHandler) for SimpleLinkWlanEventHandler
-    driver.o(i._SlDrvClassifyRxMsg) refers to iot.o(i.SimpleLinkNetAppEventHandler) for SimpleLinkNetAppEventHandler
+    driver.o(i._SlDrvClassifyRxMsg) refers to main.o(i.SimpleLinkWlanEventHandler) for SimpleLinkWlanEventHandler
+    driver.o(i._SlDrvClassifyRxMsg) refers to main.o(i.SimpleLinkNetAppEventHandler) for SimpleLinkNetAppEventHandler
     driver.o(i._SlDrvCmdOp) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
     driver.o(i._SlDrvCmdOp) refers to driver.o(i._SlDrvMsgWrite) for _SlDrvMsgWrite
     driver.o(i._SlDrvCmdOp) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
@@ -198,7 +198,7 @@ Section Cross References
     netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByName) for _sl_HandleAsync_DnsGetHostByName
     netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByService) for _sl_HandleAsync_DnsGetHostByService
     netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_PingResponse) for _sl_HandleAsync_PingResponse
-    netapp.o(i._SlDrvNetAppEventHandler) refers to iot.o(i.SimpleLinkHttpServerCallback) for SimpleLinkHttpServerCallback
+    netapp.o(i._SlDrvNetAppEventHandler) refers to main.o(i.SimpleLinkHttpServerCallback) for SimpleLinkHttpServerCallback
     netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i.sl_NetAppSendTokenValue) for sl_NetAppSendTokenValue
     netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
     netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to memcpya.o(.text) for __aeabi_memcpy
@@ -440,76 +440,76 @@ Section Cross References
     ustdlib.o(i.uvsnprintf) refers to ustdlib.o(i.ustrncpy) for ustrncpy
     ustdlib.o(i.uvsnprintf) refers to ustdlib.o(.constdata) for .constdata
     ustdlib.o(.constdata) refers to ustdlib.o(.conststring) for .conststring
-    iot.o(i.Crash) refers to led.o(i.LED_RedToggle) for LED_RedToggle
-    iot.o(i.CreateConnection) refers to socket.o(i.sl_Htons) for sl_Htons
-    iot.o(i.CreateConnection) refers to socket.o(i.sl_Htonl) for sl_Htonl
-    iot.o(i.CreateConnection) refers to socket.o(i.sl_Socket) for sl_Socket
-    iot.o(i.CreateConnection) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.CreateConnection) refers to socket.o(i.sl_Connect) for sl_Connect
-    iot.o(i.CreateConnection) refers to iot.o(.bss) for .bss
-    iot.o(i.LCD_Init) refers to nokia5110.o(i.Nokia5110_Init) for Nokia5110_Init
-    iot.o(i.LCD_Init) refers to nokia5110.o(i.Nokia5110_Clear) for Nokia5110_Clear
-    iot.o(i.LCD_Init) refers to sysctl.o(i.SysCtlPeripheralEnable) for SysCtlPeripheralEnable
-    iot.o(i.LCD_Init) refers to gpio.o(i.GPIOPinConfigure) for GPIOPinConfigure
-    iot.o(i.LCD_Init) refers to uartstdio.o(i.UARTStdioConfig) for UARTStdioConfig
-    iot.o(i.LCD_OutString) refers to nokia5110.o(i.Nokia5110_OutString) for Nokia5110_OutString
-    iot.o(i.LCD_OutString) refers to uartstdio.o(i.UARTprintf) for UARTprintf
-    iot.o(i.SimpleLinkGeneralEventHandler) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.SimpleLinkHttpServerCallback) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.SimpleLinkNetAppEventHandler) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.SimpleLinkNetAppEventHandler) refers to iot.o(.data) for .data
-    iot.o(i.SimpleLinkSockEventHandler) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.SimpleLinkSockEventHandler) refers to iot.o(.constdata) for .constdata
-    iot.o(i.SimpleLinkWlanEventHandler) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.SimpleLinkWlanEventHandler) refers to iot.o(.data) for .data
-    iot.o(i.WlanConnect) refers to wlan.o(i.sl_WlanConnect) for sl_WlanConnect
-    iot.o(i.WlanConnect) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
-    iot.o(i.WlanConnect) refers to iot.o(.data) for .data
-    iot.o(i.configureSimpleLinkToDefaultState) refers to memseta.o(.text) for __aeabi_memclr4
-    iot.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Start) for sl_Start
-    iot.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSetMode) for sl_WlanSetMode
-    iot.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Stop) for sl_Stop
-    iot.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_DevGet) for sl_DevGet
-    iot.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanPolicySet) for sl_WlanPolicySet
-    iot.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanProfileDel) for sl_WlanProfileDel
-    iot.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanDisconnect) for sl_WlanDisconnect
-    iot.o(i.configureSimpleLinkToDefaultState) refers to netcfg.o(i.sl_NetCfgSet) for sl_NetCfgSet
-    iot.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSet) for sl_WlanSet
-    iot.o(i.configureSimpleLinkToDefaultState) refers to netapp.o(i.sl_NetAppMDNSUnRegisterService) for sl_NetAppMDNSUnRegisterService
-    iot.o(i.configureSimpleLinkToDefaultState) refers to iot.o(i.initializeAppVariables) for initializeAppVariables
-    iot.o(i.configureSimpleLinkToDefaultState) refers to iot.o(.data) for .data
-    iot.o(i.getWeather) refers to memcpya.o(.text) for __aeabi_memcpy4
-    iot.o(i.getWeather) refers to strlen.o(.text) for strlen
-    iot.o(i.getWeather) refers to netapp.o(i.sl_NetAppDnsGetHostByName) for sl_NetAppDnsGetHostByName
-    iot.o(i.getWeather) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.getWeather) refers to iot.o(i.CreateConnection) for CreateConnection
-    iot.o(i.getWeather) refers to strcpy.o(.text) for strcpy
-    iot.o(i.getWeather) refers to socket.o(i.sl_Send) for sl_Send
-    iot.o(i.getWeather) refers to socket.o(i.sl_Recv) for sl_Recv
-    iot.o(i.getWeather) refers to strstr.o(.text) for strstr
-    iot.o(i.getWeather) refers to socket.o(i.sl_Close) for sl_Close
-    iot.o(i.getWeather) refers to iot.o(.bss) for .bss
-    iot.o(i.getWeather) refers to iot.o(.constdata) for .constdata
-    iot.o(i.initializeAppVariables) refers to memseta.o(.text) for __aeabi_memclr4
-    iot.o(i.initializeAppVariables) refers to iot.o(.data) for .data
-    iot.o(i.initializeAppVariables) refers to iot.o(.bss) for .bss
-    iot.o(i.main) refers to iot.o(i.initializeAppVariables) for initializeAppVariables
-    iot.o(i.main) refers to board.o(i.stopWDT) for stopWDT
-    iot.o(i.main) refers to board.o(i.initClk) for initClk
-    iot.o(i.main) refers to iot.o(i.LCD_Init) for LCD_Init
-    iot.o(i.main) refers to led.o(i.LED_Init) for LED_Init
-    iot.o(i.main) refers to iot.o(i.LCD_OutString) for LCD_OutString
-    iot.o(i.main) refers to iot.o(i.configureSimpleLinkToDefaultState) for configureSimpleLinkToDefaultState
-    iot.o(i.main) refers to device.o(i.sl_Start) for sl_Start
-    iot.o(i.main) refers to iot.o(i.Crash) for Crash
-    iot.o(i.main) refers to iot.o(i.WlanConnect) for WlanConnect
-    iot.o(i.main) refers to nokia5110.o(i.Nokia5110_SetCursor) for Nokia5110_SetCursor
-    iot.o(i.main) refers to iot.o(i.getWeather) for getWeather
-    iot.o(i.main) refers to led.o(i.LED_GreenOn) for LED_GreenOn
-    iot.o(i.main) refers to uartstdio.o(i.UARTprintf) for UARTprintf
-    iot.o(i.main) refers to led.o(i.Board_Input) for Board_Input
-    iot.o(i.main) refers to led.o(i.LED_GreenOff) for LED_GreenOff
-    iot.o(i.main) refers to iot.o(.bss) for .bss
+    main.o(i.Crash) refers to led.o(i.LED_RedToggle) for LED_RedToggle
+    main.o(i.CreateConnection) refers to socket.o(i.sl_Htons) for sl_Htons
+    main.o(i.CreateConnection) refers to socket.o(i.sl_Htonl) for sl_Htonl
+    main.o(i.CreateConnection) refers to socket.o(i.sl_Socket) for sl_Socket
+    main.o(i.CreateConnection) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.CreateConnection) refers to socket.o(i.sl_Connect) for sl_Connect
+    main.o(i.CreateConnection) refers to main.o(.bss) for .bss
+    main.o(i.LCD_Init) refers to nokia5110.o(i.Nokia5110_Init) for Nokia5110_Init
+    main.o(i.LCD_Init) refers to nokia5110.o(i.Nokia5110_Clear) for Nokia5110_Clear
+    main.o(i.LCD_Init) refers to sysctl.o(i.SysCtlPeripheralEnable) for SysCtlPeripheralEnable
+    main.o(i.LCD_Init) refers to gpio.o(i.GPIOPinConfigure) for GPIOPinConfigure
+    main.o(i.LCD_Init) refers to uartstdio.o(i.UARTStdioConfig) for UARTStdioConfig
+    main.o(i.LCD_OutString) refers to nokia5110.o(i.Nokia5110_OutString) for Nokia5110_OutString
+    main.o(i.LCD_OutString) refers to uartstdio.o(i.UARTprintf) for UARTprintf
+    main.o(i.SimpleLinkGeneralEventHandler) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.SimpleLinkHttpServerCallback) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.SimpleLinkNetAppEventHandler) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.SimpleLinkNetAppEventHandler) refers to main.o(.data) for .data
+    main.o(i.SimpleLinkSockEventHandler) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.SimpleLinkSockEventHandler) refers to main.o(.constdata) for .constdata
+    main.o(i.SimpleLinkWlanEventHandler) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.SimpleLinkWlanEventHandler) refers to main.o(.data) for .data
+    main.o(i.WlanConnect) refers to wlan.o(i.sl_WlanConnect) for sl_WlanConnect
+    main.o(i.WlanConnect) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
+    main.o(i.WlanConnect) refers to main.o(.data) for .data
+    main.o(i.configureSimpleLinkToDefaultState) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Start) for sl_Start
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSetMode) for sl_WlanSetMode
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Stop) for sl_Stop
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_DevGet) for sl_DevGet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanPolicySet) for sl_WlanPolicySet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanProfileDel) for sl_WlanProfileDel
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanDisconnect) for sl_WlanDisconnect
+    main.o(i.configureSimpleLinkToDefaultState) refers to netcfg.o(i.sl_NetCfgSet) for sl_NetCfgSet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSet) for sl_WlanSet
+    main.o(i.configureSimpleLinkToDefaultState) refers to netapp.o(i.sl_NetAppMDNSUnRegisterService) for sl_NetAppMDNSUnRegisterService
+    main.o(i.configureSimpleLinkToDefaultState) refers to main.o(i.initializeAppVariables) for initializeAppVariables
+    main.o(i.configureSimpleLinkToDefaultState) refers to main.o(.data) for .data
+    main.o(i.getWeather) refers to memcpya.o(.text) for __aeabi_memcpy4
+    main.o(i.getWeather) refers to strlen.o(.text) for strlen
+    main.o(i.getWeather) refers to netapp.o(i.sl_NetAppDnsGetHostByName) for sl_NetAppDnsGetHostByName
+    main.o(i.getWeather) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.getWeather) refers to main.o(i.CreateConnection) for CreateConnection
+    main.o(i.getWeather) refers to strcpy.o(.text) for strcpy
+    main.o(i.getWeather) refers to socket.o(i.sl_Send) for sl_Send
+    main.o(i.getWeather) refers to socket.o(i.sl_Recv) for sl_Recv
+    main.o(i.getWeather) refers to strstr.o(.text) for strstr
+    main.o(i.getWeather) refers to socket.o(i.sl_Close) for sl_Close
+    main.o(i.getWeather) refers to main.o(.bss) for .bss
+    main.o(i.getWeather) refers to main.o(.constdata) for .constdata
+    main.o(i.initializeAppVariables) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.initializeAppVariables) refers to main.o(.data) for .data
+    main.o(i.initializeAppVariables) refers to main.o(.bss) for .bss
+    main.o(i.main) refers to main.o(i.initializeAppVariables) for initializeAppVariables
+    main.o(i.main) refers to board.o(i.stopWDT) for stopWDT
+    main.o(i.main) refers to board.o(i.initClk) for initClk
+    main.o(i.main) refers to main.o(i.LCD_Init) for LCD_Init
+    main.o(i.main) refers to led.o(i.LED_Init) for LED_Init
+    main.o(i.main) refers to main.o(i.LCD_OutString) for LCD_OutString
+    main.o(i.main) refers to main.o(i.configureSimpleLinkToDefaultState) for configureSimpleLinkToDefaultState
+    main.o(i.main) refers to device.o(i.sl_Start) for sl_Start
+    main.o(i.main) refers to main.o(i.Crash) for Crash
+    main.o(i.main) refers to main.o(i.WlanConnect) for WlanConnect
+    main.o(i.main) refers to nokia5110.o(i.Nokia5110_SetCursor) for Nokia5110_SetCursor
+    main.o(i.main) refers to main.o(i.getWeather) for getWeather
+    main.o(i.main) refers to led.o(i.LED_GreenOn) for LED_GreenOn
+    main.o(i.main) refers to uartstdio.o(i.UARTprintf) for UARTprintf
+    main.o(i.main) refers to led.o(i.Board_Input) for Board_Input
+    main.o(i.main) refers to led.o(i.LED_GreenOff) for LED_GreenOff
+    main.o(i.main) refers to main.o(.bss) for .bss
     gpio.o(i.GPIOIntRegister) refers to interrupt.o(i.IntRegister) for IntRegister
     gpio.o(i.GPIOIntRegister) refers to interrupt.o(i.IntEnable) for IntEnable
     gpio.o(i.GPIOIntRegister) refers to gpio.o(.constdata) for .constdata
@@ -622,8 +622,8 @@ Section Cross References
     entry2.o(__vectab_stack_and_reset_area) refers to startup_rvmdk.o(STACK) for __initial_sp
     entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
     entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
-    entry9a.o(.ARM.Collect$$$$0000000B) refers to iot.o(i.main) for main
-    entry9b.o(.ARM.Collect$$$$0000000C) refers to iot.o(i.main) for main
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
     init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
 
 
@@ -726,8 +726,8 @@ Removing Unused input sections from the image.
     Removing ustdlib.o(.constdata), (76 bytes).
     Removing ustdlib.o(.conststring), (17 bytes).
     Removing ustdlib.o(.data), (4 bytes).
-    Removing iot.o(i.SimpleLinkGeneralEventHandler), (28 bytes).
-    Removing iot.o(i.SimpleLinkSockEventHandler), (68 bytes).
+    Removing main.o(i.SimpleLinkGeneralEventHandler), (28 bytes).
+    Removing main.o(i.SimpleLinkSockEventHandler), (68 bytes).
     Removing fpu.o(i.FPUDisable), (16 bytes).
     Removing fpu.o(i.FPUFlushToZeroModeSet), (20 bytes).
     Removing fpu.o(i.FPUHalfPrecisionModeSet), (20 bytes).
@@ -952,7 +952,6 @@ Image Symbol Table
     ..\cc3100\simplelink\source\wlan.c       0x00000000   Number         0  wlan.o ABSOLUTE
     ..\utils\uartstdio.c                     0x00000000   Number         0  uartstdio.o ABSOLUTE
     ..\utils\ustdlib.c                       0x00000000   Number         0  ustdlib.o ABSOLUTE
-    IoT.c                                    0x00000000   Number         0  iot.o ABSOLUTE
     LED.c                                    0x00000000   Number         0  led.o ABSOLUTE
     Nokia5110.c                              0x00000000   Number         0  nokia5110.o ABSOLUTE
     cpu.c                                    0x00000000   Number         0  cpu.o ABSOLUTE
@@ -963,6 +962,7 @@ Image Symbol Table
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
     init.s                                   0x00000000   Number         0  init.o ABSOLUTE
     interrupt.c                              0x00000000   Number         0  interrupt.o ABSOLUTE
+    main.c                                   0x00000000   Number         0  main.o ABSOLUTE
     ssi.c                                    0x00000000   Number         0  ssi.o ABSOLUTE
     startup_rvmdk.s                          0x00000000   Number         0  startup_rvmdk.o ABSOLUTE
     sysctl.c                                 0x00000000   Number         0  sysctl.o ABSOLUTE
@@ -998,9 +998,9 @@ Image Symbol Table
     i.CC3100_disable                         0x000003a8   Section        0  board.o(i.CC3100_disable)
     i.CC3100_enable                          0x000003bc   Section        0  board.o(i.CC3100_enable)
     i.CopyPingResultsToReport                0x000003d0   Section        0  netapp.o(i.CopyPingResultsToReport)
-    i.Crash                                  0x000003ea   Section        0  iot.o(i.Crash)
-    i.CreateConnection                       0x000003fc   Section        0  iot.o(i.CreateConnection)
-    CreateConnection                         0x000003fd   Thumb Code    84  iot.o(i.CreateConnection)
+    i.Crash                                  0x000003ea   Section        0  main.o(i.Crash)
+    i.CreateConnection                       0x000003fc   Section        0  main.o(i.CreateConnection)
+    CreateConnection                         0x000003fd   Thumb Code    84  main.o(i.CreateConnection)
     i.FPUEnable                              0x0000048c   Section        0  fpu.o(i.FPUEnable)
     i.FPULazyStackingEnable                  0x0000049c   Section        0  fpu.o(i.FPULazyStackingEnable)
     i.GPIOB_intHandler                       0x000004ac   Section        0  board.o(i.GPIOB_intHandler)
@@ -1022,8 +1022,8 @@ Image Symbol Table
     IsBufferEmpty                            0x00000803   Thumb Code    16  uartstdio.o(i.IsBufferEmpty)
     i.IsBufferFull                           0x00000812   Section        0  uartstdio.o(i.IsBufferFull)
     IsBufferFull                             0x00000813   Thumb Code    26  uartstdio.o(i.IsBufferFull)
-    i.LCD_Init                               0x0000082c   Section        0  iot.o(i.LCD_Init)
-    i.LCD_OutString                          0x0000087c   Section        0  iot.o(i.LCD_OutString)
+    i.LCD_Init                               0x0000082c   Section        0  main.o(i.LCD_Init)
+    i.LCD_OutString                          0x0000087c   Section        0  main.o(i.LCD_OutString)
     i.LED_GreenOff                           0x00000890   Section        0  led.o(i.LED_GreenOff)
     i.LED_GreenOn                            0x0000089c   Section        0  led.o(i.LED_GreenOn)
     i.LED_Init                               0x000008a8   Section        0  led.o(i.LED_Init)
@@ -1037,9 +1037,9 @@ Image Symbol Table
     i.SSIDataGetNonBlocking                  0x00000b76   Section        0  ssi.o(i.SSIDataGetNonBlocking)
     i.SSIDataPutNonBlocking                  0x00000b8a   Section        0  ssi.o(i.SSIDataPutNonBlocking)
     i.SSIEnable                              0x00000b9a   Section        0  ssi.o(i.SSIEnable)
-    i.SimpleLinkHttpServerCallback           0x00000ba4   Section        0  iot.o(i.SimpleLinkHttpServerCallback)
-    i.SimpleLinkNetAppEventHandler           0x00000bd0   Section        0  iot.o(i.SimpleLinkNetAppEventHandler)
-    i.SimpleLinkWlanEventHandler             0x00000c10   Section        0  iot.o(i.SimpleLinkWlanEventHandler)
+    i.SimpleLinkHttpServerCallback           0x00000ba4   Section        0  main.o(i.SimpleLinkHttpServerCallback)
+    i.SimpleLinkNetAppEventHandler           0x00000bd0   Section        0  main.o(i.SimpleLinkNetAppEventHandler)
+    i.SimpleLinkWlanEventHandler             0x00000c10   Section        0  main.o(i.SimpleLinkWlanEventHandler)
     i.SysCtlClockGet                         0x00000ce0   Section        0  sysctl.o(i.SysCtlClockGet)
     i.SysCtlClockSet                         0x00000e44   Section        0  sysctl.o(i.SysCtlClockSet)
     i.SysCtlPeripheralEnable                 0x00000f64   Section        0  sysctl.o(i.SysCtlPeripheralEnable)
@@ -1052,7 +1052,7 @@ Image Symbol Table
     i.UARTprintf                             0x00001204   Section        0  uartstdio.o(i.UARTprintf)
     i.UARTvprintf                            0x00001218   Section        0  uartstdio.o(i.UARTvprintf)
     i.UARTwrite                              0x000013cc   Section        0  uartstdio.o(i.UARTwrite)
-    i.WlanConnect                            0x0000145c   Section        0  iot.o(i.WlanConnect)
+    i.WlanConnect                            0x0000145c   Section        0  main.o(i.WlanConnect)
     i._SlAsyncEventGenericHandler            0x000014b0   Section        0  driver.o(i._SlAsyncEventGenericHandler)
     i._SlDrvBasicCmd                         0x00001790   Section        0  driver.o(i._SlDrvBasicCmd)
     i._SlDrvClassifyRxMsg                    0x000017b8   Section        0  driver.o(i._SlDrvClassifyRxMsg)
@@ -1096,16 +1096,16 @@ Image Symbol Table
     i._sl_HandleAsync_Select                 0x00002b08   Section        0  socket.o(i._sl_HandleAsync_Select)
     i._sl_HandleAsync_Stop                   0x00002b6c   Section        0  device.o(i._sl_HandleAsync_Stop)
     i._sl_TruncatePayloadByProtocol          0x00002bcc   Section        0  socket.o(i._sl_TruncatePayloadByProtocol)
-    i.configureSimpleLinkToDefaultState      0x00002c20   Section        0  iot.o(i.configureSimpleLinkToDefaultState)
-    configureSimpleLinkToDefaultState        0x00002c21   Thumb Code   218  iot.o(i.configureSimpleLinkToDefaultState)
-    i.getWeather                             0x00002d04   Section        0  iot.o(i.getWeather)
-    getWeather                               0x00002d05   Thumb Code   266  iot.o(i.getWeather)
+    i.configureSimpleLinkToDefaultState      0x00002c20   Section        0  main.o(i.configureSimpleLinkToDefaultState)
+    configureSimpleLinkToDefaultState        0x00002c21   Thumb Code   218  main.o(i.configureSimpleLinkToDefaultState)
+    i.getWeather                             0x00002d04   Section        0  main.o(i.getWeather)
+    getWeather                               0x00002d05   Thumb Code   266  main.o(i.getWeather)
     i.initClk                                0x00002e74   Section        0  board.o(i.initClk)
-    i.initializeAppVariables                 0x00002e8c   Section        0  iot.o(i.initializeAppVariables)
-    initializeAppVariables                   0x00002e8d   Thumb Code    22  iot.o(i.initializeAppVariables)
+    i.initializeAppVariables                 0x00002e8c   Section        0  main.o(i.initializeAppVariables)
+    initializeAppVariables                   0x00002e8d   Thumb Code    22  main.o(i.initializeAppVariables)
     i.lcdwrite                               0x00002eac   Section        0  nokia5110.o(i.lcdwrite)
     lcdwrite                                 0x00002ead   Thumb Code    46  nokia5110.o(i.lcdwrite)
-    i.main                                   0x00002ee0   Section        0  iot.o(i.main)
+    i.main                                   0x00002ee0   Section        0  main.o(i.main)
     i.registerInterruptHandler               0x00003024   Section        0  board.o(i.registerInterruptHandler)
     i.sl_Close                               0x00003030   Section        0  socket.o(i.sl_Close)
     i.sl_Connect                             0x00003050   Section        0  socket.o(i.sl_Connect)
@@ -1146,7 +1146,7 @@ Image Symbol Table
     g_ui32UARTBase                           0x00003d94   Data          12  uartstdio.o(.constdata)
     g_ui32UARTInt                            0x00003da0   Data          12  uartstdio.o(.constdata)
     g_ui32UARTPeriph                         0x00003dac   Data          12  uartstdio.o(.constdata)
-    .constdata                               0x00003db8   Section      234  iot.o(.constdata)
+    .constdata                               0x00003db8   Section      234  main.o(.constdata)
     .constdata                               0x00003ea4   Section      528  gpio.o(.constdata)
     g_ppui32GPIOIntMapBlizzard               0x00003ea4   Data         192  gpio.o(.constdata)
     g_ppui32GPIOIntMapSnowflake              0x00003f64   Data         192  gpio.o(.constdata)
@@ -1177,13 +1177,13 @@ Image Symbol Table
     g_ui32UARTRxReadIndex                    0x20000028   Data           4  uartstdio.o(.data)
     g_ui32Base                               0x2000002c   Data           4  uartstdio.o(.data)
     g_ui32PortNum                            0x20000030   Data           4  uartstdio.o(.data)
-    .data                                    0x20000034   Section        4  iot.o(.data)
+    .data                                    0x20000034   Section        4  main.o(.data)
     .bss                                     0x20000038   Section      356  driver.o(.bss)
     .bss                                     0x2000019c   Section       40  nonos.o(.bss)
     .bss                                     0x200001c4   Section     1152  uartstdio.o(.bss)
     g_pcUARTTxBuffer                         0x200001c4   Data        1024  uartstdio.o(.bss)
     g_pcUARTRxBuffer                         0x200005c4   Data         128  uartstdio.o(.bss)
-    .bss                                     0x20000644   Section     1884  iot.o(.bss)
+    .bss                                     0x20000644   Section     1884  main.o(.bss)
     STACK                                    0x20000da0   Section    16384  startup_rvmdk.o(STACK)
     StackMem                                 0x20000da0   Data           0  startup_rvmdk.o(STACK)
 
@@ -1192,7 +1192,7 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
-    __ARM_use_no_argv                        0x00000000   Number         0  iot.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
     __Vectors                                0x00000000   Data           0  startup_rvmdk.o(RESET)
     __cpp_initialize__aeabi_                  - Undefined Weak Reference
     __cxa_finalize                            - Undefined Weak Reference
@@ -1237,7 +1237,7 @@ Image Symbol Table
     CC3100_disable                           0x000003a9   Thumb Code    16  board.o(i.CC3100_disable)
     CC3100_enable                            0x000003bd   Thumb Code    16  board.o(i.CC3100_enable)
     CopyPingResultsToReport                  0x000003d1   Thumb Code    26  netapp.o(i.CopyPingResultsToReport)
-    Crash                                    0x000003eb   Thumb Code    18  iot.o(i.Crash)
+    Crash                                    0x000003eb   Thumb Code    18  main.o(i.Crash)
     FPUEnable                                0x0000048d   Thumb Code    12  fpu.o(i.FPUEnable)
     FPULazyStackingEnable                    0x0000049d   Thumb Code    12  fpu.o(i.FPULazyStackingEnable)
     GPIOB_intHandler                         0x000004ad   Thumb Code    44  board.o(i.GPIOB_intHandler)
@@ -1255,8 +1255,8 @@ Image Symbol Table
     GetStartResponseConvert                  0x0000074b   Thumb Code    68  device.o(i.GetStartResponseConvert)
     IntEnable                                0x00000791   Thumb Code    92  interrupt.o(i.IntEnable)
     IntMasterEnable                          0x000007f5   Thumb Code    14  interrupt.o(i.IntMasterEnable)
-    LCD_Init                                 0x0000082d   Thumb Code    68  iot.o(i.LCD_Init)
-    LCD_OutString                            0x0000087d   Thumb Code    18  iot.o(i.LCD_OutString)
+    LCD_Init                                 0x0000082d   Thumb Code    68  main.o(i.LCD_Init)
+    LCD_OutString                            0x0000087d   Thumb Code    18  main.o(i.LCD_OutString)
     LED_GreenOff                             0x00000891   Thumb Code     8  led.o(i.LED_GreenOff)
     LED_GreenOn                              0x0000089d   Thumb Code     8  led.o(i.LED_GreenOn)
     LED_Init                                 0x000008a9   Thumb Code    78  led.o(i.LED_Init)
@@ -1270,9 +1270,9 @@ Image Symbol Table
     SSIDataGetNonBlocking                    0x00000b77   Thumb Code    20  ssi.o(i.SSIDataGetNonBlocking)
     SSIDataPutNonBlocking                    0x00000b8b   Thumb Code    16  ssi.o(i.SSIDataPutNonBlocking)
     SSIEnable                                0x00000b9b   Thumb Code    10  ssi.o(i.SSIEnable)
-    SimpleLinkHttpServerCallback             0x00000ba5   Thumb Code     6  iot.o(i.SimpleLinkHttpServerCallback)
-    SimpleLinkNetAppEventHandler             0x00000bd1   Thumb Code    24  iot.o(i.SimpleLinkNetAppEventHandler)
-    SimpleLinkWlanEventHandler               0x00000c11   Thumb Code    50  iot.o(i.SimpleLinkWlanEventHandler)
+    SimpleLinkHttpServerCallback             0x00000ba5   Thumb Code     6  main.o(i.SimpleLinkHttpServerCallback)
+    SimpleLinkNetAppEventHandler             0x00000bd1   Thumb Code    24  main.o(i.SimpleLinkNetAppEventHandler)
+    SimpleLinkWlanEventHandler               0x00000c11   Thumb Code    50  main.o(i.SimpleLinkWlanEventHandler)
     SysCtlClockGet                           0x00000ce1   Thumb Code   314  sysctl.o(i.SysCtlClockGet)
     SysCtlClockSet                           0x00000e45   Thumb Code   270  sysctl.o(i.SysCtlClockSet)
     SysCtlPeripheralEnable                   0x00000f65   Thumb Code    36  sysctl.o(i.SysCtlPeripheralEnable)
@@ -1283,7 +1283,7 @@ Image Symbol Table
     UARTprintf                               0x00001205   Thumb Code    18  uartstdio.o(i.UARTprintf)
     UARTvprintf                              0x00001219   Thumb Code   420  uartstdio.o(i.UARTvprintf)
     UARTwrite                                0x000013cd   Thumb Code   134  uartstdio.o(i.UARTwrite)
-    WlanConnect                              0x0000145d   Thumb Code    54  iot.o(i.WlanConnect)
+    WlanConnect                              0x0000145d   Thumb Code    54  main.o(i.WlanConnect)
     _SlAsyncEventGenericHandler              0x000014b1   Thumb Code   732  driver.o(i._SlAsyncEventGenericHandler)
     _SlDrvBasicCmd                           0x00001791   Thumb Code    40  driver.o(i._SlDrvBasicCmd)
     _SlDrvClassifyRxMsg                      0x000017b9   Thumb Code   114  driver.o(i._SlDrvClassifyRxMsg)
@@ -1328,7 +1328,7 @@ Image Symbol Table
     _sl_HandleAsync_Stop                     0x00002b6d   Thumb Code    90  device.o(i._sl_HandleAsync_Stop)
     _sl_TruncatePayloadByProtocol            0x00002bcd   Thumb Code    84  socket.o(i._sl_TruncatePayloadByProtocol)
     initClk                                  0x00002e75   Thumb Code    20  board.o(i.initClk)
-    main                                     0x00002ee1   Thumb Code   174  iot.o(i.main)
+    main                                     0x00002ee1   Thumb Code   174  main.o(i.main)
     registerInterruptHandler                 0x00003025   Thumb Code     8  board.o(i.registerInterruptHandler)
     sl_Close                                 0x00003031   Thumb Code    26  socket.o(i.sl_Close)
     sl_Connect                               0x00003051   Thumb Code   224  socket.o(i.sl_Connect)
@@ -1406,13 +1406,13 @@ Image Symbol Table
     NokiaY                                   0x2000000c   Data           4  nokia5110.o(.data)
     g_pCB                                    0x20000010   Data           4  driver.o(.data)
     pPingCallBackFunc                        0x20000014   Data           4  driver.o(.data)
-    g_Status                                 0x20000034   Data           4  iot.o(.data)
+    g_Status                                 0x20000034   Data           4  main.o(.data)
     g_StatMem                                0x20000038   Data         356  driver.o(.bss)
     g__SlNonOsCB                             0x2000019c   Data          40  nonos.o(.bss)
-    City                                     0x20000644   Data         100  iot.o(.bss)
-    Temperature                              0x200006a8   Data         100  iot.o(.bss)
-    Weather                                  0x2000070c   Data         100  iot.o(.bss)
-    appData                                  0x20000770   Data        1584  iot.o(.bss)
+    City                                     0x20000644   Data         100  main.o(.bss)
+    Temperature                              0x200006a8   Data         100  main.o(.bss)
+    Weather                                  0x2000070c   Data         100  main.o(.bss)
+    appData                                  0x20000770   Data        1584  main.o(.bss)
     __initial_sp                             0x20004da0   Data           0  startup_rvmdk.o(STACK)
 
 
@@ -1455,8 +1455,8 @@ Memory Map of the image
     0x000003a8   0x00000014   Code   RO            3    i.CC3100_disable    board.o
     0x000003bc   0x00000014   Code   RO            4    i.CC3100_enable     board.o
     0x000003d0   0x0000001a   Code   RO          663    i.CopyPingResultsToReport  netapp.o
-    0x000003ea   0x00000012   Code   RO         1423    i.Crash             iot.o
-    0x000003fc   0x00000090   Code   RO         1424    i.CreateConnection  iot.o
+    0x000003ea   0x00000012   Code   RO         1423    i.Crash             main.o
+    0x000003fc   0x00000090   Code   RO         1424    i.CreateConnection  main.o
     0x0000048c   0x00000010   Code   RO         1524    i.FPUEnable         driverlib.lib(fpu.o)
     0x0000049c   0x00000010   Code   RO         1527    i.FPULazyStackingEnable  driverlib.lib(fpu.o)
     0x000004ac   0x00000034   Code   RO            6    i.GPIOB_intHandler  board.o
@@ -1478,8 +1478,8 @@ Memory Map of the image
     0x000007f4   0x0000000e   Code   RO         1913    i.IntMasterEnable   driverlib.lib(interrupt.o)
     0x00000802   0x00000010   Code   RO         1175    i.IsBufferEmpty     uartstdio.o
     0x00000812   0x0000001a   Code   RO         1176    i.IsBufferFull      uartstdio.o
-    0x0000082c   0x00000050   Code   RO         1425    i.LCD_Init          iot.o
-    0x0000087c   0x00000012   Code   RO         1426    i.LCD_OutString     iot.o
+    0x0000082c   0x00000050   Code   RO         1425    i.LCD_Init          main.o
+    0x0000087c   0x00000012   Code   RO         1426    i.LCD_OutString     main.o
     0x0000088e   0x00000002   PAD
     0x00000890   0x0000000c   Code   RO          260    i.LED_GreenOff      led.o
     0x0000089c   0x0000000c   Code   RO          261    i.LED_GreenOn       led.o
@@ -1495,9 +1495,9 @@ Memory Map of the image
     0x00000b76   0x00000014   Code   RO         2034    i.SSIDataGetNonBlocking  driverlib.lib(ssi.o)
     0x00000b8a   0x00000010   Code   RO         2036    i.SSIDataPutNonBlocking  driverlib.lib(ssi.o)
     0x00000b9a   0x0000000a   Code   RO         2038    i.SSIEnable         driverlib.lib(ssi.o)
-    0x00000ba4   0x0000002c   Code   RO         1428    i.SimpleLinkHttpServerCallback  iot.o
-    0x00000bd0   0x00000040   Code   RO         1429    i.SimpleLinkNetAppEventHandler  iot.o
-    0x00000c10   0x000000d0   Code   RO         1431    i.SimpleLinkWlanEventHandler  iot.o
+    0x00000ba4   0x0000002c   Code   RO         1428    i.SimpleLinkHttpServerCallback  main.o
+    0x00000bd0   0x00000040   Code   RO         1429    i.SimpleLinkNetAppEventHandler  main.o
+    0x00000c10   0x000000d0   Code   RO         1431    i.SimpleLinkWlanEventHandler  main.o
     0x00000ce0   0x00000164   Code   RO         2177    i.SysCtlClockGet    driverlib.lib(sysctl.o)
     0x00000e44   0x00000120   Code   RO         2179    i.SysCtlClockSet    driverlib.lib(sysctl.o)
     0x00000f64   0x00000028   Code   RO         2208    i.SysCtlPeripheralEnable  driverlib.lib(sysctl.o)
@@ -1510,7 +1510,7 @@ Memory Map of the image
     0x00001216   0x00000002   PAD
     0x00001218   0x000001b4   Code   RO         1190    i.UARTvprintf       uartstdio.o
     0x000013cc   0x00000090   Code   RO         1191    i.UARTwrite         uartstdio.o
-    0x0000145c   0x00000054   Code   RO         1432    i.WlanConnect       iot.o
+    0x0000145c   0x00000054   Code   RO         1432    i.WlanConnect       main.o
     0x000014b0   0x000002e0   Code   RO          442    i._SlAsyncEventGenericHandler  driver.o
     0x00001790   0x00000028   Code   RO          443    i._SlDrvBasicCmd    driver.o
     0x000017b8   0x00000088   Code   RO          444    i._SlDrvClassifyRxMsg  driver.o
@@ -1557,12 +1557,12 @@ Memory Map of the image
     0x00002b08   0x00000064   Code   RO          841    i._sl_HandleAsync_Select  socket.o
     0x00002b6c   0x00000060   Code   RO          321    i._sl_HandleAsync_Stop  device.o
     0x00002bcc   0x00000054   Code   RO          843    i._sl_TruncatePayloadByProtocol  socket.o
-    0x00002c20   0x000000e4   Code   RO         1433    i.configureSimpleLinkToDefaultState  iot.o
-    0x00002d04   0x00000170   Code   RO         1434    i.getWeather        iot.o
+    0x00002c20   0x000000e4   Code   RO         1433    i.configureSimpleLinkToDefaultState  main.o
+    0x00002d04   0x00000170   Code   RO         1434    i.getWeather        main.o
     0x00002e74   0x00000018   Code   RO           10    i.initClk           board.o
-    0x00002e8c   0x00000020   Code   RO         1435    i.initializeAppVariables  iot.o
+    0x00002e8c   0x00000020   Code   RO         1435    i.initializeAppVariables  main.o
     0x00002eac   0x00000034   Code   RO          174    i.lcdwrite          nokia5110.o
-    0x00002ee0   0x00000144   Code   RO         1436    i.main              iot.o
+    0x00002ee0   0x00000144   Code   RO         1436    i.main              main.o
     0x00003024   0x0000000c   Code   RO           11    i.registerInterruptHandler  board.o
     0x00003030   0x00000020   Code   RO          846    i.sl_Close          socket.o
     0x00003050   0x000000ec   Code   RO          847    i.sl_Connect        socket.o
@@ -1601,7 +1601,7 @@ Memory Map of the image
     0x00003d2c   0x00000030   Data   RO          859    .constdata          socket.o
     0x00003d5c   0x00000034   Data   RO         1070    .constdata          wlan.o
     0x00003d90   0x00000028   Data   RO         1193    .constdata          uartstdio.o
-    0x00003db8   0x000000ea   Data   RO         1438    .constdata          iot.o
+    0x00003db8   0x000000ea   Data   RO         1438    .constdata          main.o
     0x00003ea2   0x00000002   PAD
     0x00003ea4   0x00000210   Data   RO         1640    .constdata          driverlib.lib(gpio.o)
     0x000040b4   0x0000010c   Data   RO         1926    .constdata          driverlib.lib(interrupt.o)
@@ -1620,11 +1620,11 @@ Memory Map of the image
     0x20000010   0x00000004   Data   RW          466    .data               driver.o
     0x20000014   0x00000004   Data   RW          467    .data               driver.o
     0x20000018   0x0000001c   Data   RW         1195    .data               uartstdio.o
-    0x20000034   0x00000004   Data   RW         1439    .data               iot.o
+    0x20000034   0x00000004   Data   RW         1439    .data               main.o
     0x20000038   0x00000164   Zero   RW          464    .bss                driver.o
     0x2000019c   0x00000028   Zero   RW          805    .bss                nonos.o
     0x200001c4   0x00000480   Zero   RW         1192    .bss                uartstdio.o
-    0x20000644   0x0000075c   Zero   RW         1437    .bss                iot.o
+    0x20000644   0x0000075c   Zero   RW         1437    .bss                main.o
     0x20000da0   0x00004000   Zero   RW         1041    STACK               startup_rvmdk.o
 
 
@@ -1639,8 +1639,8 @@ Image component sizes
        818         48         20          0          0      73357   device.o
       4450        156         72          8        356      21813   driver.o
         92         10          0          0          0       1072   flowcont.o
-      1612        610        234          4       1884       8689   iot.o
        160         38          0          0          0       1890   led.o
+      1612        610        234          4       1884       8713   main.o
       1014         46         40          0          0       9510   netapp.o
         64          6          8          0          0       1421   netcfg.o
        578         52        488          8          0       7296   nokia5110.o
@@ -1652,7 +1652,7 @@ Image component sizes
        612         26         52          0          0       6442   wlan.o
 
     ----------------------------------------------------------------------
-     13188       1862       1058         56      19816     192037   Object Totals
+     13188       1862       1058         56      19816     192061   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         18          0          7          0          0          0   (incl. Padding)
 
@@ -1703,8 +1703,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     15030       1966       2306         56      19816     196222   Grand Totals
-     15030       1966       2306         56      19816     196222   ELF Image Totals
+     15030       1966       2306         56      19816     196246   Grand Totals
+     15030       1966       2306         56      19816     196246   ELF Image Totals
      15030       1966       2306         56          0          0   ROM Totals
 
 ==============================================================================
