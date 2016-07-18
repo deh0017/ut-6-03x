@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 14: Analog-Digital Conversion
 
-Name: main.c
+File Name: main.c
 
 Description: Capture analog signals of the slide potentiometer
 and convert to digital signal, which is displayed by the Nokia5110
@@ -12,20 +12,20 @@ and convert to digital signal, which is displayed by the Nokia5110
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created May 07, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********Required Hardware I/O Connections**********
 // Slide pot pin 1 connected to GND
 // Slide pot pin 2 connected to PE2/AIN1
-// Slide pot pin 3 connected to +3.3V 
+// Slide pot pin 3 connected to +3.3V
 // Switch connected to PF4
 // Red LED built in PF2
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "ADC.h"
 #include "tm4c123gh6pm.h"
 #include "Nokia5110.h"
@@ -54,23 +54,23 @@ unsigned long Convert(unsigned long sample) {
     // 500              471
     // 1000            1220
     // 1500            1976
-  
+
     // slope_1 = (1000 - 500)/(1220 - 471) = 0.668
     // slope_2 = (1500 - 1000)/(1976 - 1220) = 0.661
     // slope_average = (0.668 + 0.661)/2 = 0.6645
-  
+
     // offset_1 = 500 - 0.6645*471 = 187.0205
     // offset_2 = 1000 - 0.6645*1220 = 189.31
     // offset_3 = 1500 - 0.6645*1976 = 186.948
-  
+
     // offset_average = (187.0205 + 189.31 + 186.948)/3 = 188
-  
+
     // B = 188
     // A = 0.6645*1024 = 680
-  
+
     unsigned long result;
     // Distance = ((A*ADCdata) >> 10) + B
-    result = ((680*sample) >> 10) + 188; 
+    result = ((680*sample) >> 10) + 188;
     return result;
 }
 
@@ -96,7 +96,7 @@ void SysTick_Init() {
 // Inputs: None
 // Ouputs: None
 // Assumes: 80-MHz clock
-void SysTick_Handler(void) { 
+void SysTick_Handler(void) {
     GPIO_PORTF_DATA_R ^= 0x04;      // toggle PF2
     GPIO_PORTF_DATA_R ^= 0x04;      // toggle PF2 again
     ADCdata = ADC0_In();            // sample the ADC
@@ -113,9 +113,9 @@ void SysTick_Handler(void) {
 // Notes:
 // Fixed format 1 digit, point, 3 digits, space, units, null termination
 // Examples
-//     4 to "0.004 cm"  
-//    31 to "0.031 cm" 
-//   102 to "0.102 cm" 
+//     4 to "0.004 cm"
+//    31 to "0.031 cm"
+//   102 to "0.102 cm"
 //  2210 to "2.210 cm"
 // 10000 to "*.*** cm"  any value larger than 9999 converted to "*.*** cm"
 void UART_ConvertDistance(unsigned long n) {
@@ -147,7 +147,7 @@ void UART_ConvertDistance(unsigned long n) {
         // the last digit in ReverseString[10] is the first one in String[10]
         i++;        // increase the index of String[10]
     }
-    
+
     // second, go over each case
     // n has 1 digits
     if (n <= 9) {
@@ -233,7 +233,7 @@ int main(void) {
     SysTick_Init();
     PortF_Init();
     EnableInterrupts();
-    while(1) { 
+    while(1) {
         Flag = 0;                       // read mailbox
         while (Flag != 1) {}            // wait for the flag to be set
         Nokia5110_OutString(String);    // output to Nokia5110 LCD

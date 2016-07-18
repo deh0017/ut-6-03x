@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 11: UART - Serial Interface
 
-Name: main.c
+File Name: main.c
 
 Description:
     Convert numbers into ASCII strings and
@@ -12,13 +12,13 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created April 07, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "UART.h"   // include all UART related functions
 #include "TExaS.h"
 
@@ -34,7 +34,7 @@ int main(void) {
     UART_Init();          // initialize UART
     EnableInterrupts();   // needed for TExaS
     UART_OutString("Running Lab 11");
-    
+
     // loop:
     while (1) {
         UART_OutString("\n\rInput:");

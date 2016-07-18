@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 4: I/O
 
-Name: main.c
+File Name: main.c
 
 Description:
     SW1 is pressed: Turn on red LED
@@ -14,13 +14,13 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 05, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"    // lab grader functions
 
 // Constant declarations to access port registers
@@ -81,7 +81,7 @@ int main(void) {
     TExaS_Init(SW_PIN_PF40, LED_PIN_PF321);
     PortF_Init();           // initialize PF4, PF3, PF2, PF1, PF0
     EnableInterrupts();     // the grader uses interrupts
-    
+
     // loop:
     while (1) {
         SW1 = GPIO_PORTF_DATA_R & 0x10;   // read PF4 into SW1
@@ -90,11 +90,11 @@ int main(void) {
         if (SW1 && SW2) {                 // neither switch
             GPIO_PORTF_DATA_R = 0x00;     // no light
         }
-        else {                           
+        else {
             if (SW1 && (!SW2)) {            // only SW2 is pressed
                 GPIO_PORTF_DATA_R = 0x08;   // LED is green
             }
-            else {                        
+            else {
                 if ((!SW1) && SW2) {        // only SW1 is pressed
                     GPIO_PORTF_DATA_R = 0x02;   // LED is red
                 }

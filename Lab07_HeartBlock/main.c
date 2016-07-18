@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 7: Heart Block
 
-Name: main.c
+File Name: main.c
 
 Description:
     SW1 is released: Green light turns on and waits
@@ -14,13 +14,13 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 09, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"  // lab grader functions
 
 // Constant declarations to access port registers
@@ -156,7 +156,7 @@ int main(void){
     TExaS_Init(SW_PIN_PF40, LED_PIN_PF31,ScopeOn);
     PortF_Init();           // port F initalization
     EnableInterrupts();     // enable interrupts for the grader
-  
+
     // loop:
     while (1) {
         SetReady();         // ready signal goes high

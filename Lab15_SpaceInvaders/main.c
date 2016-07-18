@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: main.c
+File Name: main.c
 
 Description: Mandatory file which contains interrupts routines and
 the main thread
@@ -11,23 +11,23 @@ the main thread
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********Required Hardware I/O Connections**********
 // Slide pot pin 1 connected to ground
 // Slide pot pin 2 connected to PE2/AIN1
-// Slide pot pin 3 connected to +3.3V 
+// Slide pot pin 3 connected to +3.3V
 // Fire switch connected to PE1
 // 8*R resistor DAC bit 0 on PB0 (least significant bit)
 // 4*R resistor DAC bit 1 on PB1
 // 2*R resistor DAC bit 2 on PB2
 // 1*R resistor DAC bit 3 on PB3 (most significant bit)
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "Random.h"
 #include "TExaS.h"
 #include "Animation.h"
@@ -75,9 +75,9 @@ unsigned short score = 0;
 unsigned char NoEnemy(void) {
     unsigned char i;
     for (i = 0; i < ENEMYNUMBER; i++) {
-		if (Enemy[i].life == 1) {
-			return 0;
-		}
+        if (Enemy[i].life == 1) {
+            return 0;
+        }
     }
     return 1;
 }
@@ -119,8 +119,8 @@ void SysTick_Handler(void) {
             else {
                 Nokia5110_PrintBMP(MissileX, MissileY, Missile1, 0);
             }
-			Nokia5110_DisplayBuffer();
-		}
+            Nokia5110_DisplayBuffer();
+        }
     }
     // randomize the fire chance of the enemies
     EnemyFireChance = Random()%500;
@@ -130,16 +130,16 @@ void SysTick_Handler(void) {
     if (EnemyFireChance < 3) {
         // get the laser coordinate
         LaserX = Enemy[EnemyIndex].x + ENEMY20W/2 - 1;
-		LaserY = Enemy[EnemyIndex].y + LASERH - 1;
-		// if there is no laser on that column
-		if (!Laser[LaserX].life) {
-			// store the laser coordinate
-			Laser[LaserX].y = LaserY;
-			Laser[LaserX].life = 1;
-			// initiate the laser on the screen
-			Nokia5110_PrintBMP(LaserX, LaserY, Laser0, 0);
-			Nokia5110_DisplayBuffer();
-		}
+        LaserY = Enemy[EnemyIndex].y + LASERH - 1;
+        // if there is no laser on that column
+        if (!Laser[LaserX].life) {
+            // store the laser coordinate
+            Laser[LaserX].y = LaserY;
+            Laser[LaserX].life = 1;
+            // initiate the laser on the screen
+            Nokia5110_PrintBMP(LaserX, LaserY, Laser0, 0);
+            Nokia5110_DisplayBuffer();
+        }
     }
 }
 
@@ -149,16 +149,16 @@ void SysTick_Handler(void) {
 // Inputs: None
 // Ouputs: None
 // Assumes: 80-MHz clock
-void Timer2A_Handler(void) { 
+void Timer2A_Handler(void) {
     // if the ship fires
     if (GPIO_PORTE_DATA_R & 0x02) {
-		// play the shooting sound
-		DAC_Shoot();
+        // play the shooting sound
+        DAC_Shoot();
     }
     // if the bunker is destroyed
 
     // if one sprite is dead
-	
+
     // if the ship explodes
     if (!Ship.life) {
         // play the explosive sound
@@ -172,8 +172,8 @@ void Timer2A_Handler(void) {
 int main(void) {
     // Set up:
     // set system clock to 80 MHz
-    TExaS_Init(SSI0_Real_Nokia5110_Scope); 
-    Random_Init(1);	// enable randomization 
+    TExaS_Init(SSI0_Real_Nokia5110_Scope);
+    Random_Init(1);	// enable randomization
     ADC0_Init();    // init PE2 for ADC
     DAC_Init();     // init PB3-PB0 for 4-bit DAC
     // init Nokia 5110 screen
@@ -189,7 +189,7 @@ int main(void) {
     SysTick_Init(); // set up SysTick interrupt
     Timer2_Init();  // set up Timer2A interrupt
     EnableInterrupts();         // interrupts begin to tick
-	
+
     // Loop:
     while (1) {
         // if the game is over

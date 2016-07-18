@@ -1,22 +1,22 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 2: Hello LaunchPad
 
-Name: main.c
+File Name: main.c
 
-Description: If the left switch SW1 is 
+Description: If the left switch SW1 is
     not pressed: the LED toggles blue-red
     pressed: the LED toggles blue-green
 
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 05, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********LaunchPad built-in hardware**********
 // SW1 (left switch) is negative logic PF4 on the LaunchPad
@@ -25,7 +25,7 @@ July 14, 2016
 // Blue LED connected to PF2 on the LaunchPad
 // Green LED connected to PF3 on the LaunchPad
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"  // grader library
 
 // constant declarations to access port registers
@@ -61,15 +61,15 @@ void EnableInterrupts(void);
 // Notes: These five pins are built in the LaunchPad
 void PortF_Init(void){ volatile unsigned long delay;
     SYSCTL_RCGC2_R |= 0x00000020;   // 1) unlock F clock
-    delay = SYSCTL_RCGC2_R;         // allow time for clock to start  
-    GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock Port F 
-    GPIO_PORTF_CR_R = 0x1F;         // allow changes to PF4-0       
+    delay = SYSCTL_RCGC2_R;         // allow time for clock to start
+    GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock Port F
+    GPIO_PORTF_CR_R = 0x1F;         // allow changes to PF4-0
     GPIO_PORTF_AMSEL_R = 0x00;      // 3) disable analog function
-    GPIO_PORTF_PCTL_R = 0x00000000; // 4) clear bit PCTL  
-    GPIO_PORTF_DIR_R = 0x0E;    // 5) PF4, PF0 input; PF3, PF2, PF1 output   
+    GPIO_PORTF_PCTL_R = 0x00000000; // 4) clear bit PCTL
+    GPIO_PORTF_DIR_R = 0x0E;    // 5) PF4, PF0 input; PF3, PF2, PF1 output
     GPIO_PORTF_AFSEL_R = 0x00;  // 6) no alternate function
-    GPIO_PORTF_PUR_R = 0x11;    // enable pullup resistors on PF4, PF0       
-    GPIO_PORTF_DEN_R = 0x1F;    // 7) enable digital pins PF4-PF0        
+    GPIO_PORTF_PUR_R = 0x11;    // enable pullup resistors on PF4, PF0
+    GPIO_PORTF_DEN_R = 0x1F;    // 7) enable digital pins PF4-PF0
 }
 // Color        LED(s)      PortF
 // dark         ---         0
@@ -95,10 +95,10 @@ void Delay(void) {
 }
 
 //**********4. Main Function**********
-int main(void) {    
+int main(void) {
     // initialize the TExaS grader lab 2
-    TExaS_Init(SW_PIN_PF40,LED_PIN_PF321); 
-    PortF_Init();        // initialize port F    
+    TExaS_Init(SW_PIN_PF40,LED_PIN_PF321);
+    PortF_Init();        // initialize port F
     EnableInterrupts();  // the grader uses interrupts
     while (1) {
         In = GPIO_PORTF_DATA_R&0x10;    // read PF4 into In

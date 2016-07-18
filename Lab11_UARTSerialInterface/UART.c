@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 11: UART - Serial Interface
 
-Name: UART.c
+File Name: UART.c
 
 Description:
     Convert numbers into ASCII strings and
@@ -12,11 +12,11 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created April 07, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 #include "tm4c123gh6pm.h"
 #include "UART.h"
@@ -34,9 +34,9 @@ void UART_Init(void) {
     delay = SYSCTL_RCGC2_R;                 // allow time for clock to start
     UART0_CTL_R &= ~UART_CTL_UARTEN;        // disable UART
     // IBRD = int(80,000,000 / (16 * 115,200)) = int(43.402778):
-    UART0_IBRD_R = 43;  
+    UART0_IBRD_R = 43;
     // FBRD = round(0.402778 * 64) = 26:
-    UART0_FBRD_R = 26;  
+    UART0_FBRD_R = 26;
     // 8 bit word length (no parity bits, one stop bit, FIFOs)
     UART0_LCRH_R = (UART_LCRH_WLEN_8|UART_LCRH_FEN);
     UART0_CTL_R |= UART_CTL_UARTEN ;         // enable UART
@@ -127,7 +127,7 @@ unsigned long UART_InUDec(void) {
 void UART_OutString(unsigned char buffer[]) {
     unsigned long i = 0;
     // go from the beginning to the ending of the character string:
-    while (buffer[i] != '\0') {     
+    while (buffer[i] != '\0') {
         UART_OutChar(buffer[i]);  // write every single character
         i++;                      // move to next character
     }
@@ -201,7 +201,7 @@ void UART_ConvertUDec(unsigned long n) {
     }
     else if (n >= 1000 && n <= 9999) {  // in case n has 4 digits:
         String[4] = 0x20;
-    } 
+    }
     else {    // overflowing case:
         String[0] = '*';
         String[1] = '*';
@@ -226,7 +226,8 @@ void UART_OutUDec(unsigned long n) {
 // Converts a 32-bit distance into an ASCII string
 // Inputs: n    32-bit number to be converted (resolution 0.001cm)
 // Outputs: None
-// Notes: Fixed format 1 digit, point, 3 digits, space, units, null termination
+// Notes: Fixed format
+// 1 digit, point, 3 digits, space, units, null termination
 // Examples
 //    4 to "0.004 cm"
 //   31 to "0.031 cm"
@@ -290,7 +291,8 @@ void UART_ConvertDistance(unsigned long n) {
 // Outputs a 32-bit number in unsigned decimal fixed-point format
 // Inputs: n    32-bit number to be transferred (resolution 0.001cm)
 // Outputs: None
-// Notes: Fixed format 1 digit, point, 3 digits, space, units, null termination
+// Notes: Fixed format
+// 1 digit, point, 3 digits, space, units, null termination
 void UART_OutDistance(unsigned long n) {
     UART_ConvertDistance(n);      // convert to distance
     UART_OutString(String);       // output

@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: ADC.c
+File Name: ADC.c
 
 Description: Functions that are responsible for Analog-Digital Conversion,
 which reads input from the slide pot and convert to numerical result
@@ -11,11 +11,11 @@ which reads input from the slide pot and convert to numerical result
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 // PE2: Slide Pot
 // PE1: Switches
@@ -24,7 +24,7 @@ July 03, 2016
 #include "tm4c123gh6pm.h"
 
 //**********ADC0_Init**********
-// Sets up the ADC 
+// Sets up the ADC
 // Max sample rate: <=125,000 samples/second
 // SS3 triggering event: software trigger
 // SS3 1st sample source:  channel 1
@@ -39,12 +39,12 @@ void ADC0_Init(void) {
     GPIO_PORTE_LOCK_R |= 0x4C4F434B;    // unlock GPIO port E
     GPIO_PORTE_CR_R |= 0x06;            // allow change to PE2-PE1
     GPIO_PORTE_DIR_R &= ~0x06;          // PE2-PE1 input
-	GPIO_PORTE_AFSEL_R &= ~0x02;        // disable alternate function on PE1
-	GPIO_PORTE_AFSEL_R |= 0x04;         // enable alternate function on PE2
+    GPIO_PORTE_AFSEL_R &= ~0x02;        // disable alternate function on PE1
+    GPIO_PORTE_AFSEL_R |= 0x04;         // enable alternate function on PE2
     GPIO_PORTE_PCTL_R = 0;              // disable PCTL on port E
     GPIO_PORTE_DEN_R &= ~0x04;          // disable digital I/O on PE2
-	GPIO_PORTE_DEN_R |= 0x02;           // enable digital I/O on PE1
-	GPIO_PORTE_AMSEL_R &= ~0x02;        // disable analog function on PE1
+    GPIO_PORTE_DEN_R |= 0x02;           // enable digital I/O on PE1
+    GPIO_PORTE_AMSEL_R &= ~0x02;        // disable analog function on PE1
     GPIO_PORTE_AMSEL_R |= 0x04;         // enable analog function on PE2
     // Analog Initialization:
     SYSCTL_RCGC0_R |= 0x10000;          // enable the ADC clock
@@ -66,7 +66,7 @@ unsigned long ADC0_In(void) {
     unsigned long result;
     ADC0_PSSI_R |= 0x08;                // initiate SS3
     // wait until conversion is done:
-    while ((ADC0_RIS_R & 0x08) == 0) {} 
+    while ((ADC0_RIS_R & 0x08) == 0) {}
     result = ADC0_SSFIFO3_R & 0xFFF;    // mask with 12-bit binary
     ADC0_ISC_R |= 0x08;   // clear the flag to start capturing another sample
     return result;        // return the value of result

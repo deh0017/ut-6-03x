@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 5: Functions in C
 
-Name: main.c
+File Name: main.c
 
 Description: Calculate the area of a rectangle
     If Length or Width is in the close interval [3,20]
@@ -13,14 +13,14 @@ Description: Calculate the area of a rectangle
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 06, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
-#include <stdio.h>          // standard C library 
+//**********1. Pre-processor Section**********
+#include <stdio.h>          // standard C library
 #include "UART.h"           // functions to implement I/O
 #include "TExaS.h"          // lab grader functions
 
@@ -60,7 +60,7 @@ int main(void) {
     UART_Init();          // initialize UART for printing
     printf("\nThis program calculates areas of rectangular rooms.\n");
     EnableInterrupts();   // the grader needs interrupts
-  
+
     // loop:
     while (1) {
         // Get length input

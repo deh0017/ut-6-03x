@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 8: Switch & LED Interface
 
-Name: main.c
+File Name: main.c
 
 Description:
     The first lab building the circuit on the breadboard
@@ -14,16 +14,17 @@ Compatibility: EK-TM4C123GXL
 
 Phi Luu
 David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 22, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********Required Hardware I/O Connections**********
 // Switch connected to PE0
 // LED connected to PE1
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -91,7 +92,7 @@ int main(void) {
     PortE_Init();         // initialize port E
     EnableInterrupts();   // enable interrupts for the grader
     PE1 = 0x02;           // start with LED on
-    
+
     // loop:
     while (1) {
         delay(100);         // wait 100 ms

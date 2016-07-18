@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 9: Functional Debugging
 
-Name: main.c
+File Name: main.c
 
 Description:
     Learn how to debug using Logic Analyzer
@@ -15,13 +15,13 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 25, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -121,7 +121,7 @@ int main(void) {
     i = 0;                      // array index
     last = NVIC_ST_CURRENT_R;
     EnableInterrupts();         // enable interrupts for the grader
-  
+
     // loop:
     while (1) {
       if (!PF4 || !PF0) {       // if either SW1 or SW2 is pressed

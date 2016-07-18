@@ -1,20 +1,20 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: Images.h
+File Name: Images.h
 
 Description: Contain all images data and their sizes
 
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********Capture image dimensions out of BMP**********
 // bunker
@@ -39,7 +39,7 @@ July 03, 2016
 // player's ship
 #define PLAYERW         ((unsigned char)PlayerShip0[18])
 #define PLAYERH         ((unsigned char)PlayerShip0[22])
-	
+
 //**********Images**********
 // enemy ship that arm and mouths are closed
 // width = 16 x height = 10
@@ -80,7 +80,7 @@ extern const unsigned char PlayerShip2[];
 // blank space used to cover a ship that is moved
 // width = 18 x height = 8
 extern const unsigned char PlayerShip3[];
-	
+
 // small, fast bonus enemy that occasionally appears
 // after enough enemies have been killed to make a room for it
 // width = 20 x height = 7
@@ -90,11 +90,13 @@ extern const unsigned char SmallEnemyBonus0[];
 // width = 18 x height = 5
 extern const unsigned char Bunker0[];
 
-// small shield floating in space to cover the player's ship (moderate generic damage)
+// small shield floating in space to cover the player's ship
+// (moderate generic damage)
 // width = 18 x height = 5
 extern const unsigned char Bunker1[];
 
-// small shield floating in space to cover the player's ship (heavy generic damage)
+// small shield floating in space to cover the player's ship
+// (heavy generic damage)
 // width = 18 x height = 5
 extern const unsigned char Bunker2[];
 
@@ -102,11 +104,13 @@ extern const unsigned char Bunker2[];
 // width = 18 x height = 5
 extern const unsigned char Bunker3[];
 
-// large explosion that can be used upon the demise of the player's ship (first frame)
+// large explosion that can be used upon the demise of the player's ship
+// (first frame)
 // width = 18 x height = 8
 extern const unsigned char BigExplosion0[];
 
-// large explosion that can be used upon the demise of the player's ship (second frame)
+// large explosion that can be used upon the demise of the player's ship
+// (second frame)
 // width = 18 x height = 8
 extern const unsigned char BigExplosion1[];
 
@@ -114,7 +118,8 @@ extern const unsigned char BigExplosion1[];
 // width = 16 x height = 10
 extern const unsigned char SmallExplosion0[];
 
-// blank space following the small explosion for the demise of a sprite or a mothership
+// blank space following the small explosion for the demise of
+// a sprite or a mothership
 // width = 16 x height = 10
 extern const unsigned char SmallExplosion1[];
 
@@ -136,4 +141,4 @@ extern const unsigned char Laser0[];
 
 // blank space to cover a laser after it hits something
 // width = 2 x height = 9
-extern const unsigned char Laser1[];	
+extern const unsigned char Laser1[];

@@ -1,9 +1,9 @@
-/*******************************************************************************
+/******************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 14: Analog-Digital Conversion
 
-Name: ADC.c
+File Name: ADC.c
 
 Description: Provide functions that initialize ADC0 SS3 to be triggered by
 software and trigger a conversion, wait for it to finish,
@@ -12,14 +12,14 @@ and return the result
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 07, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+******************************************************************************/
 
 //**********ADC0_Init**********
-// Sets up the ADC 
+// Sets up the ADC
 // Max sample rate: <= 125,000 samples/second
 // SS3 triggering event: software trigger
 // SS3 1st sample source: channel 1

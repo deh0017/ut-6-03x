@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 6: Branching Functions Delays
 
-Name: main.c
+File Name: main.c
 
 Description:
     None of SW1 and SW2 is pressed: LED is steady blue
@@ -12,13 +12,13 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 07, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"    // lab grader functions
 
 // Constant declarations to access port registers
@@ -57,9 +57,10 @@ void PortF_Init(void) {
     GPIO_PORTF_CR_R |= 0x14;  // allow changes to PF4 (SW1) and PF2 (Blue LED)
     GPIO_PORTF_AMSEL_R = 0x00;        // 3) disable analog function
     GPIO_PORTF_PCTL_R = 0x00;         // 4) GPIO clear bit PCTL
-    GPIO_PORTF_DIR_R |= 0x04; // 5) PF4 (SW1) is input, PF2 (Blue LED) is output
+    GPIO_PORTF_DIR_R |= 0x04;      // 5) PF4 (SW1) is input,
+                                      // PF2 (Blue LED) is output
     GPIO_PORTF_AFSEL_R = 0x00;        // 6) no alternate function
-    GPIO_PORTF_PUR_R |= 0x10;         // enable pullup resistor on PF4  
+    GPIO_PORTF_PUR_R |= 0x10;         // enable pullup resistor on PF4
     GPIO_PORTF_DEN_R |= 0x14;         // 7) enable digital pins PF4, PF2
 }
 
@@ -86,7 +87,7 @@ int main(void) {
     TExaS_Init(SW_PIN_PF4, LED_PIN_PF2);
     PortF_Init();         // port F initialization
     EnableInterrupts();   // enable interrupts for the grader
-    
+
     // loop:
     while (1) {
         SW1 = GPIO_PORTF_DATA_R & 0x10;   // read bit PF4 into SW1

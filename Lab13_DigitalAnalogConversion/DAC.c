@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 13: Digital-Analog Conversion
 
-Name: DAC.c
+File Name: DAC.c
 
 Description: Create a sinusoid sound wave using 4-bit DAC
 and simulate C, D, E, and G notes of the piano.
@@ -11,11 +11,11 @@ and simulate C, D, E, and G notes of the piano.
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created April 22, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 // 4-bit DAC connected to PB3-PB0
 
@@ -23,7 +23,7 @@ July 03, 2016
 #include "tm4c123gh6pm.h"
 
 //**********DAC_Init**********
-// Initializes 4-bit DAC 
+// Initializes 4-bit DAC
 // Inputs: None
 // Outputs: None
 void DAC_Init(void) {
@@ -42,9 +42,9 @@ void DAC_Init(void) {
 
 //**********DAC_Out**********
 // Writes output to DAC
-// Inputs: data    4-bit data, 0 to 15 
+// Inputs: data    4-bit data, 0 to 15
 // Outputs: None
 void DAC_Out(unsigned long data) {
     // write every single value from the SineWave array
-    GPIO_PORTB_DATA_R = data; 
+    GPIO_PORTB_DATA_R = data;
 }

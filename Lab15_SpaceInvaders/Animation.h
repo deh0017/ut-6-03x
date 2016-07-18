@@ -1,20 +1,20 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: Animation.c
+File Name: Animation.c
 
 Description: Graphic Processor
 
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 // A data structure for multi-frame things,
 // such as Ship, Bunker, and Enemy
@@ -89,5 +89,5 @@ void Laser_Init(void);
 // Process the animation of missiles and lasers on the field
 // Also process the all the collisions on the field
 // Inputs: None
-// Outputs: None 
+// Outputs: None
 void Missiles_And_Lasers(void);

@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: ADC.c
+File Name: ADC.c
 
 Description: Functions that are responsible for Analog-Digital Conversion,
 which reads input from the slide pot and convert to numerical result
@@ -11,14 +11,14 @@ which reads input from the slide pot and convert to numerical result
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********ADC0_Init**********
-// Sets up the ADC 
+// Sets up the ADC
 // Max sample rate: <= 125,000 samples/second
 // SS3 triggering event: software trigger
 // SS3 1st sample source: channel 1

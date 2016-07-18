@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 15: SpaceInvaders
 
-Name: DAC.h
+File Name: DAC.h
 
 Description: Functions that are responsible for Digital-Analog Conversion,
 which forms sinusoid waves to create different sounds
@@ -11,13 +11,13 @@ which forms sinusoid waves to create different sounds
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created May 20, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
-#define DAC_PINS				(*((volatile unsigned long *)0x4000503C))
+#define DAC_PINS        (*((volatile unsigned long *)0x4000503C))
 
 //**********DAC_Init**********
 // Initializes 4-bit DAC on PB3-PB0 and two LEDs on PB5-PB4

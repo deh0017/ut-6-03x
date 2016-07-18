@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 10: Traffic Light
 
-Name: main.c
+File Name: main.c
 
 Description:
     Simulate a traffic light system with three modes:
@@ -12,11 +12,11 @@ Description:
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 14, 2016
+Portland, Oregon, United States
+Created March 31, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 //**********Required Hardware I/O Connections**********
 // West's Red-Yellow-Green connected to PB5-PB4-PB3
@@ -27,7 +27,7 @@ July 14, 2016
 // South's switch connected to PE1
 // Pedestrian's switch connected to PE2
 
-//**********1. Pre-processor Directives Section**********
+//**********1. Pre-processor Section**********
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -80,10 +80,10 @@ void SysTick_Wait(unsigned long delay);   // SysTick wait function
 void SysTick_Wait1m(unsigned long howManyTime); // SysTick delay function
 
 // Struct Declaration
-struct State {            // represents a state of the FSM 
-    unsigned short outB;  // ouput of Port B for the state (cars output)
-    unsigned short outF;  // output of Port F for the state (pedestrian output)
-    unsigned short wait;  // time to wait when in this state
+struct State {           // represents a state of the FSM
+    unsigned short outB; // ouput of Port B for the state (cars output)
+    unsigned short outF; // output of Port F for the state (pedestrian output)
+    unsigned short wait; // time to wait when in this state
     unsigned char next[5];  // next state array
 };
 
@@ -104,27 +104,27 @@ struct State {            // represents a state of the FSM
 typedef const struct State StateType;
 StateType FSM[11] = {
     // 0) Go South:
-    {0x21, 0x02, 3000, {GoS, GoS, WaitS, WaitS, WaitS}},
+    {0x21, 0x02, 3000,  {GoS, GoS, WaitS, WaitS, WaitS}},
     // 1) Wait South:
-    {0x22, 0x02, 500, {GoW, GoW, GoW, GoP, GoW}},
+    {0x22, 0x02, 500,   {GoW, GoW, GoW, GoP, GoW}},
     // 2) Go West:
-    {0x0C, 0x02, 3000, {GoW, WaitW, GoW, WaitW, WaitW}},
+    {0x0C, 0x02, 3000,  {GoW, WaitW, GoW, WaitW, WaitW}},
     // 3) Wait West:
-    {0x14, 0x02, 500, {GoS, GoS, GoS, GoP, GoP}},
+    {0x14, 0x02, 500,   {GoS, GoS, GoS, GoP, GoP}},
     // 4) Go Pedestrian:
-    {0x24, 0x08, 3000, {GoP, HurryP1, HurryP1, GoP, HurryP1}},
+    {0x24, 0x08, 3000,  {GoP, HurryP1, HurryP1, GoP, HurryP1}},
     // 5) Hurry Pedestrian 1:
-    {0x24, 0x02, 250, {OffP1, OffP1, OffP1, OffP1, OffP1}},
+    {0x24, 0x02, 250,   {OffP1, OffP1, OffP1, OffP1, OffP1}},
     // 6) Off Pedestrian 1:
-    {0x24, 0x00, 250, {HurryP2, HurryP2, HurryP2, HurryP2, HurryP2}},
+    {0x24, 0x00, 250,   {HurryP2, HurryP2, HurryP2, HurryP2, HurryP2}},
     // 7) Hurry Pedestrian 2:
-    {0x24, 0x02, 250, {OffP2, OffP2, OffP2, OffP2, OffP2}},
+    {0x24, 0x02, 250,   {OffP2, OffP2, OffP2, OffP2, OffP2}},
      // 8) Off Pedestrian 2:
-    {0x24, 0x00, 250, {HurryP3, HurryP3, HurryP3, HurryP3, HurryP3}},
+    {0x24, 0x00, 250,   {HurryP3, HurryP3, HurryP3, HurryP3, HurryP3}},
     // 9) Hurry Pedestrian 3:
-    {0x24, 0x02, 250, {OffP3, OffP3, OffP3, OffP3, OffP3}},
+    {0x24, 0x02, 250,   {OffP3, OffP3, OffP3, OffP3, OffP3}},
     // 10) Off Pedestrian 3:
-    {0x24, 0x00, 250, {GoW, GoS, GoW, GoS, GoS}}
+    {0x24, 0x00, 250,   {GoW, GoS, GoW, GoS, GoS}}
 };
 
 // Global Variables
@@ -205,7 +205,7 @@ void SysTick_Wait1ms(unsigned long howManyTime) {
     unsigned long i;
     for (i = 0; i < howManyTime; i++) {
         // count = 0.001/12.5/0.000000001 = 80000 <-> 1 milliseconds
-        SysTick_Wait(80000); 
+        SysTick_Wait(80000);
     }
 }
 
@@ -218,30 +218,35 @@ int main(void) {
     SysTick_Init();       // SysTick timer initialization
     currentState = GoS;   // GoS is initial state
     EnableInterrupts();   // enable interrupts for grader
-  
+
     // loop:
     while(1){
       // output based on current state
       // output to cars (port B):
-      GPIO_PORTB_DATA_R = FSM[currentState].outB; 
+      GPIO_PORTB_DATA_R = FSM[currentState].outB;
       // output to pedestrians (port F)
-      GPIO_PORTF_DATA_R = FSM[currentState].outF; 
+      GPIO_PORTF_DATA_R = FSM[currentState].outF;
       // wait for time relevant to state
       SysTick_Wait1ms(FSM[currentState].wait);
       // get input
-      if (GPIO_PORTE_DATA_R == 0x00) {        // if no switch is pressed
+      // if no switch is pressed
+      if (GPIO_PORTE_DATA_R == 0x00) {
         input = 0;  // then it is case 0 of the next[] array...
       }   // ... all LEDs stay the way they are since the last pressing
-      else if (GPIO_PORTE_DATA_R == 0x02) {   // if south switch is pressed
+      // if south switch is pressed
+      else if (GPIO_PORTE_DATA_R == 0x02) {
         input = 1;  // then it is case 1 of the next[] array...
       }   // ... all LEDs correspond to Go South mode
-      else if (GPIO_PORTE_DATA_R == 0x01) {   // if west switch is pressed
+      // if west switch is pressed
+      else if (GPIO_PORTE_DATA_R == 0x01) {
         input = 2;  // then it is case 2 of the next[] array...
       }   // ... all LEDs correspond to Go West mode
-      else if (GPIO_PORTE_DATA_R == 0x04) {   // if pedestrian switch is pressed
+      // if pedestrian switch is pressed
+      else if (GPIO_PORTE_DATA_R == 0x04) {
         input = 3;  // then it is case 3 of the next[] array...
       }   // ... all LEDs correspond to Go Pedestrian mode
-      else if (GPIO_PORTE_DATA_R == 0x07) {   // if all switches are pressed
+      // if all switches are pressed
+      else if (GPIO_PORTE_DATA_R == 0x07) {
         input = 4;  // then it is case 4 of the next[] array...
       }   // ... all LEDs correspond periodically: South, West, Pedestrian
       // change state based on input and current state

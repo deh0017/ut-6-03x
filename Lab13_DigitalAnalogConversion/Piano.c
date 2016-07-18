@@ -1,9 +1,9 @@
-/*******************************************************************************
+/*****************************************************************************
 
 UTAustinX: UT.6.03x Embedded Systems - Shape the World
 Lab 13: Digital-Analog Conversion
 
-Name: Piano.c
+File Name: Piano.c
 
 Description: Create a sinusoid sound wave using 4-bit DAC
 and simulate C, D, E, and G notes of the piano.
@@ -11,11 +11,11 @@ and simulate C, D, E, and G notes of the piano.
 Compatibility: EK-TM4C123GXL
 
 Phi Luu
-David Douglas High School
-Portland, OR
-July 03, 2016
+Portland, Oregon, United States
+Created April 22, 2016
+Updated July 17, 2016
 
-*******************************************************************************/
+*****************************************************************************/
 
 // Port E bits 3-0 have 4 piano keys
 
@@ -68,4 +68,4 @@ void Piano_In(void) {
     else {                                // otherwise,
         Freq_Index = 4;           // store "No key is pressed"
     }
-} 
+}
