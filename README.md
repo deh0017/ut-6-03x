@@ -15,6 +15,8 @@ This course is instructed by Prof. Jonathan Valvano and Dr. Ramesh Yerraballi an
 From **Lab02-HelloLaunchPad** to **Lab14-AnalogDigitalConversion** and an additional **Lab16-IoT**, I got 100 out of 100 points on simulator and real board graders.  
 Only **Lab15-SpaceInvaders** is currently unfinished due to my lack of graphic processing skills. I will come back and complete it in the near future.
 
+For detailed information, see my lab progress [blog](https://philectron.github.io/tags/#ut-6-03x).
+
 
 
 ## Software and Kit Requirements
@@ -23,6 +25,7 @@ To be able to debug and upload these projects to the LaunchPad, follow the instr
 If you follow the official instruction from [Texas Instruments](http://www.ti.com/ww/en/launchpad/software.html#tabs), you can upload and run your program on the LaunchPad.
 
 
+
 ## Issues
 
-If you see anything wrong, please feel free to [let me know](https://github.com/phil3c7r0n/ut.6.03x/issues/new).
+If you see anything wrong, please feel free to [let me know](https://github.com/philectron/ut-6-03x/issues/new).
