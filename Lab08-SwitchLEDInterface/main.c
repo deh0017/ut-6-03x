@@ -1,24 +1,24 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 8: Switch & LED Interface
-
-File Name: main.c
-
-Description:
-    The first lab building the circuit on the breadboard
-    The switch is pressed: The LED flashes 5 Hz
-    The switch is released: The LED is steadily on.
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-David Douglas High School
-Portland, Oregon, United States
-Created March 22, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 8: Switch & LED Interface
+//
+// File Name: main.c
+//
+// Description:
+//   The first lab building the circuit on the breadboard
+//   The switch is pressed: The LED flashes 5 Hz
+//   The switch is released: The LED is steadily on.
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// David Douglas High School
+// Portland, Oregon, United States
+// Created March 22, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // Switch connected to PE0

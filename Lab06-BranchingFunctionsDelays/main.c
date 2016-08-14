@@ -1,22 +1,22 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 6: Branching Functions Delays
-
-File Name: main.c
-
-Description:
-    None of SW1 and SW2 is pressed: LED is steady blue
-    SW1 is pressed: Blue LED is flashing each 100 milliseconds
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 07, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 6: Branching Functions Delays
+//
+// File Name: main.c
+//
+// Description:
+//     None of SW1 and SW2 is pressed: LED is steady blue
+//     SW1 is pressed: Blue LED is flashing each 100 milliseconds
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 07, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********1. Pre-processor Section**********
 #include "TExaS.h"    // lab grader functions

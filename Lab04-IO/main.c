@@ -1,24 +1,24 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 4: I/O
-
-File Name: main.c
-
-Description:
-    SW1 is pressed: Turn on red LED
-    SW2 is pressed: Turn on green LED
-    Both SW1 and SW2 are pressed: Turn on blue LED
-    No switch is pressed: Turn off all LED
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 05, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 4: I/O
+//
+// File Name: main.c
+//
+// Description:
+//     SW1 is pressed: Turn on red LED
+//     SW2 is pressed: Turn on green LED
+//     Both SW1 and SW2 are pressed: Turn on blue LED
+//     No switch is pressed: Turn off all LED
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 05, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********1. Pre-processor Section**********
 #include "TExaS.h"    // lab grader functions

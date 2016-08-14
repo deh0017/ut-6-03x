@@ -1,21 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 15: SpaceInvaders
-
-File Name: ADC.c
-
-Description: Functions that are responsible for Analog-Digital Conversion,
-which reads input from the slide pot and convert to numerical result
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 20, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 15: SpaceInvaders
+//
+// File Name: ADC.c
+//
+// Description: Functions that are responsible for Analog-Digital Conversion,
+// which reads input from the slide pot and convert to numerical result
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 20, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 // PE2: Slide Pot
 // PE1: Switches

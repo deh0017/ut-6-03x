@@ -1,20 +1,20 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 15: SpaceInvaders
-
-File Name: Animation.c
-
-Description: Graphic Processor
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 20, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 15: SpaceInvaders
+//
+// File Name: Animation.c
+//
+// Description: Graphic Processor
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 20, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 #include "Animation.h"
 #include "Random.h"

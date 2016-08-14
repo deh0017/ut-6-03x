@@ -1,21 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 15: SpaceInvaders
-
-File Name: main.c
-
-Description: Mandatory file which contains interrupts routines and
-the main thread
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 20, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 15: SpaceInvaders
+//
+// File Name: main.c
+//
+// Description: Mandatory file which contains interrupts routines and
+// the main thread
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 20, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // Slide pot pin 1 connected to ground

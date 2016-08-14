@@ -1,20 +1,20 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 15: SpaceInvaders
-
-File Name: Tick.c
-
-Description: Contains SysTick, Timer2A, and the regular Delay initialization
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 20, 2016
-Updated July 17, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 15: SpaceInvaders
+//
+// File Name: Tick.h
+//
+// Description: Contains SysTick, Timer2A, and the regular Delay initialization
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 20, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********SysTick_Init**********
 // Initializes 30-Hz software-triggered interrupt

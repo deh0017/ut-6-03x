@@ -1,22 +1,22 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 10: Traffic Light
-
-File Name: main.c
-
-Description:
-    Simulate a traffic light system with three modes:
-    Going South, Going West, and Pedestrians
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 31, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 10: Traffic Light
+//
+// File Name: main.c
+//
+// Description:
+//     Simulate a traffic light system with three modes:
+//     Going South, Going West, and Pedestrians
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 31, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // West's Red-Yellow-Green connected to PB5-PB4-PB3
@@ -80,10 +80,10 @@ void SysTick_Wait(unsigned long delay);   // SysTick wait function
 void SysTick_Wait1m(unsigned long howManyTime); // SysTick delay function
 
 // Struct Declaration
-struct State {           // represents a state of the FSM
-    unsigned short outB; // ouput of Port B for the state (cars output)
-    unsigned short outF; // output of Port F for the state (pedestrian output)
-    unsigned short wait; // time to wait when in this state
+struct State {            // represents a state of the FSM
+    unsigned short outB;  // ouput of Port B for the state (cars output)
+    unsigned short outF;  // output of Port F for the state (pedestrian output)
+    unsigned short wait;  // time to wait when in this state
     unsigned char next[5];  // next state array
 };
 

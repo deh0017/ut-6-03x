@@ -1,22 +1,22 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 14: Analog-Digital Conversion
-
-File Name: ADC.c
-
-Description: Provide functions that initialize ADC0 SS3 to be triggered by
-software and trigger a conversion, wait for it to finish,
-and return the result
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 07, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 14: Analog-Digital Conversion
+//
+// File Name: ADC.c
+//
+// Description: Provide functions that initialize ADC0 SS3 to be triggered by
+// software and trigger a conversion, wait for it to finish,
+// and return the result
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 07, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 #include "ADC.h"
 #include "tm4c123gh6pm.h"

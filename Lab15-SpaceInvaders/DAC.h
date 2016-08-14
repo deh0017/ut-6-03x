@@ -1,21 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 15: SpaceInvaders
-
-File Name: DAC.h
-
-Description: Functions that are responsible for Digital-Analog Conversion,
-which forms sinusoid waves to create different sounds
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 20, 2016
-Updated July 17, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 15: SpaceInvaders
+//
+// File Name: DAC.h
+//
+// Description: Functions that are responsible for Digital-Analog Conversion,
+// which forms sinusoid waves to create different sounds
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 20, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 #define DAC_PINS        (*((volatile unsigned long *)0x4000503C))
 

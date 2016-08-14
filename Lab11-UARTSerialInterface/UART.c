@@ -1,22 +1,22 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 11: UART - Serial Interface
-
-File Name: UART.c
-
-Description:
-    Convert numbers into ASCII strings and
-    display on the UART0 (TExaSdisplay)
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created April 07, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 11: UART - Serial Interface
+//
+// File Name: UART.c
+//
+// Description:
+//     Convert numbers into ASCII strings and
+//     display on the UART0 (TExaSdisplay)
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created April 07, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 #include "tm4c123gh6pm.h"
 #include "UART.h"

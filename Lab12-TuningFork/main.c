@@ -1,21 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 12: Tuning Fork
-
-File Name: main.c
-
-Description: Using SysTick periodic interrupt, create a frequency of 440Hz
-just as you do when striking a tuning fork.
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created April 16, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 12: Tuning Fork
+//
+// File Name: main.c
+//
+// Description: Using SysTick periodic interrupt, create a frequency of 440Hz
+// just as you do when striking a tuning fork.
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created April 16, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // Switch connected to PA3

@@ -1,23 +1,23 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 5: Functions in C
-
-File Name: main.c
-
-Description: Calculate the area of a rectangle
-    If Length or Width is in the close interval [3,20]
-    Then Area = Length * Width
-    Otherwise, Area = 0
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 06, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 5: Functions in C
+//
+// File Name: main.c
+//
+// Description: Calculate the area of a rectangle
+//     If Length or Width is in the close interval [3,20]
+//     Then Area = Length * Width
+//     Otherwise, Area = 0
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 06, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********1. Pre-processor Section**********
 #include <stdio.h>          // standard C library

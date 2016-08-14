@@ -1,22 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 14: Analog-Digital Conversion
-
-File Name: main.c
-
-Description: Capture analog signals of the slide potentiometer
-and convert to digital signal, which is displayed by the Nokia5110
-
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created May 07, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 14: Analog-Digital Conversion
+//
+// File Name: main.c
+//
+// Description: Capture analog signals of the slide potentiometer
+// and convert to digital signal, which is displayed by the Nokia5110
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created May 07, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // Slide pot pin 1 connected to GND

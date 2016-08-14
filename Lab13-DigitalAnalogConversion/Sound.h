@@ -1,21 +1,21 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 13: Digital-Analog Conversion
-
-File Name: Sound.h
-
-Description: Create a sinusoid sound wave using 4-bit DAC
-and simulate C, D, E, and G notes of the piano.
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created April 22, 2016
-Updated July 17, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 13: Digital-Analog Conversion
+//
+// File Name: Sound.h
+//
+// Description: Create a sinusoid sound wave using 4-bit DAC
+// and simulate C, D, E, and G notes of the piano.
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created April 22, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Sound_Init**********
 // Initializes Systick periodic interrupts and DAC

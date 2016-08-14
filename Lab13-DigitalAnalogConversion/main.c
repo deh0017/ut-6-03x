@@ -1,23 +1,23 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 13: Digital-Analog Conversion
-
-File Name: main.c
-
-Description: Create a sinusoid sound wave using 4-bit DAC
-and simulate C, D, E, and G notes of the piano.
-Port B bits 3-0 have the 4-bit DAC
-Port E bits 3-0 have 4 piano keys
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created April 22, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 13: Digital-Analog Conversion
+//
+// File Name: main.c
+//
+// Description: Create a sinusoid sound wave using 4-bit DAC
+// and simulate C, D, E, and G notes of the piano.
+// Port B bits 3-0 have the 4-bit DAC
+// Port E bits 3-0 have 4 piano keys
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created April 22, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********Required Hardware I/O Connections**********
 // PD3 must be connected to DAC output

@@ -1,22 +1,22 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 2: Hello LaunchPad
-
-File Name: main.c
-
-Description: If the left switch SW1 is
-    not pressed: the LED toggles blue-red
-    pressed: the LED toggles blue-green
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 05, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 2: Hello LaunchPad
+//
+// File Name: main.c
+//
+// Description: If the left switch SW1 is
+//     not pressed: the LED toggles blue-red
+//     pressed: the LED toggles blue-green
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 05, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********LaunchPad built-in hardware**********
 // SW1 (left switch) is negative logic PF4 on the LaunchPad

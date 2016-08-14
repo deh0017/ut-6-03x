@@ -1,24 +1,24 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 7: Heart Block
-
-File Name: main.c
-
-Description:
-    SW1 is released: Green light turns on and waits
-    SW1 is held: Green light goes off
-    SW1 is released after being pressed: Red light goes on for 250ms,
-    then it turns off, and Green light turns on again.
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 09, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 7: Heart Block
+//
+// File Name: main.c
+//
+// Description:
+//     SW1 is released: Green light turns on and waits
+//     SW1 is held: Green light goes off
+//     SW1 is released after being pressed: Red light goes on for 250ms,
+//     then it turns off, and Green light turns on again.
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 09, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********1. Pre-processor Section**********
 #include "TExaS.h"  // lab grader functions

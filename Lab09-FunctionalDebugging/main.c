@@ -1,25 +1,25 @@
-/*****************************************************************************
-
-UTAustinX: UT.6.03x Embedded Systems - Shape the World
-Lab 9: Functional Debugging
-
-File Name: main.c
-
-Description:
-    Learn how to debug using Logic Analyzer
-    When either of SW1 and SW2 is pressed, the LED should flash red 10 Hz
-    Otherwise, turn of the LED
-    When the LED is flashing red,
-    dumb data of PF4-PF0 to Data[] array for visual observing
-
-Compatibility: EK-TM4C123GXL
-
-Phi Luu
-Portland, Oregon, United States
-Created March 25, 2016
-Updated July 22, 2016
-
-*****************************************************************************/
+//****************************************************************************
+//
+// UTAustinX: UT.6.03x Embedded Systems - Shape the World
+// Lab 9: Functional Debugging
+//
+// File Name: main.c
+//
+// Description:
+//     Learn how to debug using Logic Analyzer
+//     When either of SW1 and SW2 is pressed, the LED should flash red 10 Hz
+//     Otherwise, turn of the LED
+//     When the LED is flashing red,
+//     dumb data of PF4-PF0 to Data[] array for visual observing
+//
+// Compatibility: EK-TM4C123GXL
+//
+// Phi Luu
+// Portland, Oregon, United States
+// Created March 25, 2016
+// Updated August 13, 2016
+//
+//****************************************************************************
 
 //**********1. Pre-processor Section**********
 #include "TExaS.h"
@@ -64,17 +64,16 @@ void EnableInterrupts(void);    // enable interrupts
 // Outputs: None
 void PortF_Init(void) {
     volatile unsigned long delay;
-    SYSCTL_RCGC2_R |= 0x00000020;     // 1) activate clock for Port F
-    delay = SYSCTL_RCGC2_R;           // allow time for clock to start
+    SYSCTL_RCGC2_R |= 0x00000020;       // 1) activate clock for Port F
+    delay = SYSCTL_RCGC2_R;             // allow time for clock to start
     GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;  // 2) unlock GPIO Port F
-    GPIO_PORTF_CR_R |= 0x1F;          // allow changes to PF4-PF0
-    // only PF0 needs to be unlocked, other bits can't be locked
-    GPIO_PORTF_AMSEL_R = 0x00;  // 3) disable analog function
-    GPIO_PORTF_PCTL_R = 0x00;   // 4) PCTL GPIO on PF4-PF0
-    GPIO_PORTF_DIR_R |= 0x0E;   // 5) PF4, PF0 inputs, PF3-PF1 outputs
-    GPIO_PORTF_AFSEL_R = 0x00;  // 6) disable alternate function
-    GPIO_PORTF_PUR_R |= 0x11;   // enable pull-up resistor on PF0 and PF4
-    GPIO_PORTF_DEN_R |= 0x1F;   // 7) enable digital I/O on PF4-PF0
+    GPIO_PORTF_CR_R |= 0x1F;            // allow changes to PF4-PF0
+    GPIO_PORTF_AMSEL_R = 0x00;          // 3) disable analog function
+    GPIO_PORTF_PCTL_R = 0x00;           // 4) PCTL GPIO on PF4-PF0
+    GPIO_PORTF_DIR_R |= 0x0E;           // 5) PF4, PF0 inputs, PF3-PF1 outputs
+    GPIO_PORTF_AFSEL_R = 0x00;          // 6) disable alternate function
+    GPIO_PORTF_PUR_R |= 0x11;           // enable pull-up resistor on PF0 and PF4
+    GPIO_PORTF_DEN_R |= 0x1F;           // 7) enable digital I/O on PF4-PF0
 }
 // Color          LED(s)      PortF
 // dark           ---         0
@@ -125,7 +124,7 @@ int main(void) {
     // loop:
     while (1) {
       if (!PF4 || !PF0) {       // if either SW1 or SW2 is pressed
-        PF1 ^= 0x02;                    // toggle the red LED
+        PF1 ^= 0x02;            // toggle the red LED
         if (i < 50) {
           now = NVIC_ST_CURRENT_R;
           Time[i] = (last-now) & 0x00FFFFFF;    // 24-bit time difference
