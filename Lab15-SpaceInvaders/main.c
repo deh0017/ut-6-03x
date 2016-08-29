@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated August 13, 2016
+// Updated August 28, 2016
 //
 //****************************************************************************
 
@@ -51,16 +51,12 @@ void Delay(unsigned long ms);
 Thing Bunker;
 // ship
 Thing Ship;
-Projectile Missile[84];
+Thing Missile[100];
 unsigned short ADCData;
 unsigned char OldShipX;
-unsigned char MissileX;
-unsigned char MissileY;
 // enemy
 Thing Enemy[5];
-Projectile Laser[84];
-unsigned char LaserX;
-unsigned char LaserY;
+Thing Laser[100];
 unsigned char EnemyFireChance;
 unsigned char EnemyIndex;
 // player data
@@ -68,7 +64,7 @@ unsigned short score = 0;
 
 //**********3. Subroutines Section**********
 //----------NoEnemy----------
-// Checks whether all enemies are eliminated
+// Checks if all enemies are eliminated
 // Inputs: None
 // Outputs: 0   if there is enemy
 //          1   if there is no enemy
@@ -99,28 +95,27 @@ void SysTick_Handler(void) {
     if (Ship.x != OldShipX) {
         // move the ship on the screen
         Nokia5110_PrintBMP(OldShipX, Ship.y, PlayerShip3, 0);
-        Nokia5110_PrintBMP(Ship.x, Ship.y, Ship.image[ShipFrame], 0);
+        Ship_Draw();
         Nokia5110_DisplayBuffer();
     }
     // if the ship fires
     if (GPIO_PORTE_DATA_R & 0x02) {
         // get the coordinate
-        MissileX = Ship.x + PLAYERW/2 - 1;
-        MissileY = SCREENH - PLAYERH - 1;
-        // if there is no missile on that column
-        if (!Missile[MissileX].life) {
-            // store the missile coordinate
-            Missile[MissileX].y = MissileY;
-            Missile[MissileX].life = 1;
-            // initiate the missile on the screen
-            if (Random()%2 == 0) {
-                Nokia5110_PrintBMP(MissileX, MissileY, Missile0, 0);
-            }
-            else {
-                Nokia5110_PrintBMP(MissileX, MissileY, Missile1, 0);
-            }
-            Nokia5110_DisplayBuffer();
+        Missile[MissileRear].x = Ship.x + PLAYERW/2 - 1;
+        Missile[MissileRear].y = SCREENH - PLAYERH - 1;
+        Missile[MissileRear].life = 1;
+        // draw the missile on the buffer
+        if (Random()%2 == 0) {
+            Nokia5110_PrintBMP(Missile[MissileRear].x, Missile[MissileRear].y,
+                                Missile0, 0);
         }
+        else {
+            Nokia5110_PrintBMP(Missile[MissileRear].x, Missile[MissileRear].y,
+                                Missile1, 0);
+        }
+        Nokia5110_DisplayBuffer();
+        // enqueue the coordinate
+        MissileRear++;
     }
     // randomize the fire chance of the enemies
     EnemyFireChance = Random()%500;
@@ -128,18 +123,15 @@ void SysTick_Handler(void) {
     EnemyIndex = Random()%ENEMYNUMBER;
     // probability 3/500
     if (EnemyFireChance < 3) {
-        // get the laser coordinate
-        LaserX = Enemy[EnemyIndex].x + ENEMY20W/2 - 1;
-        LaserY = Enemy[EnemyIndex].y + LASERH - 1;
-        // if there is no laser on that column
-        if (!Laser[LaserX].life) {
-            // store the laser coordinate
-            Laser[LaserX].y = LaserY;
-            Laser[LaserX].life = 1;
-            // initiate the laser on the screen
-            Nokia5110_PrintBMP(LaserX, LaserY, Laser0, 0);
-            Nokia5110_DisplayBuffer();
-        }
+        // get the coordinate
+        Laser[LaserRear].x = Enemy[EnemyIndex].x + ENEMY20W/2 - 1;
+        Laser[LaserRear].y = Enemy[EnemyIndex].y + LASERH - 1;
+        Laser[LaserRear].life = 1;
+        // draw the laser on the buffer
+        Nokia5110_PrintBMP(Laser[LaserRear].x, Laser[LaserRear].y, Laser0, 0);
+        Nokia5110_DisplayBuffer();
+        // enqueue the coordinate
+        LaserRear++;
     }
 }
 
@@ -173,21 +165,23 @@ int main(void) {
     // Set up:
     // set system clock to 80 MHz
     TExaS_Init(SSI0_Real_Nokia5110_Scope);
-    Random_Init(1);	// enable randomization
-    ADC0_Init();    // init PE2 for ADC
-    DAC_Init();     // init PB3-PB0 for 4-bit DAC
+    Random_Init(1);	    // enable randomization
+    ADC0_Init();        // init PE2 for ADC
+    DAC_Init();         // init PB3-PB0 for 4-bit DAC
     // init Nokia 5110 screen
     Nokia5110_Init();
     Nokia5110_ClearBuffer();
     Nokia5110_DisplayBuffer();
-    Ship_Init();    // init position, state, and life of the ship
-    Bunker_Init();  // init position, state, and life of the bunker
-    Enemy_Init();   // init position, state, and life of enemies
-    Missile_Init(); // default values for missiles
-    Laser_Init();   // default values for lasers
+    Ship_Init();        // init position, state, and life of the ship
+    Bunker_Init();      // init position, state, and life of the bunker
+    Enemy_Init();       // init position, state, and life of enemies
+    Missile_Init();     // default values for missiles
+    Laser_Init();       // default values for lasers
+    Ship_Draw();        // draw the ship on the buffer
+    Bunker_Draw();     // draw the bunker on the buffer
     Nokia5110_DisplayBuffer();  // initialize the startup screen
-    SysTick_Init(); // set up SysTick interrupt
-    Timer2_Init();  // set up Timer2A interrupt
+    SysTick_Init();     // set up SysTick interrupt
+    Timer2_Init();      // set up Timer2A interrupt
     EnableInterrupts();         // interrupts begin to tick
 
     // Loop:
@@ -212,7 +206,7 @@ int main(void) {
             // terminate the program
             break;
         }
-        // move all missiles and lasers 1 pixel at a time
-        Missiles_And_Lasers();
+        // otherwise
+        Missile_Move();
     }
 }

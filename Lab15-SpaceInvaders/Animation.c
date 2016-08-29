@@ -12,7 +12,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated August 13, 2016
+// Updated August 28, 2016
 //
 //****************************************************************************
 
@@ -37,21 +37,26 @@ const unsigned char* MissileStyle[2] = {
     Missile1,               // right
 };
 
+unsigned char MissileFront = 0;
+unsigned char MissileRear = 0;
+unsigned char LaserFront = 0;
+unsigned char LaserRear = 0;
+
 const unsigned char ENEMYNUMBER = 5;    // the number of sprites
 
 // current frame of the ship
-unsigned char ShipFrame;    // 0 = undamaged
-                            // 1 = moderate generic damaged
-                            // 2 = heavy generic damaged
-                            // 3 = destroyed
+unsigned char ShipFrame;        // 0 = undamaged
+                                // 1 = moderate generic damaged
+                                // 2 = heavy generic damaged
+                                // 3 = destroyed
 // current frame of the bunker
-unsigned char BunkerFrame;  // 0 = undamaged
-                            // 1 = moderate generic damaged
-                            // 2 = heavy generic damaged
-                            // 3 = destroyed
+unsigned char BunkerFrame;      // 0 = undamaged
+                                // 1 = moderate generic damaged
+                                // 2 = heavy generic damaged
+                                // 3 = destroyed
 // current frame of the enemy
-unsigned char EnemyFrame;   // 0 = frame A
-                            // 1 = frame B
+unsigned char EnemyFrame;       // 0 = frame A
+                                // 1 = frame B
 
 //**********Ship_Init**********
 // Initializes coordinate, frames, and current frame of the ship
@@ -61,13 +66,19 @@ unsigned char EnemyFrame;   // 0 = frame A
 void Ship_Init(void) {
     Ship.x = (SCREENW - PLAYERW)/2;
     Ship.y = (SCREENH - 1);
-    Ship.image[0] = PlayerShip0;    // undamaged
-    Ship.image[1] = PlayerShip1;    // moderate generic damaged
-    Ship.image[2] = PlayerShip2;    // heavy generic damaged
-    Ship.image[3] = BigExplosion0;  // destroyed
+    Ship.image[0] = PlayerShip0;        // undamaged
+    Ship.image[1] = PlayerShip1;        // moderate generic damaged
+    Ship.image[2] = PlayerShip2;        // heavy generic damaged
+    Ship.image[3] = BigExplosion0;      // destroyed
     Ship.life = 3;
     ShipFrame = 0;
-    // output the image of the player's ship on the buffer
+}
+
+//**********Ship_Draw**********
+// Draws the image of the player's ship on the buffer
+// Inputs: None
+// Outputs: None
+void Ship_Draw(void) {
     Nokia5110_PrintBMP(Ship.x, Ship.y, Ship.image[ShipFrame], 0);
 }
 
@@ -85,8 +96,22 @@ void Bunker_Init(void) {
     Bunker.image[3] = Bunker3;      // destroyed
     Bunker.life = 3;
     BunkerFrame = 0;
-    // output the image of the bunker on the buffer
+}
+
+//**********Bunker_Draw**********
+// Draws the image of the bunker on the buffer
+// Inputs: None
+// Outputs: None
+void Bunker_Draw(void) {
     Nokia5110_PrintBMP(Bunker.x, Bunker.y, Bunker.image[BunkerFrame], 0);
+}
+
+//**********Enemy_Draw**********
+// Draws the image of a specific enemy on the buffer
+// Inputs: None
+// Outputs: None
+void Enemy_Draw(unsigned char i){
+    Nokia5110_PrintBMP(Enemy[i].x, Enemy[i].y, Enemy[i].image[EnemyFrame], 0);
 }
 
 //**********Enemy_Init**********
@@ -103,9 +128,7 @@ void Enemy_Init(void) {
         Enemy[i].image[0] = EnemyFrameA[i%3];
         Enemy[i].image[1] = EnemyFrameB[i%3];
         Enemy[i].life = 1;
-        // output the image of the i-th enemy on the buffer
-        Nokia5110_PrintBMP(Enemy[i].x, Enemy[i].y,
-                           Enemy[i].image[EnemyFrame], 0);
+        Enemy_Draw(i);
     }
 }
 
@@ -115,10 +138,34 @@ void Enemy_Init(void) {
 // Outputs: None
 void Missile_Init(void) {
     unsigned char i;
-    for (i = 0; i < SCREENW; i++) {
+    for (i = 0; i < 100; i++) {
+        Missile[i].x = 0;
         Missile[i].y = 0;
         Missile[i].life = 0;
     }
+}
+
+//**********Missile_Move**********
+// Move missiles 1 pixel at a time
+// Inputs: None
+// Outputs: None
+void Missile_Move(void) {
+    while (MissileFront < MissileRear) {
+        if (Missile[MissileFront].life) {
+            // update y-coordinate
+            Missile[MissileFront].y--;
+            // move 1 pixel at a time
+            Nokia5110_PrintBMP(Missile[MissileFront].x,
+                        Missile[MissileFront].y + 1, Missile2, 0);
+            Nokia5110_PrintBMP(Missile[MissileFront].x,
+                        Missile[MissileFront].y, MissileStyle[Random()%2], 0);
+            Nokia5110_DisplayBuffer();
+            // make the missile slower
+            Delay(50);
+        }
+        MissileFront++;
+    }
+    MissileFront = 0;
 }
 
 //**********Laser_Init**********
@@ -127,107 +174,116 @@ void Missile_Init(void) {
 // Outputs: None
 void Laser_Init(void) {
     unsigned char i;
-    for (i = 0; i < SCREENW; i++) {
+    for (i = 0; i < 100; i++) {
+        Laser[i].x = 0;
         Laser[i].y = 0;
         Laser[i].life = 0;
     }
 }
 
-//**********Missiles_And_Lasers**********
-// Process the animation of missiles and lasers
-// Also process the all the collisions
+//**********Laser_Move**********
+// Move lasers 1 pixel at a time
 // Inputs: None
 // Outputs: None
-void Missiles_And_Lasers(void) {
-    unsigned char i, j;
-    for (i = 0; i < SCREENW; i++) {
-        // process the missile-laser collision
-        for (j = i - 1; j < i + 4; j++) {
-            if (Missile[i].life && Laser[j].life
-                    && Missile[i].y - Laser[j].y <= 5) {
-                // set the life to be non-existent
-                Missile[i].life = 0;
-                Laser[j].life = 0;
-                // erase the pair out of the field
-                Nokia5110_PrintBMP(i, Missile[i].y, Missile2, 0);
-                Nokia5110_PrintBMP(j, Laser[j].y, Laser1, 0);
-                Nokia5110_DisplayBuffer();
-                break;
-            }
-        }
-        // move the missile
-        if (Missile[i].life) {
-            // move 1 pixel at a time
-            Nokia5110_PrintBMP(i, Missile[i].y + 1, Missile2, 0);
-            Nokia5110_PrintBMP(i, Missile[i].y, MissileStyle[Random()%2], 0);
-            Nokia5110_DisplayBuffer();
-            // process missile-enemy collision
+void Laser_Move(void) {
 
-            // process missile-bunker collision
-            if (Bunker.life && i >= 30 && i <= 51) {
-                // reduce the bunker's life
-                BunkerFrame++;
-                Bunker.life--;
-                // set the missile to be non-existent
-                Missile[i].life = 0;
-                // change the bunker's image and erase the missile
-                Nokia5110_PrintBMP(i, Missile[i].y, Missile2, 0);
-                Nokia5110_PrintBMP(Bunker.x, Bunker.y,
-                                   Bunker.image[BunkerFrame], 0);
-                Nokia5110_DisplayBuffer();
-            }
-            // update the y-coordinate of the missile
-            Missile[i].y--;
-
-            // delay makes the game easier
-            Delay(50);
-        }
-        // move the laser
-        if (Laser[i].life) {
-            // move 1 pixel at a time
-            Nokia5110_PrintBMP(i, Laser[i].y - 1, Laser1, 0);
-            Nokia5110_PrintBMP(i, Laser[i].y, Laser0, 0);
-            Nokia5110_DisplayBuffer();
-            // process laser-ship collision
-            if (Ship.life && Ship.y - Laser[i].y <= 6
-                    && i >= Ship.x - 1 && i <= Ship.x + 18) {
-                // reduce the ship's life
-                ShipFrame++;
-                Ship.life--;
-                // set the laser to be non-existent
-                Laser[i].life = 0;
-                // change the ship's frame and erase the laser
-                Nokia5110_PrintBMP(i, Laser[i].y, Laser1, 0);
-                Nokia5110_PrintBMP(Ship.x, Ship.y, Ship.image[ShipFrame], 0);
-                Nokia5110_DisplayBuffer();
-                // after the ship is destroyed
-                if (!Ship.life) {
-                    // display the second frame of the explosion
-                    Delay(250);
-                    Nokia5110_PrintBMP(Ship.x, Ship.y, BigExplosion1, 0);
-                    Nokia5110_DisplayBuffer();
-                    Delay(500);
-                }
-            }
-            // process laser-bunker collision
-            if (Bunker.life && Bunker.y - Laser[i].y <= 3
-                    && i >= 30 && i <= 51) {
-                // reduce the bunker's life
-                BunkerFrame++;
-                Bunker.life--;
-                // set the laser to be non-existent
-                Laser[i].life = 0;
-                // change the bunker's frame and erase the laser
-                Nokia5110_PrintBMP(i, Laser[i].y, Laser1, 0);
-                Nokia5110_PrintBMP(Bunker.x, Bunker.y,
-                                   Bunker.image[BunkerFrame], 0);
-                Nokia5110_DisplayBuffer();
-            }
-            // update the y-coordinate of the laser
-            Laser[i].y++;
-
-            // delay makes the game easier
-            Delay(50);
-        }
-    }
 }
+
+////**********Missiles_And_Lasers**********
+//// Process the animation of missiles and lasers
+//// Also process the all the collisions
+//// Inputs: None
+//// Outputs: None
+//void Missiles_And_Lasers(void) {
+//    unsigned char i, j;
+//    for (i = 0; i < SCREENW; i++) {
+//        // process the missile-laser collision
+//        for (j = i - 1; j < i + 4; j++) {
+//            if (Missile[i].life && Laser[j].life
+//                    && Missile[i].y - Laser[j].y <= 5) {
+//                // set the life to be non-existent
+//                Missile[i].life = 0;
+//                Laser[j].life = 0;
+//                // erase the pair out of the field
+//                Nokia5110_PrintBMP(i, Missile[i].y, Missile2, 0);
+//                Nokia5110_PrintBMP(j, Laser[j].y, Laser1, 0);
+//                Nokia5110_DisplayBuffer();
+//                break;
+//            }
+//        }
+//        // move the missile
+//        if (Missile[i].life) {
+//            // move 1 pixel at a time
+//            Nokia5110_PrintBMP(i, Missile[i].y + 1, Missile2, 0);
+//            Nokia5110_PrintBMP(i, Missile[i].y, MissileStyle[Random()%2], 0);
+//            Nokia5110_DisplayBuffer();
+//            // process missile-enemy collision
+
+//            // process missile-bunker collision
+//            if (Bunker.life && i >= 30 && i <= 51) {
+//                // reduce the bunker's life
+//                BunkerFrame++;
+//                Bunker.life--;
+//                // set the missile to be non-existent
+//                Missile[i].life = 0;
+//                // change the bunker's image and erase the missile
+//                Nokia5110_PrintBMP(i, Missile[i].y, Missile2, 0);
+//                Nokia5110_PrintBMP(Bunker.x, Bunker.y,
+//                                   Bunker.image[BunkerFrame], 0);
+//                Nokia5110_DisplayBuffer();
+//            }
+//            // update the y-coordinate of the missile
+//            Missile[i].y--;
+
+//            // delay makes the game easier
+//            Delay(50);
+//        }
+//        // move the laser
+//        if (Laser[i].life) {
+//            // move 1 pixel at a time
+//            Nokia5110_PrintBMP(i, Laser[i].y - 1, Laser1, 0);
+//            Nokia5110_PrintBMP(i, Laser[i].y, Laser0, 0);
+//            Nokia5110_DisplayBuffer();
+//            // process laser-ship collision
+//            if (Ship.life && Ship.y - Laser[i].y <= 6
+//                    && i >= Ship.x - 1 && i <= Ship.x + 18) {
+//                // reduce the ship's life
+//                ShipFrame++;
+//                Ship.life--;
+//                // set the laser to be non-existent
+//                Laser[i].life = 0;
+//                // change the ship's frame and erase the laser
+//                Nokia5110_PrintBMP(i, Laser[i].y, Laser1, 0);
+//                Nokia5110_PrintBMP(Ship.x, Ship.y, Ship.image[ShipFrame], 0);
+//                Nokia5110_DisplayBuffer();
+//                // after the ship is destroyed
+//                if (!Ship.life) {
+//                    // display the second frame of the explosion
+//                    Delay(250);
+//                    Nokia5110_PrintBMP(Ship.x, Ship.y, BigExplosion1, 0);
+//                    Nokia5110_DisplayBuffer();
+//                    Delay(500);
+//                }
+//            }
+//            // process laser-bunker collision
+//            if (Bunker.life && Bunker.y - Laser[i].y <= 3
+//                    && i >= 30 && i <= 51) {
+//                // reduce the bunker's life
+//                BunkerFrame++;
+//                Bunker.life--;
+//                // set the laser to be non-existent
+//                Laser[i].life = 0;
+//                // change the bunker's frame and erase the laser
+//                Nokia5110_PrintBMP(i, Laser[i].y, Laser1, 0);
+//                Nokia5110_PrintBMP(Bunker.x, Bunker.y,
+//                                   Bunker.image[BunkerFrame], 0);
+//                Nokia5110_DisplayBuffer();
+//            }
+//            // update the y-coordinate of the laser
+//            Laser[i].y++;
+
+//            // delay makes the game easier
+//            Delay(50);
+//        }
+//    }
+//}
