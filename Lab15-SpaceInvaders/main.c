@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated August 28, 2016
+// Updated September 05, 2016
 //
 //****************************************************************************
 
@@ -28,54 +28,66 @@
 // 1*R resistor DAC bit 3 on PB3 (most significant bit)
 
 //**********1. Pre-processor Section**********
+#include "AnalogDigital.h"
+#include "Data.h"
+#include "Graphic.h"
+#include "Nokia5110.h"
 #include "Random.h"
 #include "TExaS.h"
-#include "Animation.h"
-#include "Nokia5110.h"
-#include "Images.h"
-#include "Tick.h"
-#include "ADC.h"
-#include "DAC.h"
+#include "Timer.h"
 #include "tm4c123gh6pm.h"
 
 //**********2. Global Declarations Section**********
 // Function Prototypes
-void DisableInterrupts(void);
 void EnableInterrupts(void);
+void DisableInterrupts(void);
+void Delay(unsigned long ms);
+unsigned char Enemy_Exist(void);
 void SysTick_Handler(void);
 void Timer2A_Handler(void);
-void Delay(unsigned long ms);
 
 // Global Variables
-// bunker
-Thing Bunker;
-// ship
-Thing Ship;
-Thing Missile[100];
 unsigned short ADCData;
-unsigned char OldShipX;
-// enemy
-Thing Enemy[5];
-Thing Laser[100];
-unsigned char EnemyFireChance;
-unsigned char EnemyIndex;
-// player data
-unsigned short score = 0;
+unsigned char NewShipX;
+unsigned char prevSwitchState = 0;
+unsigned char EnemyFire;
 
 //**********3. Subroutines Section**********
 //----------NoEnemy----------
 // Checks if all enemies are eliminated
 // Inputs: None
-// Outputs: 0   if there is enemy
-//          1   if there is no enemy
-unsigned char NoEnemy(void) {
+// Outputs: 0   if there is no enemy
+//          1   if there is enemy
+unsigned char Enemy_Exist(void) {
     unsigned char i;
-    for (i = 0; i < ENEMYNUMBER; i++) {
-        if (Enemy[i].life == 1) {
-            return 0;
+    if (Mothership.life) {
+        return 1;
+    }
+    for (i = 0; i < MAXENEMY; i++) {
+        if (Enemy[i].life) {
+            return 1;
         }
     }
-    return 1;
+    return 0;
+}
+
+//----------Display_GameOver----------
+// Displays the closure of the game
+// Inputs: None
+// Outputs: None
+void Display_GameOver(void) {
+    Nokia5110_Clear();
+    Nokia5110_SetCursor(1, 1);
+    Nokia5110_OutString("GAME OVER");
+    Nokia5110_SetCursor(1, 2);
+    Nokia5110_OutString("Nice try,");
+    Nokia5110_SetCursor(1, 3);
+    Nokia5110_OutString("Earthling!");
+    Nokia5110_SetCursor(3, 4);
+    Nokia5110_OutString("Score:");
+    Nokia5110_SetCursor(1, 5);
+    Nokia5110_OutUDec(Ship.score);
+    Nokia5110_SetCursor(0, 0);
 }
 
 //----------SysTick_Handler----------
@@ -87,51 +99,30 @@ unsigned char NoEnemy(void) {
 void SysTick_Handler(void) {
     // read raw input from the slide pot
     ADCData = ADC0_In();
-    // store old ship x-position
-    OldShipX = Ship.x;
     // get new ship x-position
-    Ship.x = ADCData*(SCREENW - PLAYERW)/4095;
-    // if the ship moves
-    if (Ship.x != OldShipX) {
-        // move the ship on the screen
-        Nokia5110_PrintBMP(OldShipX, Ship.y, PlayerShip3, 0);
-        Ship_Draw();
+    NewShipX = ADCData*(SCREENW - SHIPW)/4095;
+    // move the ship if there is a change in x-coordinate
+    if (NewShipX != Ship.x) {
+        Move(&Ship, NewShipX, Ship.y);
         Nokia5110_DisplayBuffer();
     }
-    // if the ship fires
-    if (GPIO_PORTE_DATA_R & 0x02) {
-        // get the coordinate
-        Missile[MissileRear].x = Ship.x + PLAYERW/2 - 1;
-        Missile[MissileRear].y = SCREENH - PLAYERH - 1;
-        Missile[MissileRear].life = 1;
-        // draw the missile on the buffer
-        if (Random()%2 == 0) {
-            Nokia5110_PrintBMP(Missile[MissileRear].x, Missile[MissileRear].y,
-                                Missile0, 0);
-        }
-        else {
-            Nokia5110_PrintBMP(Missile[MissileRear].x, Missile[MissileRear].y,
-                                Missile1, 0);
-        }
+    // create a missile and flash a LED if the ship fires
+    if ((GPIO_PORTE_DATA_R & LSWITCHPIN) != prevSwitchState
+            && (GPIO_PORTE_DATA_R & LSWITCHPIN)) {
+        Create_Laser();
         Nokia5110_DisplayBuffer();
-        // enqueue the coordinate
-        MissileRear++;
+        GPIO_PORTB_DATA_R ^= LLEDPIN;
     }
-    // randomize the fire chance of the enemies
-    EnemyFireChance = Random()%500;
-    // randomize which one of them will fire
-    EnemyIndex = Random()%ENEMYNUMBER;
-    // probability 3/500
-    if (EnemyFireChance < 3) {
-        // get the coordinate
-        Laser[LaserRear].x = Enemy[EnemyIndex].x + ENEMY20W/2 - 1;
-        Laser[LaserRear].y = Enemy[EnemyIndex].y + LASERH - 1;
-        Laser[LaserRear].life = 1;
-        // draw the laser on the buffer
-        Nokia5110_PrintBMP(Laser[LaserRear].x, Laser[LaserRear].y, Laser0, 0);
+    prevSwitchState = GPIO_PORTE_DATA_R & LSWITCHPIN;
+    // create a laser and flash a LED if an enemy fires
+    if (Random()%500 < 3) {
+        EnemyFire = 1;
+        Create_Missile();
         Nokia5110_DisplayBuffer();
-        // enqueue the coordinate
-        LaserRear++;
+        GPIO_PORTB_DATA_R ^= RLEDPIN;
+    }
+    else {
+        EnemyFire = 0;
     }
 }
 
@@ -142,20 +133,23 @@ void SysTick_Handler(void) {
 // Ouputs: None
 // Assumes: 80-MHz clock
 void Timer2A_Handler(void) {
-    // if the ship fires
+    // ship fires sound
     if (GPIO_PORTE_DATA_R & 0x02) {
-        // play the shooting sound
-        DAC_Shoot();
+        PlaySound_Shoot();
     }
-    // if the bunker is destroyed
-
-    // if one sprite is dead
-
-    // if the ship explodes
+    // enemy fires sound
+    if (EnemyFire) {
+    }
+    // ship destroyed sound
     if (!Ship.life) {
-        // play the explosive sound
-        DAC_Explosion();
+        PlaySound_Explosion();
     }
+    // bunker destroyed sound
+
+    // enemy destroyed sound
+
+    // mothership destroyed sound
+
     // acknowledge timer2A timeout
     TIMER2_ICR_R = 0x00000001;
 }
@@ -163,50 +157,27 @@ void Timer2A_Handler(void) {
 //**********4. Main Function**********
 int main(void) {
     // Set up:
-    // set system clock to 80 MHz
-    TExaS_Init(SSI0_Real_Nokia5110_Scope);
-    Random_Init(1);	    // enable randomization
-    ADC0_Init();        // init PE2 for ADC
-    DAC_Init();         // init PB3-PB0 for 4-bit DAC
-    // init Nokia 5110 screen
-    Nokia5110_Init();
+    TExaS_Init(NoLCD_NoScope);  // set system clock to 80 MHz
+    Random_Init(1);	            // enable randomization
+    ADC0_Init();                // PE2 ADC input, PE1-PE0 switch input
+    DAC_Init();                 // PB5-PB4 LED output, PB3-PB0 DAC output
+    Nokia5110_Init();           // Nokia5110 screen
     Nokia5110_ClearBuffer();
+    Init_Thing();
+    Draw(Ship);
+    Draw(Bunker);
+    Draw_AllEnemies();
     Nokia5110_DisplayBuffer();
-    Ship_Init();        // init position, state, and life of the ship
-    Bunker_Init();      // init position, state, and life of the bunker
-    Enemy_Init();       // init position, state, and life of enemies
-    Missile_Init();     // default values for missiles
-    Laser_Init();       // default values for lasers
-    Ship_Draw();        // draw the ship on the buffer
-    Bunker_Draw();     // draw the bunker on the buffer
-    Nokia5110_DisplayBuffer();  // initialize the startup screen
-    SysTick_Init();     // set up SysTick interrupt
-    Timer2_Init();      // set up Timer2A interrupt
+    Init_SysTick();             // set up SysTick interrupt
+    Init_Timer2();              // set up Timer2A interrupt
     EnableInterrupts();         // interrupts begin to tick
-
-    // Loop:
-    while (1) {
-        // if the game is over
-        if (!Ship.life || NoEnemy()) {
-            // disable all interrupts
-            DisableInterrupts();
-            // display the game-over message and the score on the screen
-            Nokia5110_Clear();
-            Nokia5110_SetCursor(1, 1);
-            Nokia5110_OutString("GAME OVER");
-            Nokia5110_SetCursor(1, 2);
-            Nokia5110_OutString("Nice try,");
-            Nokia5110_SetCursor(1, 3);
-            Nokia5110_OutString("Earthling!");
-            Nokia5110_SetCursor(3, 4);
-            Nokia5110_OutString("Score:");
-            Nokia5110_SetCursor(1, 5);
-            Nokia5110_OutUDec(score);
-            Nokia5110_SetCursor(0, 0);
-            // terminate the program
-            break;
-        }
-        // otherwise
-        Missile_Move();
+    // Loops:
+    // As long as the ship and the enemy are live, the game still runs
+    while (Ship.life && Enemy_Exist()) {
+        Move_Lasers();
+        Move_Missiles();
     }
+    // Otherwise, game over
+    DisableInterrupts();
+    Display_GameOver();
 }

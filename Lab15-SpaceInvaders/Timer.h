@@ -12,23 +12,23 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated August 13, 2016
+// Updated September 05, 2016
 //
 //****************************************************************************
 
-//**********SysTick_Init**********
+//**********Init_SysTick**********
 // Initializes 30-Hz software-triggered interrupt
 // Inputs: None
 // Outputs: None
 // Assumes: 80-MHz clock
-void SysTick_Init(void);			        // SysTick initialization
+void Init_SysTick(void);
 
-//**********Timer2_Init**********
+//**********Init_Timer2**********
 // Initializes 11-kHz software-triggered interrupt
 // Inputs: None
 // Outputs: None
 // Assumes: 80-MHz clock
-void Timer2_Init(void);
+void Init_Timer2(void);
 
 //**********Delay**********
 // Delays a number of times based on the clock speed of the LaunchPad

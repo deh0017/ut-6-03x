@@ -127,7 +127,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>1</LimitSpeedToRealTime>
+            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
             <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
@@ -426,34 +426,29 @@
               <FilePath>.\TExaS.c</FilePath>
             </File>
             <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>Animation.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Animation.c</FilePath>
-            </File>
-            <File>
-              <FileName>DAC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\DAC.c</FilePath>
-            </File>
-            <File>
-              <FileName>Images.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Images.c</FilePath>
-            </File>
-            <File>
-              <FileName>Tick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Tick.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>AnalogDigital.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\AnalogDigital.c</FilePath>
+            </File>
+            <File>
+              <FileName>Data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Data.c</FilePath>
+            </File>
+            <File>
+              <FileName>Graphic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Graphic.c</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer.c</FilePath>
             </File>
           </Files>
         </Group>

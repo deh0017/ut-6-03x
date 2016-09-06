@@ -12,20 +12,20 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated August 13, 2016
+// Updated September 05, 2016
 //
 //****************************************************************************
 
-#include "Tick.h"
+#include "Timer.h"
 #include "tm4c123gh6pm.h"
 
-//**********SysTick_Init**********
+//**********Init_SysTick**********
 // Initializes 30-Hz software-triggered interrupt
 // Inputs: None
 // Outputs: None
 // Assumes: 80-MHz clock
-void SysTick_Init(void) {
-    NVIC_ST_CTRL_R = 0;	            // disable SysTick during set up
+void Init_SysTick(void) {
+    NVIC_ST_CTRL_R = 0;             // disable SysTick during set up
     NVIC_ST_RELOAD_R = 2666665;     // 30-Hz interrupt 2666665
     NVIC_ST_CURRENT_R = 0;          // overwrite to CURRENT to clear it
     // priority 1
@@ -34,12 +34,12 @@ void SysTick_Init(void) {
     NVIC_ST_CTRL_R = 0x0007;
 }
 
-//**********Timer2_Init**********
+//**********Init_Timer2**********
 // Initializes 11-kHz software-triggered interrupt
 // Inputs: None
 // Outputs: None
 // Assumes: 80-MHz clock
-void Timer2_Init(void) {
+void Init_Timer2(void) {
     unsigned long volatile delay;
     SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
     delay = SYSCTL_RCGCTIMER_R;
@@ -64,9 +64,9 @@ void Timer2_Init(void) {
 // Assumes: 80-MHz clock
 void Delay(unsigned long ms) {
     unsigned long count;
-    while (ms > 0) {
-        count = 16000;          // 16000 for 80 MHz
-        while (count > 0) {
+    while (ms) {
+        count = 16000;          // 16000 = 1ms for 80 MHz
+        while (count) {
             count--;
         }
         ms--;
