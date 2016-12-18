@@ -99,8 +99,8 @@ void Display_GameOver(void) {
 void SysTick_Handler(void) {
     // read raw input from the slide pot
     ADCData = ADC0_In();
-    // get new ship x-position
-    NewShipX = ADCData*(SCREENW - SHIPW)/4095;
+    // get new ship x-position (limit from 0 - 66)
+    NewShipX = 66 - ADCData*(SCREENW - SHIPW)/4095;
     // move the ship if there is a change in x-coordinate
     if (NewShipX != Ship.x) {
         Move(&Ship, NewShipX, Ship.y);
