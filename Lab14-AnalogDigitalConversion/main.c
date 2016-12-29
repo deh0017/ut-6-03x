@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 07, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -35,10 +35,10 @@
 void EnableInterrupts(void);
 
 // Global Variables
-unsigned char String[10]; // null-terminated ASCII string
-unsigned long Distance;   // unit of 0.001 cm
-unsigned long ADCdata;    // 12-bit 0 to 4095 sample
-unsigned long Flag;       // 1 = valid Distance, 0 = empty Distance
+unsigned char String[10];   // null-terminated ASCII string
+unsigned long Distance;     // unit of 0.001 cm
+unsigned long ADCdata;      // 12-bit 0 to 4095 sample
+unsigned long Flag;         // 1 = valid Distance, 0 = empty Distance
 
 //**********3. Subroutines Section**********
 //----------Convert----------
@@ -68,8 +68,9 @@ unsigned long Convert(unsigned long sample) {
     // A = 0.6645*1024 = 680
 
     unsigned long result;
+
     // Distance = ((A*ADCdata) >> 10) + B
-    result = ((680*sample) >> 10) + 188;
+    result = ((680 * sample) >> 10) + 188;
     return result;
 }
 
@@ -83,7 +84,7 @@ void SysTick_Init() {
     NVIC_ST_RELOAD_R = 1999999; // trigger every 25ms
     // period = 1/(40Hz) * (80,000,000Hz) = 2,000,000
     // period - 1 = 1,999,999
-    NVIC_ST_CURRENT_R = 0 ;     // any write to CURRENT clear it
+    NVIC_ST_CURRENT_R = 0;      // any write to CURRENT clear it
     NVIC_ST_CTRL_R |= 0x05;     // set bits CLK_SRC and ENABLE of SysTick
     // priority 1
     NVIC_SYS_PRI3_R = (NVIC_SYS_PRI3_R & 0x00FFFFFF) | 0x20000000;
@@ -124,6 +125,7 @@ void UART_ConvertDistance(unsigned long n) {
     unsigned char ReverseString[15];
     short j = 0;
     unsigned long m = n;    // keep n the same value after converting
+
     // special case
     if (m == 0) {
         StringLength = 1;   // the length of String[10] is only 1
@@ -132,11 +134,11 @@ void UART_ConvertDistance(unsigned long n) {
     }
     // otherwise
     while (m != 0) {
-    // using 10-division to get every single digit of m until m = 0
-        ReverseString[j] = m%10 + 0x30; // get the last digit of n
-        m /= 10;    // after get a digit, decrease n for the next time
+        // using 10-division to get every single digit of m until m = 0
+        ReverseString[j] = m % 10 + 0x30;   // get the last digit of n
+        m /= 10;                            // after get a digit, decrease n for the next time
         // eventually, n will equal 0 and the loop will be terminated
-        j++;        // increase the index
+        j++;                                // increase the index
     }
     // the result string is reversed because of this method
     // change to the right order
@@ -210,16 +212,17 @@ void UART_ConvertDistance(unsigned long n) {
 // Outputs: None
 void PortF_Init(void) {
     volatile unsigned long delay;
-    SYSCTL_RCGC2_R |= 0x20;           // enable port F clock
-    delay = SYSCTL_RCGC2_R;           // allow time for clock to start
-    GPIO_PORTF_LOCK_R |= 0x4C4F434B;  // unlock GPIO port F
-    GPIO_PORTF_CR_R |= 0x14;          // allow change to PF4, PF2
-    GPIO_PORTF_DIR_R |= 0x04;         // PF4 input, PF2 output
-    GPIO_PORTF_AFSEL_R &= ~0x14;  // disable alternate function on PF4, PF2
-    GPIO_PORTF_PCTL_R = 0;        // disable PCTL
-    GPIO_PORTF_DEN_R |= 0x14;     // enable digital I/O on PF4, PF2
-    GPIO_PORTF_PUR_R |= 0x10;     // enable pull-up resistor on PF4
-    GPIO_PORTF_AMSEL_R &= ~0x14;  // disable analog function on PF4, PF2
+
+    SYSCTL_RCGC2_R |= 0x20;             // enable port F clock
+    delay = SYSCTL_RCGC2_R;             // allow time for clock to start
+    GPIO_PORTF_LOCK_R |= 0x4C4F434B;    // unlock GPIO port F
+    GPIO_PORTF_CR_R |= 0x14;            // allow change to PF4, PF2
+    GPIO_PORTF_DIR_R |= 0x04;           // PF4 input, PF2 output
+    GPIO_PORTF_AFSEL_R &= ~0x14;        // disable alternate function on PF4, PF2
+    GPIO_PORTF_PCTL_R = 0;              // disable PCTL
+    GPIO_PORTF_DEN_R |= 0x14;           // enable digital I/O on PF4, PF2
+    GPIO_PORTF_PUR_R |= 0x10;           // enable pull-up resistor on PF4
+    GPIO_PORTF_AMSEL_R &= ~0x14;        // disable analog function on PF4, PF2
 }
 
 //**********4. Main Function:**********
@@ -232,9 +235,10 @@ int main(void) {
     SysTick_Init();
     PortF_Init();
     EnableInterrupts();
-    while(1) {
+    while (1) {
         Flag = 0;                       // read mailbox
-        while (Flag != 1) {}            // wait for the flag to be set
+        while (Flag != 1) {
+        }                               // wait for the flag to be set
         Nokia5110_OutString(String);    // output to Nokia5110 LCD
         UART_ConvertDistance(Distance); // convert Distance to a proper format
         Nokia5110_SetCursor(0, 0);      // set the initial cursor position

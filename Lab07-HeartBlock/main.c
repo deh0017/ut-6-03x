@@ -16,7 +16,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 09, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -25,16 +25,16 @@
 
 // Constant declarations to access port registers
 // using symbolic names instead of addresses
-#define GPIO_PORTF_DATA_R       (*((volatile unsigned long *)0x400253FC))
-#define GPIO_PORTF_DIR_R        (*((volatile unsigned long *)0x40025400))
-#define GPIO_PORTF_AFSEL_R      (*((volatile unsigned long *)0x40025420))
-#define GPIO_PORTF_PUR_R        (*((volatile unsigned long *)0x40025510))
-#define GPIO_PORTF_DEN_R        (*((volatile unsigned long *)0x4002551C))
-#define GPIO_PORTF_LOCK_R       (*((volatile unsigned long *)0x40025520))
-#define GPIO_PORTF_CR_R         (*((volatile unsigned long *)0x40025524))
-#define GPIO_PORTF_AMSEL_R      (*((volatile unsigned long *)0x40025528))
-#define GPIO_PORTF_PCTL_R       (*((volatile unsigned long *)0x4002552C))
-#define SYSCTL_RCGC2_R          (*((volatile unsigned long *)0x400FE108))
+#define GPIO_PORTF_DATA_R		(*((volatile unsigned long *)0x400253FC))
+#define GPIO_PORTF_DIR_R		(*((volatile unsigned long *)0x40025400))
+#define GPIO_PORTF_AFSEL_R		(*((volatile unsigned long *)0x40025420))
+#define GPIO_PORTF_PUR_R		(*((volatile unsigned long *)0x40025510))
+#define GPIO_PORTF_DEN_R		(*((volatile unsigned long *)0x4002551C))
+#define GPIO_PORTF_LOCK_R		(*((volatile unsigned long *)0x40025520))
+#define GPIO_PORTF_CR_R			(*((volatile unsigned long *)0x40025524))
+#define GPIO_PORTF_AMSEL_R		(*((volatile unsigned long *)0x40025528))
+#define GPIO_PORTF_PCTL_R		(*((volatile unsigned long *)0x4002552C))
+#define SYSCTL_RCGC2_R			(*((volatile unsigned long *)0x400FE108))
 
 //**********2. Declarations Section**********
 // Function Prototypes
@@ -55,6 +55,7 @@ void ClearReady(void);              // indicator clearing function
 // Outputs: None
 void PortF_Init(void) {
     volatile unsigned long delay;
+
     SYSCTL_RCGC2_R |= 0x00000020;   // 1) F clock
     delay = SYSCTL_RCGC2_R;         // delay to allow clock to stabilize
     GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock Port F
@@ -83,9 +84,10 @@ void PortF_Init(void) {
 // Outputs: None
 void WaitForASLow(void) {
     unsigned long AS;   // variable for input from SW1
+
     do {
         AS = GPIO_PORTF_DATA_R & 0x10;  // read the status from SW1 repeatedly
-    } while (!AS);      // as long as SW1 is pressed
+    } while (!AS);                      // as long as SW1 is pressed
 }
 
 //----------WaitForASHigh----------
@@ -94,11 +96,12 @@ void WaitForASLow(void) {
 // If AS is currently low, it will wait until it to go high
 // Inputs: None
 // Outputs: None
-void WaitForASHigh (void){
+void WaitForASHigh(void) {
     unsigned long AS;   // variable for input from SW1
+
     do {
         AS = GPIO_PORTF_DATA_R & 0x10;  // read the status from SW1 repeatedly
-    } while (AS);       // as long as SW1 is released
+    } while (AS);                       // as long as SW1 is released
 }
 
 //----------SetVT----------
@@ -140,20 +143,21 @@ void ClearReady(void) {
 // Assumes: 80-MHz clock
 void Delay1ms(unsigned long msec) {
     unsigned long count;      // declare count down variable
+
     while (msec) {
         count = 15913;  // 15913 for simulation and 11934 for the real board
         while (count) {
-            count--;  // when counting down is finished, it takes 0.999875ms
+            count--;    // when counting down is finished, it takes 0.999875ms
         }
-        msec--;       // count down the number of milliseconds you want
+        msec--;         // count down the number of milliseconds you want
     }
 }
 
 //**********4. Main function**********
-int main(void){
+int main(void) {
     // setup:
     // activate grader and set system clock to 80 MHz
-    TExaS_Init(SW_PIN_PF40, LED_PIN_PF31,ScopeOn);
+    TExaS_Init(SW_PIN_PF40, LED_PIN_PF31, ScopeOn);
     PortF_Init();           // port F initalization
     EnableInterrupts();     // enable interrupts for the grader
 

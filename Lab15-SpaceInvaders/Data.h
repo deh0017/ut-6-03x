@@ -12,72 +12,72 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
 //**********Required Hardware I/O Connections**********
-#define POTPIN          (0x04)      // slide pot connected to PE2
-#define LSWITCHPIN      (0x02)      // left switch connected to PE1
-#define RSWITCHPIN      (0x01)      // right switch connected to PE0
-#define LLEDPIN         (0x20)      // left LED connected to PB5
-#define RLEDPIN         (0x10)      // right LED connected to PB4
-#define DACPINS         (0x0F)      // DAC connected to PB3-PB0
+#define POTPIN					(0x04)  // slide pot connected to PE2
+#define LSWITCHPIN				(0x02)  // left switch connected to PE1
+#define RSWITCHPIN				(0x01)  // right switch connected to PE0
+#define LLEDPIN					(0x20)  // left LED connected to PB5
+#define RLEDPIN					(0x10)  // right LED connected to PB4
+#define DACPINS					(0x0F)  // DAC connected to PB3-PB0
 
 //**********DAC Data**********
-#define GPIO_PORTB_DACOUT_R     (*((volatile unsigned long *)0x4000503C))
-#define SHOOTSIZE               ((unsigned short)4080)
-#define EXPLOSIONSIZE           ((unsigned short)2000)
-#define INVADERKILLEDSIZE       ((unsigned short)3377)
-#define FASTINVADER1SIZE        ((unsigned short)982)
+#define GPIO_PORTB_DACOUT_R		(*((volatile unsigned long *)0x4000503C))
+#define SHOOTSIZE				((unsigned short)4080)
+#define EXPLOSIONSIZE			((unsigned short)2000)
+#define INVADERKILLEDSIZE		((unsigned short)3377)
+#define FASTINVADER1SIZE		((unsigned short)982)
 // #define FASTINVADER2SIZE        ((unsigned short)1042)
 // #define FASTINVADER3SIZE        ((unsigned short)1054)
 // #define FASTINVADER4SIZE        ((unsigned short)1098)
-#define HIGHPITCHSIZE           ((unsigned short)1802)
-#define SMALLEXPLOSIONSIZE      ((unsigned short)1500)
+#define HIGHPITCHSIZE			((unsigned short)1802)
+#define SMALLEXPLOSIONSIZE		((unsigned short)1500)
 
 
 //**********Game Data**********
-#define BUNKERW         ((unsigned char)Bunker0[18])
-#define BUNKERH         ((unsigned char)Bunker0[22])
-#define ENEMYW          ((unsigned char)SmallEnemy20PointA[18])
-#define ENEMYH          ((unsigned char)SmallEnemy20PointA[22])
-#define MOTHERSHIPW     ((unsigned char)SmallEnemyBonus0[18])
-#define MOTHERSHIPH     ((unsigned char)SmallEnemyBonus0[22])
-#define LASERW          ((unsigned char)Laser0[18])
-#define LASERH          ((unsigned char)Laser0[22])
-#define MISSILEW        ((unsigned char)Missile0[18])
-#define MISSILEH        ((unsigned char)Missile0[22])
-#define SHIPW           ((unsigned char)PlayerShip0[18])
-#define SHIPH           ((unsigned char)PlayerShip0[22])
-#define MAXENEMY        ((unsigned char)5)       // maximum 5 enemies available
-#define MAXLASER        ((unsigned char)10)      // player can fire 10 lasers
-#define MAXMISSILE      ((unsigned char)4)       // enemy can fire 4 missiles
-#define MOTHERSHIPSCORE ((unsigned short)1000)
-#define DELTAEXPLODE    ((unsigned char)100)      // time between two explosion frame
+#define BUNKERW					((unsigned char)Bunker0[18])
+#define BUNKERH					((unsigned char)Bunker0[22])
+#define ENEMYW					((unsigned char)SmallEnemy20PointA[18])
+#define ENEMYH					((unsigned char)SmallEnemy20PointA[22])
+#define MOTHERSHIPW				((unsigned char)SmallEnemyBonus0[18])
+#define MOTHERSHIPH				((unsigned char)SmallEnemyBonus0[22])
+#define LASERW					((unsigned char)Laser0[18])
+#define LASERH					((unsigned char)Laser0[22])
+#define MISSILEW				((unsigned char)Missile0[18])
+#define MISSILEH				((unsigned char)Missile0[22])
+#define SHIPW					((unsigned char)PlayerShip0[18])
+#define SHIPH					((unsigned char)PlayerShip0[22])
+#define MAXENEMY				((unsigned char)5)      // maximum 5 enemies available
+#define MAXLASER				((unsigned char)10)     // player can fire 10 lasers
+#define MAXMISSILE				((unsigned char)4)      // enemy can fire 4 missiles
+#define MOTHERSHIPSCORE			((unsigned short)1000)
+#define DELTAEXPLODE			((unsigned char)100)    // time between two explosion frame
 
 struct State {
-    const char *name;
-    unsigned char width;              // bitmap width
-    unsigned char height;             // bitmap height
-    unsigned char x;                  // x position
-    unsigned char y;                  // y position
-    unsigned char life;               // number of lives with 0 = dead
-    unsigned short score;
-    unsigned char frame;              // current frame in image[]
-    const unsigned char* image[3];    // contains different state frames
-    const unsigned char* explode[2];     // contains "explode" frame
-    const unsigned char* blank;       // contains a blank cover
+    const char *			name;
+    unsigned char			width;      // bitmap width
+    unsigned char			height;     // bitmap height
+    unsigned char			x;          // x position
+    unsigned char			y;          // y position
+    unsigned char			life;       // number of lives with 0 = dead
+    unsigned short			score;
+    unsigned char			frame;      // current frame in image[]
+    const unsigned char *	image[3];   // contains different state frames
+    const unsigned char *	explode[2]; // contains "explode" frame
+    const unsigned char *	blank;      // contains a blank cover
 };
 typedef struct State Thing;
 extern Thing Ship;
 extern Thing Bunker;
-extern Thing Enemy[MAXENEMY];      // maximum 5 enemy per row
+extern Thing Enemy[MAXENEMY];       // maximum 5 enemy per row
 extern Thing Mothership;
-extern Thing Laser[MAXLASER];      // player can shoot maximum 10 laser
-extern Thing Missile[MAXMISSILE];  // enemy can shoot maximum 4 missiles
-extern unsigned char nLaser;       // current number of lasers
-extern unsigned char nMissile;     // current number of missiles
+extern Thing Laser[MAXLASER];       // player can shoot maximum 10 laser
+extern Thing Missile[MAXMISSILE];   // enemy can shoot maximum 4 missiles
+extern unsigned char nLaser;        // current number of lasers
+extern unsigned char nMissile;      // current number of missiles
 //----------Init_Thing----------
 // Initializes ship, bunker, enemy, mothership, missile, and laser
 // Inputs: None

@@ -14,7 +14,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 07, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -30,9 +30,10 @@ void EnableInterrupts(void);  // enable interrupts
 int main(void) {
     // set up:
     unsigned long n;
-    TExaS_Init();   // initialize grader, set system clock to 80 MHz
-    UART_Init();          // initialize UART
-    EnableInterrupts();   // needed for TExaS
+
+    TExaS_Init();       // initialize grader, set system clock to 80 MHz
+    UART_Init();        // initialize UART
+    EnableInterrupts(); // needed for TExaS
     UART_OutString("Running Lab 11");
 
     // loop:
@@ -43,5 +44,5 @@ int main(void) {
         UART_OutUDec(n);        // write n in number format
         UART_OutString(",  UART_OutDistance ~ ");
         UART_OutDistance(n);    // write n in distance format
-      }
+    }
 }

@@ -15,7 +15,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 06, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -44,22 +44,24 @@ void EnableInterrupts(void);
 //  the width is greater than 20.
 unsigned long calc_area(unsigned long l, unsigned long w) {
     unsigned long result;
+
     if (l < 3 || w < 3 || l > 20 || w > 20) {   // out of range cases
-        return 0;       // area = 0
+        return 0;                               // area = 0
     }
-    result = l * w;     // area = length * width
-    return(result);
+    result = l * w;                             // area = length * width
+    return result;
 }
 
 //**********4. Main function**********
 int main(void) {
     // set up:
     unsigned long length, width, area;
+
     // initialize the TExaS grader lab 5
     TExaS_Init(UART_PIN_PA0, UART_PIN_PA1);
-    UART_Init();          // initialize UART for printing
+    UART_Init();            // initialize UART for printing
     printf("\nThis program calculates areas of rectangular rooms.\n");
-    EnableInterrupts();   // the grader needs interrupts
+    EnableInterrupts();     // the grader needs interrupts
 
     // loop:
     while (1) {
@@ -67,7 +69,7 @@ int main(void) {
         printf("\nGive length: ");
         scanf("%ld", &length);
         // Get width input
-        printf("\nGive width: ");  scanf("%ld", &width);
+        printf("\nGive width: ");scanf("%ld", &width);
         area = calc_area(length, width);  // calulate the area
         // write the value on the screen
         printf("\nArea of the room = %ld\n", area);

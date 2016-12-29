@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -60,6 +60,7 @@ unsigned char EnemyFire;
 //          1   if there is enemy
 unsigned char Enemy_Exist(void) {
     unsigned char i;
+
     if (Mothership.life) {
         return 1;
     }
@@ -100,7 +101,7 @@ void SysTick_Handler(void) {
     // read raw input from the slide pot
     ADCData = ADC0_In();
     // get new ship x-position (limit from 0 - 66)
-    NewShipX = 66 - ADCData*(SCREENW - SHIPW)/4095;
+    NewShipX = 66 - ADCData * (SCREENW - SHIPW) / 4095;
     // move the ship if there is a change in x-coordinate
     if (NewShipX != Ship.x) {
         Move(&Ship, NewShipX, Ship.y);
@@ -108,20 +109,19 @@ void SysTick_Handler(void) {
     }
     // create a missile and flash a LED if the ship fires
     if ((GPIO_PORTE_DATA_R & LSWITCHPIN) != prevSwitchState
-            && (GPIO_PORTE_DATA_R & LSWITCHPIN)) {
+        && (GPIO_PORTE_DATA_R & LSWITCHPIN)) {
         Create_Laser();
         Nokia5110_DisplayBuffer();
         GPIO_PORTB_DATA_R ^= LLEDPIN;
     }
     prevSwitchState = GPIO_PORTE_DATA_R & LSWITCHPIN;
     // create a laser and flash a LED if an enemy fires
-    if (Random()%500 < 3) {
+    if (Random() % 500 < 3) {
         EnemyFire = 1;
         Create_Missile();
         Nokia5110_DisplayBuffer();
         GPIO_PORTB_DATA_R ^= RLEDPIN;
-    }
-    else {
+    } else {
         EnemyFire = 0;
     }
 }
@@ -158,7 +158,7 @@ void Timer2A_Handler(void) {
 int main(void) {
     // Set up:
     TExaS_Init(NoLCD_NoScope);  // set system clock to 80 MHz
-    Random_Init(1);	            // enable randomization
+    Random_Init(1);             // enable randomization
     ADC0_Init();                // PE2 ADC input, PE1-PE0 switch input
     DAC_Init();                 // PB5-PB4 LED output, PB3-PB0 DAC output
     Nokia5110_Init();           // Nokia5110 screen

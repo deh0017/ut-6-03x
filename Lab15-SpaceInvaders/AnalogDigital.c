@@ -16,7 +16,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -36,6 +36,7 @@ void ADC0_Init(void) {
     volatile unsigned long delay;
     unsigned char PORTEPINS = POTPIN | LSWITCHPIN | RSWITCHPIN;
     unsigned char SWITCHPINS = LSWITCHPIN | RSWITCHPIN;
+
     // GPIO Port E Initialization:
     SYSCTL_RCGC2_R |= 0x10;             // enable port E clock
     delay = SYSCTL_RCGC2_R;             // allow time for clock to start
@@ -67,11 +68,13 @@ void ADC0_Init(void) {
 // Outputs: 12-bit result of ADC conversion
 unsigned long ADC0_In(void) {
     unsigned long result;
+
     ADC0_PSSI_R |= 0x08;                // initiate SS3
     // wait until conversion is done:
-    while ((ADC0_RIS_R & 0x08) == 0) {}
+    while ((ADC0_RIS_R & 0x08) == 0) {
+    }
     result = ADC0_SSFIFO3_R & 0xFFF;    // mask with 12-bit binary
-    ADC0_ISC_R |= 0x08;   // clear the flag to start capturing another sample
+    ADC0_ISC_R |= 0x08;                 // clear the flag to start capturing another sample
     return result;
 }
 
@@ -83,15 +86,16 @@ unsigned long ADC0_In(void) {
 void DAC_Init(void) {
     volatile unsigned long delay;
     unsigned char PORTBPINS = DACPINS | LLEDPIN | RLEDPIN;
-    SYSCTL_RCGC2_R |= 0x02;            // unlock port B clock
-    delay = SYSCTL_RCGC2_R;            // allow time for clock to start
-    GPIO_PORTB_LOCK_R |= 0x4C4F434B;   // unlock GPIO Port B
-    GPIO_PORTB_CR_R |= PORTBPINS;      // allow change to PB5-PB0
-    GPIO_PORTB_AMSEL_R &= ~PORTBPINS;  // disable analog function on PB5-PB0
-    GPIO_PORTB_PCTL_R = 0;             // clear PCTL register on Port B
-    GPIO_PORTB_DIR_R |= PORTBPINS;     // PB5-PB0 outputs
-    GPIO_PORTB_AFSEL_R &= ~PORTBPINS;  // disable alternate function on PB5-PB0
-    GPIO_PORTB_DEN_R |= PORTBPINS;     // enable digital I/O on PB5-PB0
+
+    SYSCTL_RCGC2_R |= 0x02;             // unlock port B clock
+    delay = SYSCTL_RCGC2_R;             // allow time for clock to start
+    GPIO_PORTB_LOCK_R |= 0x4C4F434B;    // unlock GPIO Port B
+    GPIO_PORTB_CR_R |= PORTBPINS;       // allow change to PB5-PB0
+    GPIO_PORTB_AMSEL_R &= ~PORTBPINS;   // disable analog function on PB5-PB0
+    GPIO_PORTB_PCTL_R = 0;              // clear PCTL register on Port B
+    GPIO_PORTB_DIR_R |= PORTBPINS;      // PB5-PB0 outputs
+    GPIO_PORTB_AFSEL_R &= ~PORTBPINS;   // disable alternate function on PB5-PB0
+    GPIO_PORTB_DEN_R |= PORTBPINS;      // enable digital I/O on PB5-PB0
 }
 
 //**********DAC_Out**********
@@ -109,7 +113,7 @@ unsigned short DACIndex = 0;
 // Inputs: None
 // Outputs: None
 void PlaySound_Shoot(void) {
-    DACIndex = (DACIndex + 1)%SHOOTSIZE;
+    DACIndex = (DACIndex + 1) % SHOOTSIZE;
     DAC_Out(shoot[DACIndex]);
 }
 
@@ -118,7 +122,7 @@ void PlaySound_Shoot(void) {
 // Inputs: None
 // Outputs: None
 void PlaySound_Explosion(void) {
-    DACIndex = (DACIndex + 1)%EXPLOSIONSIZE;
+    DACIndex = (DACIndex + 1) % EXPLOSIONSIZE;
     DAC_Out(explosion[DACIndex]);
 }
 
@@ -127,7 +131,7 @@ void PlaySound_Explosion(void) {
 // Inputs: None
 // Outputs: None
 void PlaySound_InvaderKilled(void) {
-    DACIndex = (DACIndex + 1)%INVADERKILLEDSIZE;
+    DACIndex = (DACIndex + 1) % INVADERKILLEDSIZE;
     DAC_Out(invaderkilled[DACIndex]);
 }
 
@@ -136,7 +140,7 @@ void PlaySound_InvaderKilled(void) {
 // Inputs: None
 // Outputs: None
 void PlaySound_FastInvader1(void) {
-    DACIndex = (DACIndex + 1)%FASTINVADER1SIZE;
+    DACIndex = (DACIndex + 1) % FASTINVADER1SIZE;
     DAC_Out(fastinvader1[DACIndex]);
 }
 
@@ -172,7 +176,7 @@ void PlaySound_FastInvader1(void) {
 // Inputs: None
 // Outputs: None
 void PlaySound_HighPitch(void) {
-    DACIndex = (DACIndex + 1)%HIGHPITCHSIZE;
+    DACIndex = (DACIndex + 1) % HIGHPITCHSIZE;
     DAC_Out(highpitch[DACIndex]);
 }
 
@@ -181,6 +185,6 @@ void PlaySound_HighPitch(void) {
 // Inputs: None
 // Outputs: None
 void PlaySound_SmallExplosion(void) {
-    DACIndex = (DACIndex + 1)%SMALLEXPLOSIONSIZE;
+    DACIndex = (DACIndex + 1) % SMALLEXPLOSIONSIZE;
     DAC_Out(smallexplosion[DACIndex]);
 }

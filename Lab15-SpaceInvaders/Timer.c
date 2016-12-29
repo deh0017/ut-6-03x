@@ -12,7 +12,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -41,20 +41,21 @@ void Init_SysTick(void) {
 // Assumes: 80-MHz clock
 void Init_Timer2(void) {
     unsigned long volatile delay;
-    SYSCTL_RCGCTIMER_R |= 0x04;   // 0) activate timer2
+
+    SYSCTL_RCGCTIMER_R |= 0x04;                             // 0) activate timer2
     delay = SYSCTL_RCGCTIMER_R;
-    TIMER2_CTL_R = 0x00000000;    // 1) disable timer2A during setup
-    TIMER2_CFG_R = 0x00000000;    // 2) configure for 32-bit mode
-    TIMER2_TAMR_R = 0x00000002;   // 3) configure for periodic mode
-    TIMER2_TAILR_R = 7272;        // 4) 11-kHz interrupt 7272
-    TIMER2_TAPR_R = 0;            // 5) bus clock resolution
-    TIMER2_ICR_R = 0x00000001;    // 6) clear timer2A timeout flag
-    TIMER2_IMR_R = 0x00000001;    // 7) arm timeout interrupt
-    NVIC_PRI5_R = (NVIC_PRI5_R & 0x00FFFFFF) | 0x80000000; // 8) priority 4
+    TIMER2_CTL_R = 0x00000000;                              // 1) disable timer2A during setup
+    TIMER2_CFG_R = 0x00000000;                              // 2) configure for 32-bit mode
+    TIMER2_TAMR_R = 0x00000002;                             // 3) configure for periodic mode
+    TIMER2_TAILR_R = 7272;                                  // 4) 11-kHz interrupt 7272
+    TIMER2_TAPR_R = 0;                                      // 5) bus clock resolution
+    TIMER2_ICR_R = 0x00000001;                              // 6) clear timer2A timeout flag
+    TIMER2_IMR_R = 0x00000001;                              // 7) arm timeout interrupt
+    NVIC_PRI5_R = (NVIC_PRI5_R & 0x00FFFFFF) | 0x80000000;  // 8) priority 4
     // interrupts enabled in the main program after all devices initialized
     // vector number 39, interrupt number 23
-    NVIC_EN0_R = 1 << 23;         // 9) enable IRQ 23 in NVIC
-    TIMER2_CTL_R = 0x00000001;    // 10) enable timer2A
+    NVIC_EN0_R = 1 << 23;           // 9) enable IRQ 23 in NVIC
+    TIMER2_CTL_R = 0x00000001;      // 10) enable timer2A
 }
 
 //**********Delay**********
@@ -64,6 +65,7 @@ void Init_Timer2(void) {
 // Assumes: 80-MHz clock
 void Delay(unsigned long ms) {
     unsigned long count;
+
     while (ms) {
         count = 16000;          // 16000 = 1ms for 80 MHz
         while (count) {

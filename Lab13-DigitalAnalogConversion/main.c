@@ -15,7 +15,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -35,8 +35,8 @@
 
 //**********2. Global Declarations Section**********
 // Function Prototypes:
-void DisableInterrupts(void);     // Disable interrupts
-void EnableInterrupts(void);      // Enable interrupts
+void DisableInterrupts(void);       // Disable interrupts
+void EnableInterrupts(void);        // Enable interrupts
 
 
 //**********3. Main Function**********
@@ -45,12 +45,12 @@ int main(void) {
     // for the real board grader to work
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PE3210, DAC_PIN_PB3210, ScopeOn);
-    Sound_Init();         // initialize SysTick and DAC
-    Piano_Init();         // initialize Switches
-    EnableInterrupts();   // enable interrupts
+    Sound_Init();           // initialize SysTick and DAC
+    Piano_Init();           // initialize Switches
+    EnableInterrupts();     // enable interrupts
 
     // loop:
-    while(1) {
+    while (1) {
         Piano_In();         // read input from switches
         // if the index is out of range (no switch is pressed)
         if (Freq_Index == 4) {

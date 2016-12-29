@@ -12,7 +12,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -20,12 +20,12 @@
 #include "Nokia5110.h"
 
 //**********Game Data**********
-const unsigned char* EnemyFrameA[3] = {
+const unsigned char *EnemyFrameA[3] = {
     SmallEnemy30PointA,     // 30 points, frame A
     SmallEnemy20PointA,     // 20 points, frame A
     SmallEnemy10PointA      // 10 points, frame A
 };
-const unsigned char* EnemyFrameB[3] = {
+const unsigned char *EnemyFrameB[3] = {
     SmallEnemy30PointB,     // 30 points, frame B
     SmallEnemy20PointB,     // 20 points, frame B
     SmallEnemy10PointB      // 10 points, frame B
@@ -50,11 +50,12 @@ unsigned char nLaser;
 // Outputs: None
 void Init_Thing(void) {
     unsigned char i;
+
     // ship
     Ship.name = "ship";
     Ship.width = SHIPW;
     Ship.height = SHIPH;
-    Ship.x = (SCREENW - SHIPW)/2;       // center alignment
+    Ship.x = (SCREENW - SHIPW) / 2;     // center alignment
     Ship.y = (SCREENH - 1);             // bottom screen
     Ship.life = 3;                      // player has maximum 3 lives
     Ship.score = 0;                     // player's score
@@ -69,8 +70,8 @@ void Init_Thing(void) {
     Bunker.name = "bunker";
     Bunker.width = BUNKERW;
     Bunker.height = BUNKERH;
-    Bunker.x = (SCREENW - BUNKERW)/2;   // center alignment
-    Bunker.y = SCREENH - SHIPH- 1;      // right above player's ship
+    Bunker.x = (SCREENW - BUNKERW) / 2; // center alignment
+    Bunker.y = SCREENH - SHIPH - 1;     // right above player's ship
     Bunker.life = 3;                    // bunker tolerates maximum 3 lasers
     Bunker.frame = 0;                   // first frame
     Bunker.image[0] = Bunker0;          // undamaged
@@ -82,13 +83,13 @@ void Init_Thing(void) {
         Enemy[i].name = "enemy";
         Enemy[i].width = ENEMYW;
         Enemy[i].height = ENEMYH;
-        Enemy[i].x = ENEMYW*i;                  // equally distant row
+        Enemy[i].x = ENEMYW * i;                // equally distant row
         Enemy[i].y = ENEMYH - 1;                // top screen
-        Enemy[i].life = 1;                        // one shot one kill
-        Enemy[i].score = EnemyScore[i%3];         // score by killing enemy
-        Enemy[i].frame = 0;                       // first frame
-        Enemy[i].image[0] = EnemyFrameA[i%3];     // frame 1
-        Enemy[i].image[1] = EnemyFrameB[i%3];     // frame 2
+        Enemy[i].life = 1;                      // one shot one kill
+        Enemy[i].score = EnemyScore[i % 3];     // score by killing enemy
+        Enemy[i].frame = 0;                     // first frame
+        Enemy[i].image[0] = EnemyFrameA[i % 3]; // frame 1
+        Enemy[i].image[1] = EnemyFrameB[i % 3]; // frame 2
         Enemy[i].explode[0] = SmallExplosion0;
         Enemy[i].explode[1] = SmallExplosion1;
         Enemy[i].blank = SmallEnemyMoved;
@@ -97,11 +98,11 @@ void Init_Thing(void) {
     Mothership.name = "mothership";
     Mothership.width = MOTHERSHIPW;
     Mothership.height = MOTHERSHIPH;
-    Mothership.x = (SCREENW - MOTHERSHIPW)/2;     // center alignment
-    Mothership.y = MOTHERSHIPH - 1;               // top screen
-    Mothership.life = 3;                          // 3 shots to kill
+    Mothership.x = (SCREENW - MOTHERSHIPW) / 2;     // center alignment
+    Mothership.y = MOTHERSHIPH - 1;                 // top screen
+    Mothership.life = 3;                            // 3 shots to kill
     Mothership.score = MOTHERSHIPSCORE;
-    Mothership.frame = 0;                         // first frame
+    Mothership.frame = 0;                           // first frame
     Mothership.image[0] = SmallEnemyBonus0;
     Mothership.image[1] = SmallEnemyBonus1;
     Mothership.image[2] = SmallEnemyBonus2;
@@ -134,7 +135,6 @@ void Init_Thing(void) {
         Missile[i].blank = Missile2;
     }
 }
-
 
 //**********Image Data**********
 // enemy ship that arm and mouths are closed

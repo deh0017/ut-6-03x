@@ -12,7 +12,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -31,9 +31,9 @@
 //          1       True
 unsigned char Check_Collision(Thing Thing1, Thing Thing2) {
     if (Thing1.x < Thing2.x + Thing2.width
-            && Thing1.x + Thing1.width > Thing2.x
-            && Thing1.y > Thing2.y - Thing2.height
-            && Thing1.y - Thing1.height < Thing2.y) {
+        && Thing1.x + Thing1.width > Thing2.x
+        && Thing1.y > Thing2.y - Thing2.height
+        && Thing1.y - Thing1.height < Thing2.y) {
         return 1;
     }
     return 0;
@@ -53,6 +53,7 @@ void Draw(Thing aThing) {
 // Outputs: None
 void Draw_AllEnemies(void) {
     unsigned char i;
+
     for (i = 0; i < MAXENEMY; i++) {
         Draw(Enemy[i]);
     }
@@ -82,8 +83,8 @@ void Destroy(Thing *aThing) {
     aThing->life = 0;
     // multi-frame explosion
     if (strncmp(aThing->name, "ship", 4) == 0
-            || strncmp(aThing->name, "enemy", 5) == 0
-            || strncmp(aThing->name, "mothership", 10) == 0) {
+        || strncmp(aThing->name, "enemy", 5) == 0
+        || strncmp(aThing->name, "mothership", 10) == 0) {
         Nokia5110_PrintBMP(aThing->x, aThing->y, aThing->explode[0], 0);
         Nokia5110_DisplayBuffer();
         Delay(DELTAEXPLODE);
@@ -95,8 +96,7 @@ void Destroy(Thing *aThing) {
         nLaser--;
         Nokia5110_PrintBMP(aThing->x, aThing->y, Laser1, 0);
         Nokia5110_DisplayBuffer();
-    }
-    else {
+    } else {
         nMissile--;
         Nokia5110_PrintBMP(aThing->x, aThing->y, Missile2, 0);
         Nokia5110_DisplayBuffer();
@@ -128,6 +128,7 @@ void Damage(Thing *aThing) {
 // Outputs: None
 void Create_Laser(void) {
     unsigned char i;
+
     if (nLaser >= MAXLASER) {
         return;
     }
@@ -135,7 +136,7 @@ void Create_Laser(void) {
     for (i = 0; i < MAXLASER; i++) {
         if (!Laser[i].life) {
             // get the coordinate
-            Laser[i].x = Ship.x + SHIPW/2 - 1;
+            Laser[i].x = Ship.x + SHIPW / 2 - 1;
             Laser[i].y = SCREENH - SHIPH - 1;
             Laser[i].life = 1;
             // draw on the buffer
@@ -151,7 +152,8 @@ void Create_Laser(void) {
 // Outputs: None
 void Create_Missile(void) {
     unsigned char i;
-    unsigned char iEnemy = Random()%MAXENEMY;
+    unsigned char iEnemy = Random() % MAXENEMY;
+
     if (nMissile >= MAXMISSILE || !Enemy[iEnemy].life) {
         return;
     }
@@ -159,11 +161,11 @@ void Create_Missile(void) {
     for (i = 0; i < MAXMISSILE; i++) {
         if (!Missile[i].life) {
             // get the coordinate
-            Missile[i].x = Enemy[iEnemy].x + ENEMYW/2 - 1;
+            Missile[i].x = Enemy[iEnemy].x + ENEMYW / 2 - 1;
             Missile[i].y = Enemy[iEnemy].y + LASERH - 1;
             Missile[i].life = 1;
             // draw on the buffer
-            Missile[i].frame = Random()%2;
+            Missile[i].frame = Random() % 2;
             Draw(Missile[i]);
             return;
         }
@@ -177,6 +179,7 @@ void Create_Missile(void) {
 //          1    hit
 unsigned char Laser_Is_Hit(Thing *aLaser) {
     unsigned char i;
+
     // laser with bunker
     if (Bunker.life && Check_Collision(*aLaser, Bunker)) {
         Destroy(&*aLaser);
@@ -207,6 +210,7 @@ unsigned char Laser_Is_Hit(Thing *aLaser) {
 //          1    hit
 unsigned char Missile_Is_Hit(Thing *aMissile) {
     unsigned char i;
+
     // missile with lasers
     for (i = 0; i < MAXLASER; i++) {
         if (Laser[i].life && Check_Collision(*aMissile, Laser[i])) {
@@ -221,7 +225,7 @@ unsigned char Missile_Is_Hit(Thing *aMissile) {
         Damage(&Bunker);
         return 1;
     }
-   // missile with ship
+    // missile with ship
     if (Ship.life && Check_Collision(*aMissile, Ship)) {
         Destroy(&*aMissile);
         Damage(&Ship);
@@ -236,6 +240,7 @@ unsigned char Missile_Is_Hit(Thing *aMissile) {
 // Outputs: None
 void Move_Lasers(void) {
     unsigned char i;
+
     for (i = 0; i < MAXLASER; i++) {
         if (Laser[i].life && !Laser_Is_Hit(&Laser[i])) {
             Move(&Laser[i], Laser[i].x, Laser[i].y - 1);
@@ -254,9 +259,10 @@ void Move_Lasers(void) {
 // Outputs: None
 void Move_Missiles(void) {
     unsigned char i;
+
     for (i = 0; i < MAXMISSILE; i++) {
         if (Missile[i].life && !Missile_Is_Hit(&Missile[i])) {
-            Missile[i].frame = Random()%2;
+            Missile[i].frame = Random() % 2;
             Move(&Missile[i], Missile[i].x, Missile[i].y + 1);
             if (Missile[i].y > SCREENH - 1) {
                 Destroy(&Missile[i]);       // destroy if out of sreen

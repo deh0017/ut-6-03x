@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated August 13, 2016
+// Updated December 28, 2016
 //
 //****************************************************************************
 
@@ -28,16 +28,17 @@
 // Outputs: None
 void DAC_Init(void) {
     volatile unsigned long delay;
-    SYSCTL_RCGC2_R |= 0x02;           // unlock port B clock
-    delay = SYSCTL_RCGC2_R;           // allow time for clock to start
-    GPIO_PORTB_LOCK_R |= 0x4C4F434B;  // unlock GPIO Port B
-    GPIO_PORTB_CR_R |= 0x0F;          // allow change to PB3-PB0
-    GPIO_PORTB_AMSEL_R &= ~0x0F;      // disable analog function on PB3-PB0
-    GPIO_PORTB_PCTL_R = 0x00;         // clear PCTL register on PB3-PB0
-    GPIO_PORTB_DIR_R |= 0x0F;         // PB3-PB0 outputs
-    GPIO_PORTB_AFSEL_R &= ~0x0F;      // disable alternate function on PB3-PB0
-    GPIO_PORTB_DEN_R |= 0x0F;         // enable digital pins on PB3-PB0
-    GPIO_PORTB_DR8R_R |= 0x0F;        // enable 8-mA drive select on PB3-PB0
+
+    SYSCTL_RCGC2_R |= 0x02;             // unlock port B clock
+    delay = SYSCTL_RCGC2_R;             // allow time for clock to start
+    GPIO_PORTB_LOCK_R |= 0x4C4F434B;    // unlock GPIO Port B
+    GPIO_PORTB_CR_R |= 0x0F;            // allow change to PB3-PB0
+    GPIO_PORTB_AMSEL_R &= ~0x0F;        // disable analog function on PB3-PB0
+    GPIO_PORTB_PCTL_R = 0x00;           // clear PCTL register on PB3-PB0
+    GPIO_PORTB_DIR_R |= 0x0F;           // PB3-PB0 outputs
+    GPIO_PORTB_AFSEL_R &= ~0x0F;        // disable alternate function on PB3-PB0
+    GPIO_PORTB_DEN_R |= 0x0F;           // enable digital pins on PB3-PB0
+    GPIO_PORTB_DR8R_R |= 0x0F;          // enable 8-mA drive select on PB3-PB0
 }
 
 //**********DAC_Out**********
