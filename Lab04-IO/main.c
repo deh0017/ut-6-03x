@@ -90,16 +90,12 @@ int main(void) {
         // SW1 and SW2 are negative logic
         if (SW1 && SW2) {                       // neither switch
             GPIO_PORTF_DATA_R = 0x00;           // no light
-        } else {
-            if (SW1 && (!SW2)) {                // only SW2 is pressed
-                GPIO_PORTF_DATA_R = 0x08;       // LED is green
-            } else {
-                if ((!SW1) && SW2) {            // only SW1 is pressed
-                    GPIO_PORTF_DATA_R = 0x02;   // LED is red
-                } else {                        // both SW1 and SW2 are pressed
-                    GPIO_PORTF_DATA_R = 0x04;   // LED is blue
-                }
-            }
+        } else if (SW1 && (!SW2)) {             // only SW2 is pressed
+            GPIO_PORTF_DATA_R = 0x08;           // LED is green
+        } else if ((!SW1) && SW2) {             // only SW1 is pressed
+            GPIO_PORTF_DATA_R = 0x02;           // LED is red
+        } else {                                // both SW1 and SW2 are pressed
+            GPIO_PORTF_DATA_R = 0x04;           // LED is blue
         }
     }
 }
