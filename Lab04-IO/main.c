@@ -16,11 +16,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 05, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"    // lab grader functions
 
 // Constant declarations to access port registers
@@ -36,21 +38,24 @@
 #define GPIO_PORTF_PCTL_R		(*((volatile unsigned long *)0x4002552C))
 #define SYSCTL_RCGC2_R			(*((volatile unsigned long *)0x400FE108))
 
-//**********2. Declarations Section**********
-// Global Variables
+//***
+// 2. Declarations section
+//***
+// Global variables
 unsigned long SW1, SW2;     // inputs from PF4, PF0
 unsigned long Out;          // outputs to PF3, PF2, PF1 (multicolor LED)
 
-// Function Prototypes
+// Function prototypes
 void PortF_Init(void);          // port F initial fuction
 void Delay(void);               // delay function
 void EnableInterrupts(void);    // enable interrupts
 
-//**********3. Subroutines Section**********
-//----------PortF_Init----------
-// Initializes port F pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines section
+//***
+//---
+// Initialize port F pins for input and output
+//---
 void PortF_Init(void) {
     volatile unsigned long delay;
 
@@ -65,25 +70,18 @@ void PortF_Init(void) {
     GPIO_PORTF_PUR_R |= 0x11;       // enable pullup resistors on PF4, PF0
     GPIO_PORTF_DEN_R |= 0x1F;       // 7) enable digital pins PF4-PF0
 }
-// Color        LED(s)    PortF
-// dark         ---       0x00
-// red          R--       0x02
-// blue         --B       0x04
-// green        -G-       0x08
-// yellow       RG-       0x0A
-// sky blue     -GB       0x0C
-// white        RGB       0x0E
-// pink         R-B       0x06
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // setup:
+    // Setup
     // initializes the real board grader for lab 4
     TExaS_Init(SW_PIN_PF40, LED_PIN_PF321);
     PortF_Init();           // initialize PF4, PF3, PF2, PF1, PF0
     EnableInterrupts();     // the grader uses interrupts
 
-    // loop:
+    // Loop
     while (1) {
         SW1 = GPIO_PORTF_DATA_R & 0x10;         // read PF4 into SW1
         SW2 = GPIO_PORTF_DATA_R & 0x01;         // read PF0 into SW2

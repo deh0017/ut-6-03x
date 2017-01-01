@@ -12,14 +12,14 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
 #include "Data.h"
 #include "Nokia5110.h"
 
-//**********Game Data**********
+// Game data
 const unsigned char *EnemyFrameA[3] = {
     SmallEnemy30PointA,     // 30 points, frame A
     SmallEnemy20PointA,     // 20 points, frame A
@@ -44,10 +44,9 @@ Thing Missile[MAXMISSILE];
 Thing Laser[MAXLASER];
 unsigned char nMissile;
 unsigned char nLaser;
-//----------Init_Thing----------
-// Initializes ship, bunker, enemy, mothership, missile, and laser
-// Inputs: None
-// Outputs: None
+//---
+// Initialize ship, bunker, enemy, mothership, missile, and laser
+//---
 void Init_Thing(void) {
     unsigned char i;
 
@@ -136,7 +135,7 @@ void Init_Thing(void) {
     }
 }
 
-//**********Image Data**********
+// Image data
 // enemy ship that arm and mouths are closed
 // width = 16 x height = 10
 const unsigned char SmallEnemy30PointA[] = {

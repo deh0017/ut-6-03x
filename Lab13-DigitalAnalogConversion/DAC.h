@@ -13,20 +13,20 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
 // 4-bit DAC connected to PB3-PB0
 
-//**********DAC_Init**********
-// Initializes 4-bit DAC
-// Inputs: None
-// Outputs: None
+//***
+// Initialize 4-bit DAC
+//***
 void DAC_Init(void);
 
-//**********DAC_Out**********
-// Writes output to DAC
-// Inputs: data    4-bit data, 0 to 15
-// Outputs: None
+//***
+// Write output to DAC
+//
+// @param   data   4-bit data, 0 to 15
+//***
 void DAC_Out(unsigned long data);

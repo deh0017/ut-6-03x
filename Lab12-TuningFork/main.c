@@ -13,15 +13,19 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 16, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // Switch connected to PA3
 // Radio Jack connected to PA2
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"
 
 // Constant declarations to access port registers
@@ -44,20 +48,23 @@
 #define NVIC_ST_CURRENT_R		(*((volatile unsigned long *)0xE000E018))
 #define NVIC_SYS_PRI3_R			(*((volatile unsigned long *)0xE000ED20))
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void DisableInterrupts(void);   // Disable interrupts
 void EnableInterrupts(void);    // Enable interrupts
 void WaitForInterrupt(void);    // low power mode
 
-// Global Variables
+// Global variables
 unsigned short Switch = 0;      // input from the switch is stored here
 
-//**********3. Subroutines Section**********
-//----------Sound_Init----------
-// Initializes Port A and SysTick interrupts
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines section
+//***
+//---
+// Initialize Port A and SysTick interrupts
+//---
 void Sound_Init(void) {
     // Port A Initialization:
     volatile unsigned long delay;
@@ -81,17 +88,18 @@ void Sound_Init(void) {
     NVIC_ST_CTRL_R = 0x07;          // enable with core clock and interrupts
 }
 
-//----------SysTick_Handler----------
+//---
 // Interrupt Service Routine. Called every 880 Hz
-// Inputs: None
-// Outputs: None
+//---
 void SysTick_Handler(void) {
     GPIO_PORTA_DATA_R ^= 0x04;      // toggle PA2 (Audio Jack)
 }
 
-//**********4. Main Function**********
+//***
+// 4. Main Function
+//***
 int main(void) {
-    // set up:
+    // Setup
     unsigned long NumberOfPresses = 0;  // store the number of presses
     unsigned long LastInput = 0;        // store the last input of Switch here
 
@@ -105,7 +113,7 @@ int main(void) {
     Sound_Init();           // initial steps
     EnableInterrupts();     // enable after all initialization are done
 
-    // loop:
+    // Loop
     while (1) {
         // perform other tasks - Read the input over and over again:
         Switch = GPIO_PORTA_DATA_R & 0x08;  // read the switch from PA3

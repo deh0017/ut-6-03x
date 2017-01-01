@@ -15,11 +15,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // PD3 must be connected to DAC output
 // 8*R resistor DAC bit 0 on PB0 (least significant bit)
 // 4*R resistor DAC bit 1 on PB1
@@ -27,21 +29,27 @@
 // 1*R resistor DAC bit 3 on PB3 (most significant bit)
 // 4 switches connected to PE3-PE0
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "tm4c123gh6pm.h"
 #include "Sound.h"
 #include "Piano.h"
 #include "TExaS.h"
 
-//**********2. Global Declarations Section**********
-// Function Prototypes:
+//***
+// 2. Global declarations section
+//***
+// Function prototypes:
 void DisableInterrupts(void);       // Disable interrupts
 void EnableInterrupts(void);        // Enable interrupts
 
 
-//**********3. Main Function**********
+//***
+// 3. Main function
+//***
 int main(void) {
-    // set up:
+    // Setup
     // for the real board grader to work
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PE3210, DAC_PIN_PB3210, ScopeOn);
@@ -49,7 +57,7 @@ int main(void) {
     Piano_Init();           // initialize Switches
     EnableInterrupts();     // enable interrupts
 
-    // loop:
+    // Loop
     while (1) {
         Piano_In();         // read input from switches
         // if the index is out of range (no switch is pressed)

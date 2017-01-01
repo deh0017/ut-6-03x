@@ -13,11 +13,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // Slide pot pin 1 connected to ground
 // Slide pot pin 2 connected to PE2/AIN1
 // Slide pot pin 3 connected to +3.3V
@@ -27,7 +29,9 @@
 // 2*R resistor DAC bit 2 on PB2
 // 1*R resistor DAC bit 3 on PB3 (most significant bit)
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "AnalogDigital.h"
 #include "Data.h"
 #include "Graphic.h"
@@ -37,8 +41,10 @@
 #include "Timer.h"
 #include "tm4c123gh6pm.h"
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void EnableInterrupts(void);
 void DisableInterrupts(void);
 void Delay(unsigned long ms);
@@ -46,18 +52,21 @@ unsigned char Enemy_Exist(void);
 void SysTick_Handler(void);
 void Timer2A_Handler(void);
 
-// Global Variables
+// Global variables
 unsigned short ADCData;
 unsigned char NewShipX;
 unsigned char prevSwitchState = 0;
 unsigned char EnemyFire;
 
-//**********3. Subroutines Section**********
-//----------NoEnemy----------
-// Checks if all enemies are eliminated
-// Inputs: None
-// Outputs: 0   if there is no enemy
-//          1   if there is enemy
+//***
+// 3. Subroutines section
+//***
+//---
+// Check if all enemies are eliminated
+//
+// @return      0 if there is no enemy
+// @return      1 if there is enemy
+//---
 unsigned char Enemy_Exist(void) {
     unsigned char i;
 
@@ -72,10 +81,9 @@ unsigned char Enemy_Exist(void) {
     return 0;
 }
 
-//----------Display_GameOver----------
-// Displays the closure of the game
-// Inputs: None
-// Outputs: None
+//---
+// Display the closure of the game
+//---
 void Display_GameOver(void) {
     Nokia5110_Clear();
     Nokia5110_SetCursor(1, 1);
@@ -91,12 +99,12 @@ void Display_GameOver(void) {
     Nokia5110_SetCursor(0, 0);
 }
 
-//----------SysTick_Handler----------
+//---
 // SysTick interrupt service routine
 // 30-Hz interrupt, handling input and graphic data
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//
+// @assumption      80-MHz clock
+//---
 void SysTick_Handler(void) {
     // read raw input from the slide pot
     ADCData = ADC0_In();
@@ -126,12 +134,12 @@ void SysTick_Handler(void) {
     }
 }
 
-//----------Timer2A_Handler----------
+//---
 // Timer2A interrupt service routine
 // 11-kHz interrupt, handling sound output
-// Inputs: None
-// Ouputs: None
-// Assumes: 80-MHz clock
+//
+// @assumption      80-MHz clock
+//---
 void Timer2A_Handler(void) {
     // ship fires sound
     if (GPIO_PORTE_DATA_R & 0x02) {
@@ -154,9 +162,11 @@ void Timer2A_Handler(void) {
     TIMER2_ICR_R = 0x00000001;
 }
 
-//**********4. Main Function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // Set up:
+    // Setup
     TExaS_Init(NoLCD_NoScope);  // set system clock to 80 MHz
     Random_Init(1);             // enable randomization
     ADC0_Init();                // PE2 ADC input, PE1-PE0 switch input
@@ -171,7 +181,8 @@ int main(void) {
     Init_SysTick();             // set up SysTick interrupt
     Init_Timer2();              // set up Timer2A interrupt
     EnableInterrupts();         // interrupts begin to tick
-    // Loops:
+
+    // Loop
     // As long as the ship and the enemy are live, the game still runs
     while (Ship.life && Enemy_Exist()) {
         Move_Lasers();

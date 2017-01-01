@@ -13,30 +13,30 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
 // Port E bits 3-0 have 4 piano keys
 
-//**********Piano_Init**********
-// Initializes piano key inputs
-// Inputs: None
-// Outputs: None
+//***
+// Initialize piano key inputs
+//***
 void Piano_Init(void);
 
-//**********Piano_In**********
-// Reads the input from PE3-PE0
-// Inputs: None
-// Outputs: None
-// Notes: Returns to Freq_Index with values from 0 to 4 depending on keys
-//    0 if key 0 = note C = PE0 is pressed
-//    1 if key 1 = note D = PE1 is pressed
-//    2 if key 2 = note E = PE2 is pressed
-//    3 if key 3 = note G = PE3 is pressed
+//***
+// Read the input from PE3-PE0
+//
+// @notes    Returns to Freq_Index with values from 0 to 4 depending on keys
+//            0 if key 0 = note C = PE0 is pressed
+//            1 if key 1 = note D = PE1 is pressed
+//            2 if key 2 = note E = PE2 is pressed
+//            3 if key 3 = note G = PE3 is pressed
+//***
 void Piano_In(void);
 
-//**********Freq_Index**********
-// global variable which is accessable from other functions
+//***
+// Global variable which is accessable from other functions
 // store the index of the corresponding input
+//***
 extern unsigned short Freq_Index;

@@ -25,10 +25,9 @@
 // store the index value of the corresponding input
 unsigned short Freq_Index;
 
-//**********Piano_Init**********
-// Initializes piano key inputs
-// Inputs: None
-// Outputs: None
+//***
+// Initialize piano key inputs
+//***
 void Piano_Init(void) {
     volatile unsigned long delay;
 
@@ -44,15 +43,15 @@ void Piano_Init(void) {
     GPIO_PORTE_DEN_R |= 0x0F;           // enable digital pins on PE3-PE0
 }
 
-//**********Piano_In**********
-// Reads the input from PE3-PE0
-// Inputs: None
-// Outputs: None
-// Notes: Returns to Freq_Index with values from 0 to 4 depending on keys
-//    0 if key 0 = note C = PE0 is pressed
-//    1 if key 1 = note D = PE1 is pressed
-//    2 if key 2 = note E = PE2 is pressed
-//    3 if key 3 = note G = PE3 is pressed
+//***
+// Read the input from PE3-PE0
+//
+// @notes    Returns to Freq_Index with values from 0 to 4 depending on keys
+//            0 if key 0 = note C = PE0 is pressed
+//            1 if key 1 = note D = PE1 is pressed
+//            2 if key 2 = note E = PE2 is pressed
+//            3 if key 3 = note G = PE3 is pressed
+//***
 void Piano_In(void) {
     if (GPIO_PORTE_DATA_R == 0x01) {    // C Note,
         Freq_Index = 0;                 // store "Key 0 is pressed"

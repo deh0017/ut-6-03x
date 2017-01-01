@@ -14,11 +14,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 07, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"    // lab grader functions
 
 // Constant declarations to access port registers
@@ -35,20 +37,23 @@
 #define SYSCTL_RCGC2_R			(*((volatile unsigned long *)0x400FE108))
 #define SYSCTL_RCGC2_GPIOF		0x00000020  // port F Clock Gating Control
 
-//**********2. Declarations Section**********
-// Global Variables
+//***
+// 2. Declarations section
+//***
+// Global variables
 unsigned long SW1;                      // input from PF4
-// Function Prototypes
+// Function prototypes
 void DisableInterrupts(void);           // disable interrupts
 void EnableInterrupts(void);            // enable interrupts
 void delay100ms(unsigned long time);    // delay function
 void PortF_Init(void);                  // port F initial function
 
-//**********3. Subroutines Section**********
-//----------PortF_Init----------
-// Initializes port F pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines section
+//***
+//---
+// Initialize port F pins for input and output
+//---
 void PortF_Init(void) {
     volatile unsigned long delay;
 
@@ -65,11 +70,13 @@ void PortF_Init(void) {
     GPIO_PORTF_DEN_R |= 0x14;               // 7) enable digital pins PF4, PF2
 }
 
-//----------delay100ms----------
-// Delays some hundreds of milliseconds
-// Inputs: time    How many hundreds of milliseconds to delay
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Delay some hundreds of milliseconds
+//
+// @param       time   how many hundreds of milliseconds to delay
+//
+// @assumption         80-MHz clock
+//---
 void delay100ms(unsigned long time) {
     unsigned long i;
 
@@ -82,15 +89,17 @@ void delay100ms(unsigned long time) {
     }
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // setup:
+    // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PF4, LED_PIN_PF2);
     PortF_Init();           // port F initialization
     EnableInterrupts();     // enable interrupts for the grader
 
-    // loop:
+    // Loop
     while (1) {
         SW1 = GPIO_PORTF_DATA_R & 0x10;     // read bit PF4 into SW1
         if (!SW1) {                         // SW1 is pressed

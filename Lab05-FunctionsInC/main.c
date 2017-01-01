@@ -15,33 +15,40 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 06, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include <stdio.h>          // standard C library
 #include "UART.h"           // functions to implement I/O
 #include "TExaS.h"          // lab grader functions
 
-//**********2. Declarations Section**********
-// Function Prototypes
-// area calculator
+//***
+// 2. Declarations section
+//***
+// Function prototypes
 unsigned long calc_area(unsigned long l, unsigned long w);
-// enable interrupts
 void EnableInterrupts(void);
 
-//**********3. Subroutines Section**********
-//----------calc_area----------
-// Computes the Area of a rectangular room whose sides are given
-// Inputs: l    the length of a rectangle
-//         w    the width of a rectangle
-// Outputs: The area of the rectangular room
-// Notes: Return a result of zero if
-//  the length is less than 3,
-//  the width is less than 3,
-//  the length is greater than 20 or
-//  the width is greater than 20.
+//***
+// 3. Subroutines section
+//***
+//---
+// Compute the Area of a rectangular room whose sides are given
+//
+// @param   l  the length of a rectangle
+// @param   w  the width of a rectangle
+//
+// @return     the area of the rectangular room
+// @return     0 if
+//              the length is less than 3,
+//              the width is less than 3,
+//              the length is greater than 20 or
+//              the width is greater than 20.
+//---
 unsigned long calc_area(unsigned long l, unsigned long w) {
     unsigned long result;
 
@@ -52,9 +59,11 @@ unsigned long calc_area(unsigned long l, unsigned long w) {
     return result;
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // set up:
+    // Setup
     unsigned long length, width, area;
 
     // initialize the TExaS grader lab 5
@@ -63,12 +72,12 @@ int main(void) {
     printf("\nThis program calculates areas of rectangular rooms.\n");
     EnableInterrupts();     // the grader needs interrupts
 
-    // loop:
+    // Loop
     while (1) {
-        // Get length input
+        // get length input
         printf("\nGive length: ");
         scanf("%ld", &length);
-        // Get width input
+        // get width input
         printf("\nGive width: ");scanf("%ld", &width);
         area = calc_area(length, width);  // calulate the area
         // write the value on the screen

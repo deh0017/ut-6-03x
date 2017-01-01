@@ -16,7 +16,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
@@ -24,14 +24,13 @@
 #include "Data.h"
 #include "tm4c123gh6pm.h"
 
-//**********ADC0_Init**********
-// Sets up the ADC
-// Max sample rate: <=125,000 samples/second
+//***
+// Set up the ADC
+// Max sample rate: <= 125,000 samples/second
 // SS3 triggering event: software trigger
-// SS3 1st sample source:  channel 1
+// SS3 1st sample source: channel 1
 // SS3 interrupts: enabled but not promoted to controller
-// Inputs: None
-// Outputs: None
+//***
 void ADC0_Init(void) {
     volatile unsigned long delay;
     unsigned char PORTEPINS = POTPIN | LSWITCHPIN | RSWITCHPIN;
@@ -62,10 +61,11 @@ void ADC0_Init(void) {
     ADC0_ACTSS_R |= 0x08;               // enable sample sequencer 3
 }
 
-//**********ADC0_In**********
+//***
 // Busy-wait Analog to digital conversion
-// Inputs: None
-// Outputs: 12-bit result of ADC conversion
+//
+// @return      12-bit result of ADC conversion
+//***
 unsigned long ADC0_In(void) {
     unsigned long result;
 
@@ -79,10 +79,9 @@ unsigned long ADC0_In(void) {
 }
 
 
-//**********DAC_Init**********
-// Initializes 4-bit DAC on PB3-PB0 and two LEDs on PB5-PB4
-// Input: None
-// Output: None
+//***
+// Initialize 4-bit DAC on PB3-PB0 and two LEDs on PB5-PB4
+//***
 void DAC_Init(void) {
     volatile unsigned long delay;
     unsigned char PORTBPINS = DACPINS | LLEDPIN | RLEDPIN;
@@ -98,92 +97,82 @@ void DAC_Init(void) {
     GPIO_PORTB_DEN_R |= PORTBPINS;      // enable digital I/O on PB5-PB0
 }
 
-//**********DAC_Out**********
-// Outputs to DAC
-// Inputs: 4-bit data
-// Outputs: None
+//***
+// Output to DAC
+//***
 void DAC_Out(unsigned short data) {
     GPIO_PORTB_DACOUT_R = data;
 }
 
 unsigned short DACIndex = 0;
 
-//**********PlaySound_Shoot**********
-// Plays a sound when the ship shoots
-// Inputs: None
-// Outputs: None
+//***
+// Play a sound when the ship shoots
+//***
 void PlaySound_Shoot(void) {
     DACIndex = (DACIndex + 1) % SHOOTSIZE;
     DAC_Out(shoot[DACIndex]);
 }
 
-//**********PlaySound_Explosion**********
-// Plays a sound when the ship is destroyed
-// Inputs: None
-// Outputs: None
+//***
+// Play a sound when the ship is destroyed
+//***
 void PlaySound_Explosion(void) {
     DACIndex = (DACIndex + 1) % EXPLOSIONSIZE;
     DAC_Out(explosion[DACIndex]);
 }
 
-//**********PlaySound_InvaderKilled**********
-// Plays a sound when a sprite is killed
-// Inputs: None
-// Outputs: None
+//***
+// Play a sound when a sprite is killed
+//***
 void PlaySound_InvaderKilled(void) {
     DACIndex = (DACIndex + 1) % INVADERKILLEDSIZE;
     DAC_Out(invaderkilled[DACIndex]);
 }
 
-//**********PlaySound_FastInvader1**********
-// Plays a sound when a sprite moves
-// Inputs: None
-// Outputs: None
+//***
+// Play a sound when a sprite moves
+//***
 void PlaySound_FastInvader1(void) {
     DACIndex = (DACIndex + 1) % FASTINVADER1SIZE;
     DAC_Out(fastinvader1[DACIndex]);
 }
 
-// //**********PlaySound_FastInvader2**********
-// // Plays a sound when a sprite moves
-// // Inputs: None
-// // Outputs: None
+// //***
+// // Play a sound when a sprite moves
+// //***
 // void PlaySound_FastInvader2(void) {
 //     DACIndex = (DACIndex + 1)%FASTINVADER2SIZE;
 //     DAC_Out(fastinvader2[DACIndex]);
 // }
-
-// //**********PlaySound_Fastinvader3**********
-// // Plays a sound when a sprite moves
-// // Inputs: None
-// // Outputs: None
+//
+// //***
+// // Play a sound when a sprite moves
+// //***
 // void PlaySound_FastInvader3(void) {
 //     DACIndex = (DACIndex + 1)%FASTINVADER3SIZE;
 //     DAC_Out(fastinvader3[DACIndex]);
 // }
-
-// //**********PlaySound_Fastinvader4**********
-// // Plays a sound when a sprite moves
-// // Inputs: None
-// // Outputs: None
+//
+// //***
+// // Play a sound when a sprite moves
+// //***
 // void PlaySound_FastInvader4(void) {
 //     DACIndex = (DACIndex + 1)%FASTINVADER4SIZE;
 //     DAC_Out(fastinvader4[DACIndex]);
 // }
 
-//**********PlaySound_HighPitch**********
-// Plays a sounds when the mothership arrives
-// Inputs: None
-// Outputs: None
+//***
+// Play a sounds when the mothership arrives
+//***
 void PlaySound_HighPitch(void) {
     DACIndex = (DACIndex + 1) % HIGHPITCHSIZE;
     DAC_Out(highpitch[DACIndex]);
 }
 
-//**********PlaySound_SmallExplosion**********
-// Plays a sound when the mothership is destroyed
-// Inputs: None
-// Outputs: None
+//***
+// Play a sound when the mothership is destroyed
+//***
 void PlaySound_SmallExplosion(void) {
     DACIndex = (DACIndex + 1) % SMALLEXPLOSIONSIZE;
     DAC_Out(smallexplosion[DACIndex]);

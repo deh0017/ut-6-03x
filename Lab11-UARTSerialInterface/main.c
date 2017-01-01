@@ -14,21 +14,27 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 07, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "UART.h"   // include all UART related functions
 #include "TExaS.h"
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void EnableInterrupts(void);  // enable interrupts
 
-//**********3. Main function**********
+//***
+// 3. Main function
+//***
 int main(void) {
-    // set up:
+    // Setup
     unsigned long n;
 
     TExaS_Init();       // initialize grader, set system clock to 80 MHz
@@ -36,7 +42,7 @@ int main(void) {
     EnableInterrupts(); // needed for TExaS
     UART_OutString("Running Lab 11");
 
-    // loop:
+    // Loop
     while (1) {
         UART_OutString("\n\rInput:");
         n = UART_InUDec();      // read n

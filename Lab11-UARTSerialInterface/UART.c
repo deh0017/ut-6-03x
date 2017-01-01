@@ -14,19 +14,19 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 07, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
 #include "tm4c123gh6pm.h"
 #include "UART.h"
 
-//**********UART_Init**********
-// Initializes the UART for 115,200 baud rate
+//***
+// Initialize the UART for 115,200 baud rate
 // 8-bit word length, no parity bits, one stop bit, FIFOs enabled
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz UART clock
+//
+// @assumption      80-MHz UART clock
+//***
 void UART_Init(void) {
     volatile unsigned long delay;
 
@@ -49,10 +49,11 @@ void UART_Init(void) {
     GPIO_PORTA_AMSEL_R &= ~0x03;
 }
 
-//**********UART_InChar**********
-// Waits for new serial port input
-// Inputs: None
-// Outputs: ASCII code for key typed
+//***
+// Wait for new serial port input
+//
+// @return      ASCII code for key typed
+//***
 unsigned char UART_InChar(void) {
     // wait until the Receiver FIFO Empty Flag is empty:
     while ((UART0_FR_R & UART_FR_RXFE) != 0) {
@@ -62,11 +63,12 @@ unsigned char UART_InChar(void) {
     return (unsigned char)(UART0_DR_R & 0xFF);
 }
 
-//**********UART_InCharNonBlocking**********
-// Gets oldest serial port input and return immediately
-// if there is no data
-// Inputs: None
-// Outputs: ASCII code for key typed or 0 if no character
+//***
+// Get oldest serial port input and return immediately if there is no data
+//
+// @return      ASCII code for key typed or 0 if no character
+// @return      0 if there is no data
+//***
 unsigned char UART_InCharNonBlocking(void) {
     // if the Receiver FIFO Empty Flag is full:
     if ((UART0_FR_R & UART_FR_RXFE) == 0) {
@@ -79,10 +81,11 @@ unsigned char UART_InCharNonBlocking(void) {
     }
 }
 
-//**********UART_OutChar**********
-// Outputs 8-bit to serial port
-// Inputs: data    an 8-bit ASCII character to be transferred
-// Outputs: none
+//***
+// Output 8-bit to serial port
+//
+// @param   data    an 8-bit ASCII character to be transferred
+//***
 void UART_OutChar(unsigned char data) {
     // if the Transmitter FIFO Full Flag is not busy:
     while ((UART0_FR_R & UART_FR_TXFF) != 0) {
@@ -91,15 +94,17 @@ void UART_OutChar(unsigned char data) {
     UART0_DR_R = data;      // write the data
 }
 
-//**********UART_InUDec**********
-// Accepts ASCII input in unsigned decimal format
+//***
+// Accept ASCII input in unsigned decimal format
 // and converts to a 32-bit unsigned number
 // valid range is 0 to 4,294,967,295 (2^32-1)
-// Inputs: None
-// Outputs: 32-bit unsigned number
-// Notes: If you enter a number above 4294967295,
-// it will return an incorrect value
-// Backspace will remove last digit typed
+//
+// @return      32-bit unsigned number
+//
+// @notes       If you enter a number above 4294967295,
+//              it will return an incorrect value
+//              Backspace will remove last digit typed
+//***
 unsigned long UART_InUDec(void) {
     unsigned long number = 0, length = 0;
     char character;
@@ -126,10 +131,11 @@ unsigned long UART_InUDec(void) {
     return number;
 }
 
-//**********UART_OutString**********
-// Outputs String (NULL termination)
-// Inputs: buffer[]    pointer to a NULL-terminated string to be transferred
-// Outputs: None
+//***
+// Output String (NULL termination)
+//
+// @param   buffer[]   pointer to a NULL-terminated string to be transferred
+//***
 void UART_OutString(unsigned char buffer[]) {
     unsigned long i = 0;
 
@@ -143,10 +149,11 @@ void UART_OutString(unsigned char buffer[]) {
 unsigned char String[15];
 unsigned short StringLength;
 
-//**********PutIntoString**********
-// Puts number into global variable String[10]
-// Inputs: n    32-bit number to be put in
-// Outputs: None
+//***
+// Put number into global variable String[10]
+//
+// @param   n   32-bit number to be put in
+//***
 void PutIntoString(unsigned long n) {
     unsigned short i = 0;
     unsigned char ReverseString[15];
@@ -173,17 +180,20 @@ void PutIntoString(unsigned long n) {
     }
 }
 
-//**********UART_ConvertUDec**********
-// Converts a 32-bit number in unsigned decimal format
-// Inputs: n    32-bit number to be transferred
-// Outputs: None
-// Notes: Fixed format 4 digits, one space after, null termination
-// Examples
+//***
+// Convert a 32-bit number in unsigned decimal format
+//
+// @param   n   32-bit number to be transferred
+//
+// @notes   Fixed format 4 digits, one space after, null termination
+//
+// @examples
 //    4 to "   4 "
 //   31 to "  31 "
 //  102 to " 102 "
 // 2210 to "2210 "
 //10000 to "**** "  any value larger than 9999 converted to "**** "
+//***
 void UART_ConvertUDec(unsigned long n) {
     PutIntoString(n);                   // put n into String
     if (n <= 9) {                       // in case n has only 1 digit:
@@ -216,28 +226,33 @@ void UART_ConvertUDec(unsigned long n) {
     }
 }
 
-//**********UART_OutUDec**********
-// Outputs a 32-bit number in unsigned decimal format
-// Inputs: n    32-bit number to be transferred
-// Outputs: None
-// Notes: Fixed format 4 digits, one space after, null termination
+//***
+// Output a 32-bit number in unsigned decimal format
+//
+// @param   n   32-bit number to be transferred
+//
+// @notes   Fixed format 4 digits, one space after, null termination
+//***
 void UART_OutUDec(unsigned long n) {
     UART_ConvertUDec(n);        // convert to decimal
     UART_OutString(String);     // output
 }
 
-//**********UART_ConvertDistance**********
-// Converts a 32-bit distance into an ASCII string
-// Inputs: n    32-bit number to be converted (resolution 0.001cm)
-// Outputs: None
-// Notes: Fixed format
-// 1 digit, point, 3 digits, space, units, null termination
-// Examples
+//***
+// Convert a 32-bit distance into an ASCII string
+//
+// @param   n   32-bit number to be converted (resolution 0.001cm)
+//
+// @notes   Fixed format
+//          1 digit, point, 3 digits, space, units, null termination
+//
+// @examples
 //    4 to "0.004 cm"
 //   31 to "0.031 cm"
 //  102 to "0.102 cm"
 // 2210 to "2.210 cm"
 //10000 to "*.*** cm"  any value larger than 9999 converted to "*.*** cm"
+//***
 void UART_ConvertDistance(unsigned long n) {
     PutIntoString(n);                   // put n into String
     if (n <= 9) {                       // in case n has only 1 digit:
@@ -287,12 +302,14 @@ void UART_ConvertDistance(unsigned long n) {
     }
 }
 
-//**********UART_OutDistance**********
-// Outputs a 32-bit number in unsigned decimal fixed-point format
-// Inputs: n    32-bit number to be transferred (resolution 0.001cm)
-// Outputs: None
-// Notes: Fixed format
-// 1 digit, point, 3 digits, space, units, null termination
+//***
+// Output a 32-bit number in unsigned decimal fixed-point format
+//
+// @param   n   32-bit number to be transferred (resolution 0.001cm)
+//
+// @notes   Fixed format
+//          1 digit, point, 3 digits, space, units, null termination
+//***
 void UART_OutDistance(unsigned long n) {
     UART_ConvertDistance(n);        // convert to distance
     UART_OutString(String);         // output

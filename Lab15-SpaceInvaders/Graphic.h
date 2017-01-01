@@ -12,61 +12,96 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated September 05, 2016
+// Updated September 31, 2016
 //
 //****************************************************************************
 
 typedef struct State Thing;
 
-//**********Check_Collision**********
-// Detects whether two Things overlap
-// Inputs: Thing1   Thing 1
-//         Thing2   Thing 2
-// Outputs: 0       False
-//          1       True
+//***
+// Detect whether two Things overlap
+//
+// @param   Thing1      a Thing
+//          Thing2      another Thing
+//
+// @return              0 if not collide
+// @return              1 if collide
+//***
 unsigned char Check_Collision(Thing Thing1, Thing Thing2);
 
-//**********Draw**********
-// Draws a Thing on the buffer
-// Inputs: aThing    a Thing, such as Ship, Bunker, Enemy, Mothership, and Laser
-// Outputs: None
+//***
+// Draw a Thing on the buffer
+//
+// @param   aThing   a Thing, such as Ship, Bunker, Enemy, Mothership, and Laser
+//***
 void Draw(Thing aThing);
 
-//**********Draw_AllEnemies**********
-// Draws all enemies on the screen
-// Inputs: None
-// Outputs: None
+//***
+// Draw all enemies on the screen
+//***
 void Draw_AllEnemies(void);
 
-//**********Move**********
-// Changes the coordinate and move a movable Thing on the buffer
-// Inputs: *aMovableThing   a movable Thing, such as Ship, Enemy, Mothership,
-//                                                   Missile, and Laser
-//         toX              x-coordinate that Thing is moving to
-//         toY              y-coordinate that Thing is moving to
-// Outputs: None
+//***
+// Change the coordinate and move a movable Thing on the buffer
+//
+// @param   *aMovableThing   a movable Thing, such as Ship, Enemy, Mothership,
+//                             Missile, and Laser
+// @param   toX              x-coordinate that Thing is moving to
+// @param   toY              y-coordinate that Thing is moving to
+//***
 void Move(Thing *aMovableThing, unsigned char toX, unsigned char toY);
 
-//**********Create_Laser**********
-// Creates a laser when player fires, as long as under MAXLASER
-// Inputs: None
-// Outputs: None
+//***
+// Destroy a Thing and plays an explosion sequence if available
+//
+// @param   *aThing   a Thing, such as Ship, Enemy, Mothership, Missile, and Laser
+//***
+void Destroy(Thing *aThing);
+
+//***
+// Damage a Thing and destroys it if neccessary
+//
+// @param   *aThing   a Thing, such as Ship, Bunker, Enemy, Mothership,
+//                     Missile, and Laser
+//***
+void Damage(Thing *aThing);
+
+//***
+// Create a laser when player fires, as long as under MAXLASER
+//***
 void Create_Laser(void);
 
-//**********Create_Missile**********
-// Creates a missile when an enemy fires, as long as under MAXMISSILE
-// Inputs: None
-// Outputs: None
+//***
+// Create a missile when an enemy fires, as long as under MAXMISSILE
+//***
 void Create_Missile(void);
 
-//**********Move_Lasers**********
-// Moves all lasers 1 pixel downward at a time
-// Inputs: None
-// Outputs: None
+//***
+// Check the collision between a laser other things
+//
+// @param   *aLaser   a laser in Laser[]
+//
+// @return            0 if not hit
+// @return            1 if hit
+//***
+unsigned char Laser_Is_Hit(Thing *aLaser);
+
+//***
+// Check the collision between a missile other things
+//
+// @param   *aMissile   a missile in Missile[]
+//
+// @return              0 if not hit
+// @return              1 if hit
+//***
+unsigned char Missile_Is_Hit(Thing *aMissile);
+
+//***
+// Move all lasers 1 pixel downward at a time
+//***
 void Move_Lasers(void);
 
-//**********Move_Missiles**********
-// Moves all missiles 1 pixel upward at a time
-// Inputs: None
-// Outputs: None
+//***
+// Move all missiles 1 pixel upward at a time
+//***
 void Move_Missiles(void);

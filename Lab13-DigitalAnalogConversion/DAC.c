@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
@@ -22,10 +22,9 @@
 #include "DAC.h"
 #include "tm4c123gh6pm.h"
 
-//**********DAC_Init**********
-// Initializes 4-bit DAC
-// Inputs: None
-// Outputs: None
+//***
+// Initialize 4-bit DAC
+//***
 void DAC_Init(void) {
     volatile unsigned long delay;
 
@@ -41,10 +40,11 @@ void DAC_Init(void) {
     GPIO_PORTB_DR8R_R |= 0x0F;          // enable 8-mA drive select on PB3-PB0
 }
 
-//**********DAC_Out**********
-// Writes output to DAC
-// Inputs: data    4-bit data, 0 to 15
-// Outputs: None
+//***
+// Write output to DAC
+//
+// @param   data   4-bit data, 0 to 15
+//***
 void DAC_Out(unsigned long data) {
     // write every single value from the SineWave array
     GPIO_PORTB_DATA_R = data;

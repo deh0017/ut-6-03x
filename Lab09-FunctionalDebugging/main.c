@@ -17,11 +17,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 25, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -48,20 +50,23 @@
 #define SYSCTL_RCGC2_R			(*((volatile unsigned long *)0x400FE108))
 #define NVIC_ST_CURRENT_R		(*((volatile unsigned long *)0xE000E018))
 
-//**********2. Global Declarations Section**********
-// Global Variables
+//***
+// 2. Global declarations section
+//***
+// Global variables
 unsigned long Time[50];         // array contains time
 unsigned long Data[50];         // array contains data
 
-// Function Prototypes
+// Function prototypes
 void DisableInterrupts(void);   // disable interrupts
 void EnableInterrupts(void);    // enable interrupts
 
-//**********3. Subroutines Section**********
-//----------PortF_Init----------
-// Initializes port F pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines Section
+//***
+//---
+// Initialize port F pins for input and output
+//---
 void PortF_Init(void) {
     volatile unsigned long delay;
 
@@ -76,20 +81,10 @@ void PortF_Init(void) {
     GPIO_PORTF_PUR_R |= 0x11;           // enable pull-up resistor on PF0 and PF4
     GPIO_PORTF_DEN_R |= 0x1F;           // 7) enable digital I/O on PF4-PF0
 }
-// Color          LED(s)      PortF
-// dark           ---         0
-// red            R--         0x02
-// blue           --B         0x04
-// green          -G-         0x08
-// yellow         RG-         0x0A
-// sky blue       -GB         0x0C
-// white          RGB         0x0E
-// pink           R-B         0x06
 
-//----------SysTick_Init----------
-// Initializes the SysTick timer
-// Inputs: None
-// Outputs: None
+//---
+// Initialize the SysTick timer
+//---
 void SysTick_Init(void) {
     NVIC_ST_CTRL_R = 0;                 // disable SysTick during setup
     NVIC_ST_RELOAD_R = 0x00FFFFFF;      // maximum reload value
@@ -97,11 +92,11 @@ void SysTick_Init(void) {
     NVIC_ST_CTRL_R = 0x00000005;        // enable SysTick with core clock
 }
 
-//----------Delay----------
-// Delays the program 50 milliseconds (0.05 second)
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Delay the program 50 milliseconds (0.05 second)
+//
+// @assumption      80-MHz clock
+//---
 void Delay(void) {
     unsigned long volatile time;
 
@@ -111,9 +106,11 @@ void Delay(void) {
     }
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // set up:
+    // Setup
     unsigned long i, last, now;
 
     // activate grader and set system clock to 16 MHz
@@ -124,7 +121,7 @@ int main(void) {
     last = NVIC_ST_CURRENT_R;
     EnableInterrupts();         // enable interrupts for the grader
 
-    // loop:
+    // Loop
     while (1) {
         if (!PF4 || !PF0) {     // if either SW1 or SW2 is pressed
             PF1 ^= 0x02;        // toggle the red LED

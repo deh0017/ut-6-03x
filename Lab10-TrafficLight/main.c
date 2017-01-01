@@ -14,11 +14,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 31, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // West's Red-Yellow-Green connected to PB5-PB4-PB3
 // South's Red-Yellow-Green connected to  PB2-PB1-PB0
 // Pedestrian's Red connected to PF1
@@ -27,7 +29,9 @@
 // South's switch connected to PE1
 // Pedestrian's switch connected to PE2
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -70,8 +74,10 @@
 #define NVIC_ST_RELOAD_R		(*((volatile unsigned long *)0xE000E014))
 #define NVIC_ST_CURRENT_R		(*((volatile unsigned long *)0xE000E018))
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void DisableInterrupts(void);                   // disable interrupts
 void EnableInterrupts(void);                    // enable interrupts
 void Ports_Init(void);                          // ports initialization
@@ -79,7 +85,7 @@ void SysTick_Init(void);                        // SysTick initialization
 void SysTick_Wait(unsigned long delay);         // SysTick wait function
 void SysTick_Wait1m(unsigned long howManyTime); // SysTick delay function
 
-// Struct Declaration
+// Struct declaration
 struct State {                  // represents a state of the FSM
     unsigned short	outB;       // ouput of Port B for the state (cars output)
     unsigned short	outF;       // output of Port F for the state (pedestrian output)
@@ -100,7 +106,7 @@ struct State {                  // represents a state of the FSM
 #define HurryP3		9
 #define OffP3		10
 
-// FSM Declaration
+// FSM declaration
 typedef const struct State StateType;
 StateType FSM[11] = {
     // 0) Go South:
@@ -127,15 +133,16 @@ StateType FSM[11] = {
     { 0x24, 0x00, 250,	{ GoW,	   GoS,		GoW,	 GoS,	  GoS	  } }
 };
 
-// Global Variables
+// Global variables
 unsigned char currentState;         // current state
 unsigned char input;                // input from switches
 
-//**********3. Subroutines Section**********
-//----------Ports_Init----------
-// Initializes port F-B-E pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines Section
+//***
+//---
+// Initialize port F-B-E pins for input and output
+//---
 void Ports_Init(void) {
     // clock
     volatile unsigned long delay;
@@ -172,10 +179,9 @@ void Ports_Init(void) {
     GPIO_PORTE_DEN_R |= 0x07;       // 7) enable digital I/O on PE2-PE0
 }
 
-//----------SysTick_Init----------
-// Initializes SysTick timer
-// Inputs: None
-// Outputs: None
+//---
+// Initialize SysTick timer
+//---
 void SysTick_Init(void) {
     NVIC_ST_CTRL_R = 0;             // disable SysTick during set up
     NVIC_ST_RELOAD_R = 0xFFFFFF;    // maximum value to RELOAD register
@@ -183,12 +189,15 @@ void SysTick_Init(void) {
     NVIC_ST_CTRL_R = 0x05;          // enable CLK_SRC bit and ENABLE bit
 }
 
-//----------SysTick_Wait----------
-// Delays the program
-// Inputs: delay    count value
-// Outputs: None
-// Assumes: 80-MHz clock
-// Notes: delay = Time_To_Delay_In_Seconds/12.5/0.000000001
+//---
+// Delay the program
+//
+// @param       delay    count value
+//
+// @assumption           80-MHz clock
+//
+// @notes       delay = Time_To_Delay_In_Seconds / 12.5 / 0.000000001
+//---
 void SysTick_Wait(unsigned long delay) {
     NVIC_ST_RELOAD_R = delay - 1;       // number of counts to wait
     NVIC_ST_CURRENT_R = 0;              // overwrite the CURRENT register
@@ -197,23 +206,28 @@ void SysTick_Wait(unsigned long delay) {
     }
 }
 
-//----------SysTick_Wait1ms----------
-// Delays the program some ms
-// Inputs: howManyTime      milliseconds to delay
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Delay the program some ms
+//
+// @param       howManyTime    milliseconds to delay
+//
+// @assumption                 80-MHz clock
+//---
 void SysTick_Wait1ms(unsigned long howManyTime) {
     unsigned long i;
 
     for (i = 0; i < howManyTime; i++) {
-        // count = 0.001/12.5/0.000000001 = 80000 <-> 1 milliseconds
+        // count = 0.001 / 12.5 / 0.000000001 = 80000
+        // equivalent to 1 millisecond
         SysTick_Wait(80000);
     }
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    //set up:
+    // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PE210, LED_PIN_PB543210, ScopeOff);
     Ports_Init();           // Port B, Port F, and Port E initialization
@@ -221,16 +235,13 @@ int main(void) {
     currentState = GoS;     // GoS is initial state
     EnableInterrupts();     // enable interrupts for grader
 
-    // loop:
+    // Loop
     while (1) {
-        // output based on current state
-        // output to cars (port B):
-        GPIO_PORTB_DATA_R = FSM[currentState].outB;
-        // output to pedestrians (port F)
-        GPIO_PORTF_DATA_R = FSM[currentState].outF;
-        // wait for time relevant to state
+        // make outputs
+        GPIO_PORTB_DATA_R = FSM[currentState].outB;     // to cars (port B)
+        GPIO_PORTF_DATA_R = FSM[currentState].outF;     // to pedestrians (port F)
         SysTick_Wait1ms(FSM[currentState].wait);
-        // get input
+        // get inputs
         // if no switch is pressed
         if (GPIO_PORTE_DATA_R == 0x00) {
             input = 0; // then it is case 0 of the next[] array...

@@ -13,41 +13,52 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 07, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // Slide pot pin 1 connected to GND
 // Slide pot pin 2 connected to PE2/AIN1
 // Slide pot pin 3 connected to +3.3V
 // Switch connected to PF4
 // Red LED built in PF2
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "ADC.h"
 #include "tm4c123gh6pm.h"
 #include "Nokia5110.h"
 #include "TExaS.h"
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void EnableInterrupts(void);
 
-// Global Variables
+// Global variables
 unsigned char String[10];   // null-terminated ASCII string
 unsigned long Distance;     // unit of 0.001 cm
 unsigned long ADCdata;      // 12-bit 0 to 4095 sample
 unsigned long Flag;         // 1 = valid Distance, 0 = empty Distance
 
-//**********3. Subroutines Section**********
-//----------Convert----------
-// Converts a 12-bit binary ADC sample into a 32-bit unsigned
+//***
+// 3. Subroutines section
+//***
+//---
+// Convert a 12-bit binary ADC sample into a 32-bit unsigned
 // fixed-point distance (resolution 0.001 cm).  Calibration
 // data is gathered using known distances and reading the
 // ADC value measured on PE2.
-// Inputs: sample    12-bit ADC sample
-// Outputs: 32-bit distance (resolution 0.001cm)
+//
+// @param    sample   12-bit ADC sample
+//
+// @return            32-bit distance (resolution 0.001cm)
+//---
 unsigned long Convert(unsigned long sample) {
     // Truth        ADCdata
     // 500              471
@@ -74,11 +85,11 @@ unsigned long Convert(unsigned long sample) {
     return result;
 }
 
-//----------SysTick_Init----------
-// Initializes SysTick interrupts to trigger at 40 Hz, 25 ms
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Initialize SysTick interrupts to trigger at 40 Hz, 25 ms
+//
+// @assumption       80-MHz clock
+//---
 void SysTick_Init() {
     NVIC_ST_CTRL_R = 0;         // disable SysTick during startup
     NVIC_ST_RELOAD_R = 1999999; // trigger every 25ms
@@ -91,11 +102,10 @@ void SysTick_Init() {
     NVIC_ST_CTRL_R |= 0x07;     // set bits CLK_SRC, INTEN, and ENABLE
 }
 
-//----------SysTick_Handler----------
-// Executes every 25 ms, collects a sample, converts and stores in mailbox
-// Inputs: None
-// Ouputs: None
-// Assumes: 80-MHz clock
+//---
+// Execute every 25 ms, collects a sample, converts and stores in mailbox
+//
+// @assumption       80-MHz clock
 void SysTick_Handler(void) {
     GPIO_PORTF_DATA_R ^= 0x04;      // toggle PF2
     GPIO_PORTF_DATA_R ^= 0x04;      // toggle PF2 again
@@ -105,12 +115,13 @@ void SysTick_Handler(void) {
     GPIO_PORTF_DATA_R ^= 0x04;      // toggle PF2 the third time
 }
 
-//----------UART_ConvertDistance----------
-// Converts a 32-bit distance into an ASCII string
+//---
+// Convert a 32-bit distance into an ASCII string
 // and store the conversion in global variable String[10]
-// Inputs: n    32-bit number to be converted (resolution 0.001cm)
-// Outputs: None
-// Notes:
+//
+// @param   n   32-bit number to be converted (resolution 0.001cm)
+//
+// @notes
 // Fixed format 1 digit, point, 3 digits, space, units, null termination
 // Examples
 //     4 to "0.004 cm"
@@ -118,6 +129,7 @@ void SysTick_Handler(void) {
 //   102 to "0.102 cm"
 //  2210 to "2.210 cm"
 // 10000 to "*.*** cm"  any value larger than 9999 converted to "*.*** cm"
+//---
 void UART_ConvertDistance(unsigned long n) {
     // first, put m into String[10]
     short i = 0;
@@ -206,10 +218,9 @@ void UART_ConvertDistance(unsigned long n) {
     }
 }
 
-//----------PortF_Init----------
-// Initializes port F for the blue LED and SW1
-// Inputs: None
-// Outputs: None
+//---
+// Initialize port F for the blue LED and SW1
+//---
 void PortF_Init(void) {
     volatile unsigned long delay;
 
@@ -225,8 +236,11 @@ void PortF_Init(void) {
     GPIO_PORTF_AMSEL_R &= ~0x14;        // disable analog function on PF4, PF2
 }
 
-//**********4. Main Function:**********
+//***
+// 4. Main function
+//***
 int main(void) {
+    // Setup
     TExaS_Init(ADC0_AIN1_PIN_PE2, SSI0_Real_Nokia5110_Scope);
     // initialize ADC0, channel 1, sequencer 3
     ADC0_Init();
@@ -235,6 +249,8 @@ int main(void) {
     SysTick_Init();
     PortF_Init();
     EnableInterrupts();
+
+    // Loop
     while (1) {
         Flag = 0;                       // read mailbox
         while (Flag != 1) {

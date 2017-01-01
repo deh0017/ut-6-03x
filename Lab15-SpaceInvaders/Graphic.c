@@ -12,7 +12,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
@@ -23,34 +23,37 @@
 #include "Random.h"
 #include "Timer.h"
 
-//**********Check_Collision**********
-// Detects whether two Things overlap
-// Inputs: Thing1   Thing 1
-//         Thing2   Thing 2
-// Outputs: 0       False
-//          1       True
+//***
+// Detect whether two Things overlap
+//
+// @param   Thing1      a Thing
+//          Thing2      another Thing
+//
+// @return              0 if not collide
+// @return              1 if collide
+//***
 unsigned char Check_Collision(Thing Thing1, Thing Thing2) {
     if (Thing1.x < Thing2.x + Thing2.width
-        && Thing1.x + Thing1.width > Thing2.x
-        && Thing1.y > Thing2.y - Thing2.height
-        && Thing1.y - Thing1.height < Thing2.y) {
+            && Thing1.x + Thing1.width > Thing2.x
+            && Thing1.y > Thing2.y - Thing2.height
+            && Thing1.y - Thing1.height < Thing2.y) {
         return 1;
     }
     return 0;
 }
 
-//**********Draw**********
-// Draws a Thing on the buffer
-// Inputs: aThing    a Thing, such as Ship, Bunker, Enemy, Mothership, and Laser
-// Outputs: None
+//***
+// Draw a Thing on the buffer
+//
+// @param   aThing   a Thing, such as Ship, Bunker, Enemy, Mothership, and Laser
+//***
 void Draw(Thing aThing) {
     Nokia5110_PrintBMP(aThing.x, aThing.y, aThing.image[aThing.frame], 0);
 }
 
-//**********Draw_AllEnemies**********
-// Draws all enemies on the screen
-// Inputs: None
-// Outputs: None
+//***
+// Draw all enemies on the screen
+//***
 void Draw_AllEnemies(void) {
     unsigned char i;
 
@@ -59,13 +62,14 @@ void Draw_AllEnemies(void) {
     }
 }
 
-//**********Move**********
-// Changes the coordinate and move a movable Thing on the buffer
-// Inputs: *aMovableThing   a movable Thing, such as Ship, Enemy, Mothership,
-//                                                   Missile, and Laser
-//         toX              x-coordinate that Thing is moving to
-//         toY              y-coordinate that Thing is moving to
-// Outputs: None
+//***
+// Change the coordinate and move a movable Thing on the buffer
+//
+// @param   *aMovableThing   a movable Thing, such as Ship, Enemy, Mothership,
+//                             Missile, and Laser
+// @param   toX              x-coordinate that Thing is moving to
+// @param   toY              y-coordinate that Thing is moving to
+//***
 void Move(Thing *aMovableThing, unsigned char toX, unsigned char toY) {
     Nokia5110_PrintBMP(aMovableThing->x, aMovableThing->y,
                        aMovableThing->blank, 0);
@@ -74,17 +78,17 @@ void Move(Thing *aMovableThing, unsigned char toX, unsigned char toY) {
     Draw(*aMovableThing);
 }
 
-//**********Destroy**********
-// Destroys a Thing and plays an explosion sequence if available
-// Inputs: *aThing    a Thing, such as Ship, Enemy, Mothership, Missile,
-//                                and Laser
-// Outputs: None
+//***
+// Destroy a Thing and plays an explosion sequence if available
+//
+// @param   *aThing   a Thing, such as Ship, Enemy, Mothership, Missile, and Laser
+//***
 void Destroy(Thing *aThing) {
     aThing->life = 0;
     // multi-frame explosion
     if (strncmp(aThing->name, "ship", 4) == 0
-        || strncmp(aThing->name, "enemy", 5) == 0
-        || strncmp(aThing->name, "mothership", 10) == 0) {
+            || strncmp(aThing->name, "enemy", 5) == 0
+            || strncmp(aThing->name, "mothership", 10) == 0) {
         Nokia5110_PrintBMP(aThing->x, aThing->y, aThing->explode[0], 0);
         Nokia5110_DisplayBuffer();
         Delay(DELTAEXPLODE);
@@ -103,11 +107,12 @@ void Destroy(Thing *aThing) {
     }
 }
 
-//**********Damage**********
-// Damages a Thing and destroys it if neccessary
-// Inputs: *aThing    a Thing, such as Ship, Bunker, Enemy, Mothership,
-//                                     Missile, and Laser
-// Outputs: None
+//***
+// Damage a Thing and destroys it if neccessary
+//
+// @param   *aThing   a Thing, such as Ship, Bunker, Enemy, Mothership,
+//                     Missile, and Laser
+//***
 void Damage(Thing *aThing) {
     // destroy if there is only 1 life left
     if (aThing->life == 1) {
@@ -122,10 +127,9 @@ void Damage(Thing *aThing) {
     }
 }
 
-//**********Create_Laser**********
-// Creates a laser when player fires, as long as under MAXLASER
-// Inputs: None
-// Outputs: None
+//***
+// Create a laser when player fires, as long as under MAXLASER
+//***
 void Create_Laser(void) {
     unsigned char i;
 
@@ -146,10 +150,9 @@ void Create_Laser(void) {
     }
 }
 
-//**********Create_Missile**********
-// Creates a missile when an enemy fires, as long as under MAXMISSILE
-// Inputs: None
-// Outputs: None
+//***
+// Create a missile when an enemy fires, as long as under MAXMISSILE
+//***
 void Create_Missile(void) {
     unsigned char i;
     unsigned char iEnemy = Random() % MAXENEMY;
@@ -172,11 +175,14 @@ void Create_Missile(void) {
     }
 }
 
-//**********Laser_Is_Hit**********
-// Checks the collision between a laser other things
-// Inputs: *aLaser     a laser in Laser[]
-// Outputs: 0    no hit
-//          1    hit
+//***
+// Check the collision between a laser other things
+//
+// @param   *aLaser   a laser in Laser[]
+//
+// @return            0 if not hit
+// @return            1 if hit
+//***
 unsigned char Laser_Is_Hit(Thing *aLaser) {
     unsigned char i;
 
@@ -203,11 +209,14 @@ unsigned char Laser_Is_Hit(Thing *aLaser) {
     return 0;
 }
 
-//**********Missile_Is_Hit**********
-// Checks the collision between a missile other things
-// Inputs: *aMissile     a missile in Missile[]
-// Outputs: 0    no hit
-//          1    hit
+//***
+// Check the collision between a missile other things
+//
+// @param   *aMissile   a missile in Missile[]
+//
+// @return              0 if not hit
+// @return              1 if hit
+//***
 unsigned char Missile_Is_Hit(Thing *aMissile) {
     unsigned char i;
 
@@ -234,10 +243,9 @@ unsigned char Missile_Is_Hit(Thing *aMissile) {
     return 0;
 }
 
-//**********Move_Lasers**********
-// Moves all lasers 1 pixel upward at a time
-// Inputs: None
-// Outputs: None
+//***
+// Move all lasers 1 pixel downward at a time
+//***
 void Move_Lasers(void) {
     unsigned char i;
 
@@ -253,10 +261,9 @@ void Move_Lasers(void) {
     }
 }
 
-//**********Move_Missiles**********
-// Moves all missiles 1 pixel downward at a time
-// Inputs: None
-// Outputs: None
+//***
+// Move all missiles 1 pixel upward at a time
+//***
 void Move_Missiles(void) {
     unsigned char i;
 

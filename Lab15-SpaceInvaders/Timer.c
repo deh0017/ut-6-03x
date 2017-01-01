@@ -12,18 +12,18 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
 #include "Timer.h"
 #include "tm4c123gh6pm.h"
 
-//**********Init_SysTick**********
-// Initializes 30-Hz software-triggered interrupt
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//***
+// Initialize 30-Hz software-triggered interrupt
+//
+// @assumption      80-MHz clock
+//***
 void Init_SysTick(void) {
     NVIC_ST_CTRL_R = 0;             // disable SysTick during set up
     NVIC_ST_RELOAD_R = 2666665;     // 30-Hz interrupt 2666665
@@ -34,11 +34,11 @@ void Init_SysTick(void) {
     NVIC_ST_CTRL_R = 0x0007;
 }
 
-//**********Init_Timer2**********
-// Initializes 11-kHz software-triggered interrupt
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//***
+// Initialize 11-kHz software-triggered interrupt
+//
+// @assumption      80-MHz clock
+//***
 void Init_Timer2(void) {
     unsigned long volatile delay;
 
@@ -58,11 +58,13 @@ void Init_Timer2(void) {
     TIMER2_CTL_R = 0x00000001;      // 10) enable timer2A
 }
 
-//**********Delay**********
+//***
 // Delays a number of times based on the clock speed of the LaunchPad
-// Inputs: number of milliseconds needed to delay
-// Outputs: None
-// Assumes: 80-MHz clock
+//
+// @param   ms   number of milliseconds needed to delay
+//
+// @assumption   80-MHz clock
+//***
 void Delay(unsigned long ms) {
     unsigned long count;
 

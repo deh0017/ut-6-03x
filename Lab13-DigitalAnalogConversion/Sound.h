@@ -13,34 +13,34 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Sound_Init**********
-// Initializes Systick periodic interrupts and DAC
-// Inputs: None
-// Outputs: None
+//***
+// Initialize Systick periodic interrupts and DAC
+//***
 void Sound_Init(void);
 
-//**********Sound_Tone**********
-// Changes SysTick periodic interrupts to start sound output
-// Inputs: period    Interrupt period
-//         Unit of period are 12.5ns
-//         Maximum is 2^24-1
-//         Minimum is determined by length of ISR
-// Outputs: None
+//***
+// Change SysTick periodic interrupts to start sound output
+//
+// @param   period    interrupt period
+//                    1 unit of period = 12.5ns
+//                    maximum is 2^24-1
+//                    minimum is determined by length of ISR
+//***
 void Sound_Tone(unsigned long period);
 
-//**********Sound_Off**********
+//***
 // Stops outputing to DAC
-// Inputs: None
-// Outputs: None
+//***
 void Sound_Off(void);
 
-//**********Frequency_Period**********
+//***
 // convert from the frequency of the SysTick
 // to the frequency of the sound wave
 // has 4 elements representing the most suitable value
 // f_sound = f_SysTick / 16
+//***
 extern const unsigned long Frequency_Period[4];

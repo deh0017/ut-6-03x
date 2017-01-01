@@ -16,15 +16,19 @@
 // David Douglas High School
 // Portland, Oregon, United States
 // Created March 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 // Switch connected to PE0
 // LED connected to PE1
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor Section
+//***
 #include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
@@ -43,18 +47,21 @@
 #define PE0						(*((volatile unsigned long *)0x40024004))
 #define PE1						(*((volatile unsigned long *)0x40024008))
 
-//**********2. Global Declarations Section**********
-// Function Prototypes
+//***
+// 2. Global declarations section
+//***
+// Function prototypes
 void DisableInterrupts(void);           // disable interrupts
 void EnableInterrupts(void);            // enable interrupts
 void PortE_Init(void);                  // port E initialization
 void delay(unsigned long ms);           // delay ms milliseconds
 
-//**********3. Subroutines Section**********
-//----------PortE_Init----------
-// Initializes port E pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines Section
+//***
+//---
+// Initialize port E pins for input and output
+//---
 void PortE_Init(void) {
     volatile unsigned long delay;
 
@@ -69,16 +76,18 @@ void PortE_Init(void) {
     GPIO_PORTE_DEN_R |= 0x03;           // 7) enable digital pins PE1, PE0
 }
 
-//----------delay----------
-// Delays in units of milliseconds
-// Inputs: ms    Number of milliseconds to delay
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Delay in units of milliseconds
+//
+// @param       ms    number of milliseconds to delay
+//
+// @assumption        80-MHz clock
+//---
 void delay(unsigned long ms) {
     unsigned long count;
 
     while (ms) {
-        count = 15998; // approximately 16000 to delay 1 ms
+        count = 15998;    // approximately 16000 to delay 1 ms
         while (count) {
             count--;
         }
@@ -86,16 +95,18 @@ void delay(unsigned long ms) {
     }
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // set up:
+    // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PE0, LED_PIN_PE1, ScopeOn);
     PortE_Init();           // initialize port E
     EnableInterrupts();     // enable interrupts for the grader
     PE1 = 0x02;             // start with LED on
 
-    // loop:
+    // Loop
     while (1) {
         delay(100);         // wait 100 ms
         if (PE0 == 0x00) {  // if the switch is not pressed

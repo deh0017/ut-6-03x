@@ -12,11 +12,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created May 20, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********Required Hardware I/O Connections**********
+//***
+// Required hardware I/O connections
+//***
 #define POTPIN					(0x04)  // slide pot connected to PE2
 #define LSWITCHPIN				(0x02)  // left switch connected to PE1
 #define RSWITCHPIN				(0x01)  // right switch connected to PE0
@@ -24,7 +26,7 @@
 #define RLEDPIN					(0x10)  // right LED connected to PB4
 #define DACPINS					(0x0F)  // DAC connected to PB3-PB0
 
-//**********DAC Data**********
+// DAC data
 #define GPIO_PORTB_DACOUT_R		(*((volatile unsigned long *)0x4000503C))
 #define SHOOTSIZE				((unsigned short)4080)
 #define EXPLOSIONSIZE			((unsigned short)2000)
@@ -36,8 +38,7 @@
 #define HIGHPITCHSIZE			((unsigned short)1802)
 #define SMALLEXPLOSIONSIZE		((unsigned short)1500)
 
-
-//**********Game Data**********
+// Game data
 #define BUNKERW					((unsigned char)Bunker0[18])
 #define BUNKERH					((unsigned char)Bunker0[22])
 #define ENEMYW					((unsigned char)SmallEnemy20PointA[18])
@@ -78,14 +79,13 @@ extern Thing Laser[MAXLASER];       // player can shoot maximum 10 laser
 extern Thing Missile[MAXMISSILE];   // enemy can shoot maximum 4 missiles
 extern unsigned char nLaser;        // current number of lasers
 extern unsigned char nMissile;      // current number of missiles
-//----------Init_Thing----------
-// Initializes ship, bunker, enemy, mothership, missile, and laser
-// Inputs: None
-// Outputs: None
+//---
+// Initialize ship, bunker, enemy, mothership, missile, and laser
+//---
 void Init_Thing(void);
 
 
-//**********Image Data**********
+// Image data
 // enemy ship that arm and mouths are closed
 // width = 16 x height = 10
 extern const unsigned char SmallEnemy30PointA[];

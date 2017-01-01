@@ -13,7 +13,7 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created April 22, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
@@ -40,10 +40,9 @@ const unsigned long Frequency_Period[4] = {
     9550, 8508, 7570, 6366
 };
 
-//**********Sound_Init**********
-// Initializes Systick periodic interrupts and DAC
-// Inputs: None
-// Outputs: None
+//***
+// Initialize Systick periodic interrupts and DAC
+//***
 void Sound_Init(void) {
     // DAC Initialization
     DAC_Init();                     // call the DAC_Init() function in DAC.c
@@ -58,32 +57,32 @@ void Sound_Init(void) {
     NVIC_ST_CTRL_R = 0x0007;      // enable, source clock, and interrupts
 }
 
-//**********Sound_Tone**********
-// Changes SysTick periodic interrupts to start sound output
-// Inputs: period    Interrupt period
-//         Unit of period are 12.5ns
-//         Maximum is 2^24-1
-//         Minimum is determined by length of ISR
-// Outputs: None
+//***
+// Change SysTick periodic interrupts to start sound output
+//
+// @param   period    interrupt period
+//                    1 unit of period = 12.5ns
+//                    maximum is 2^24-1
+//                    minimum is determined by length of ISR
+//***
 void Sound_Tone(unsigned long period) {
     // reset the RELOAD value for different frequencies
     NVIC_ST_RELOAD_R = (period - 1) & 0x00FFFFFF;
 }
 
-//**********Sound_Off**********
+//***
 // Stops outputing to DAC
-// Inputs: None
-// Outputs: None
+//***
 void Sound_Off(void) {
     GPIO_PORTB_DATA_R &= ~0x0F;     // clear PB3-PB0
 }
 
-//**********SysTick_Handler**********
+//***
 // SysTick interrupt service routine
 // Executed every (12.5 ns)*(period)
-// Inputs: None
-// Outputs: None
-// Assumes: 80-MHz clock
+//
+// @assumption      80-MHz clock
+//***
 void SysTick_Handler(void) {
     if (Freq_Index != 4) {
         // only executes if there is non-zero input

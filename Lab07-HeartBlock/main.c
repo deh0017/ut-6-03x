@@ -16,11 +16,13 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created March 09, 2016
-// Updated December 28, 2016
+// Updated December 31, 2016
 //
 //****************************************************************************
 
-//**********1. Pre-processor Section**********
+//***
+// 1. Pre-processor section
+//***
 #include "TExaS.h"  // lab grader functions
 
 // Constant declarations to access port registers
@@ -36,8 +38,10 @@
 #define GPIO_PORTF_PCTL_R		(*((volatile unsigned long *)0x4002552C))
 #define SYSCTL_RCGC2_R			(*((volatile unsigned long *)0x400FE108))
 
-//**********2. Declarations Section**********
-// Function Prototypes
+//***
+// 2. Declarations section
+//***
+// Function prototypes
 void PortF_Init(void);              // port F initial function
 void Delay1ms(unsigned long msec);  // delay function
 void EnableInterrupts(void);        // enable interrupts
@@ -48,11 +52,12 @@ void ClearVT(void);                 // trigger clearing function
 void SetReady(void);                // indicator setting function
 void ClearReady(void);              // indicator clearing function
 
-//**********3. Subroutines Section**********
-//----------PortF_Init----------
-// Initializes port F pins for input and output
-// Inputs: None
-// Outputs: None
+//***
+// 3. Subroutines Section
+//***
+//---
+// Initialize port F pins for input and output
+//---
 void PortF_Init(void) {
     volatile unsigned long delay;
 
@@ -67,21 +72,10 @@ void PortF_Init(void) {
     GPIO_PORTF_PUR_R |= 0x10;       // enable pullup resistor on PF4
     GPIO_PORTF_DEN_R |= 0x1A;       // 7) enable digital pins PF4, PF3, PF1
 }
-// Color        LED(s)    PortF
-// dark         ---       0
-// red          R--       0x02
-// blue         --B       0x04
-// green        -G-       0x08
-// yellow       RG-       0x0A
-// sky blue     -GB       0x0C
-// white        RGB       0x0E
 
-//----------WaitForASLow----------
-// Reads AS input and waits for signal to be low
-// If AS is already low, it returns right away
-// If AS is currently high, it will wait until it to go low
-// Inputs: None
-// Outputs: None
+//---
+// Read AS input from SW1 and wait for signal to be low
+//---
 void WaitForASLow(void) {
     unsigned long AS;   // variable for input from SW1
 
@@ -90,12 +84,9 @@ void WaitForASLow(void) {
     } while (!AS);                      // as long as SW1 is pressed
 }
 
-//----------WaitForASHigh----------
-// Reads AS input and waits for signal to be high
-// If AS is already high, it returns right away
-// If AS is currently low, it will wait until it to go high
-// Inputs: None
-// Outputs: None
+//---
+// Read AS input from SW1 and wait for signal to be high
+//---
 void WaitForASHigh(void) {
     unsigned long AS;   // variable for input from SW1
 
@@ -104,43 +95,41 @@ void WaitForASHigh(void) {
     } while (AS);                       // as long as SW1 is released
 }
 
-//----------SetVT----------
-// Sets VT high
-// Inputs: None
-// Outputs: None
+//---
+// Set VT high and turn the red LED (PF1) on
+//---
 void SetVT(void) {
     GPIO_PORTF_DATA_R ^= 0x02;  // turn the red LED on
 }
 
-//----------ClearVT----------
-// Clears VT low
-// Inputs: None
-// Outputs: None
+//---
+// Clear VT (all bits in port F)
+//---
 void ClearVT(void) {
     GPIO_PORTF_DATA_R = 0;      // turn the light off
 }
 
-//----------SetReady----------
-// Sets Ready high
-// Inputs: None
-// Outputs: None
+//---
+// Set ready and turn the green LED (PF3) on
+//---
 void SetReady(void) {
     GPIO_PORTF_DATA_R = 0x08;   // turn the green LED on
 }
 
-//----------ClearReady----------
-// Clears Ready low
-// Inputs: None
-// Outputs: None
+//---
+// Clear ready (all bits in port F)
+//---
 void ClearReady(void) {
     GPIO_PORTF_DATA_R = 0;      // turn the light off
 }
 
-//----------Delay1ms----------
-// Delays in units of milliseconds
-// Inputs: msec    number of milliseconds to delay
-// Outputs: None
-// Assumes: 80-MHz clock
+//---
+// Delay in units of milliseconds
+//
+// @param       msec    number of milliseconds to delay
+//
+// @assumption          80-MHz clock
+//---
 void Delay1ms(unsigned long msec) {
     unsigned long count;      // declare count down variable
 
@@ -153,15 +142,17 @@ void Delay1ms(unsigned long msec) {
     }
 }
 
-//**********4. Main function**********
+//***
+// 4. Main function
+//***
 int main(void) {
-    // setup:
+    // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PF40, LED_PIN_PF31, ScopeOn);
     PortF_Init();           // port F initalization
     EnableInterrupts();     // enable interrupts for the grader
 
-    // loop:
+    // Loop
     while (1) {
         SetReady();         // ready signal goes high
         WaitForASHigh();    // wait for switch to be pressed
