@@ -12,25 +12,23 @@
 // Phi Luu
 // Portland, Oregon, United States
 // Created June 05, 2016
-// Updated August 13, 2016
+// Updated January 07, 2017
 //
 //****************************************************************************
 
-#define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
-#define NVIC_ST_RELOAD_R        (*((volatile unsigned long *)0xE000E014))
-#define NVIC_ST_CURRENT_R       (*((volatile unsigned long *)0xE000E018))
-#define NVIC_ST_CTRL_R          (*((volatile unsigned long *)0xE000E010))
+#define NVIC_ST_CTRL_R       (*((volatile unsigned long *)0xE000E010))
+#define NVIC_ST_RELOAD_R     (*((volatile unsigned long *)0xE000E014))
+#define NVIC_ST_CURRENT_R    (*((volatile unsigned long *)0xE000E018))
+#define NVIC_ST_CTRL_R       (*((volatile unsigned long *)0xE000E010))
 
-//**********SysTick_Init**********
 // Activates the system timer of the microcontroller
-// Inputs: None
-// Outputs: None
 void SysTick_Init(void);
 
-//**********SysTick_Delay**********
 // Delays the program for a number of milliseconds
-// Inputs: ms    the number of milliseconds to delay
-// Outputs: None
-// Assumes: 80-MHz clock
-// Notes: period = (real_time_delay seconds)*(80,000,000 Hz)
+//
+// @param   ms   the number of milliseconds to delay
+//
+// @assumption   80-MHz clock
+//
+// @notes        1 period = (real_time_delay seconds) * (80,000,000 Hz)
 void SysTick_Delay(unsigned long ms);
