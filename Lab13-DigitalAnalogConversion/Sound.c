@@ -1,21 +1,19 @@
-//****************************************************************************
-//
-// UTAustinX: UT.6.03x Embedded Systems - Shape the World
-// Lab 13: Digital-Analog Conversion
-//
-// File Name: Sound.c
-//
-// Description: Create a sinusoid sound wave using 4-bit DAC
-// and simulate C, D, E, and G notes of the piano.
-//
-// Compatibility: EK-TM4C123GXL
-//
-// Phi Luu
-// Portland, Oregon, United States
-// Created April 22, 2016
-// Updated December 31, 2016
-//
-//****************************************************************************
+/**
+ * UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ * Lab 13: Digital-Analog Conversion
+ *
+ * File Name: Sound.c
+ *
+ * Description: Create a sinusoid sound wave using 4-bit DAC
+ * and simulate C, D, E, and G notes of the piano.
+ *
+ * Compatibility: EK-TM4C123GXL
+ *
+ * Phi Luu
+ * Portland, Oregon, United States
+ * Created April 22, 2016
+ * Updated January 15, 2017
+ */
 
 #include "Sound.h"
 #include "DAC.h"
@@ -25,7 +23,7 @@
 // a smooth digital value for analog sine wave
 const unsigned char SineWave[16] = {
     8, 10, 13, 14, 15, 14, 13, 10,
-    8, 5,  2,  1,  0,  1,  2,  5
+    8,  5,  2,  1,  0,  1,  2, 5
 };
 
 // index variable of SineWave
@@ -40,49 +38,49 @@ const unsigned long Frequency_Period[4] = {
     9550, 8508, 7570, 6366
 };
 
-//***
-// Initialize Systick periodic interrupts and DAC
-//***
+/**
+ * Initializes Systick periodic interrupts and DAC
+ */
 void Sound_Init(void) {
     // DAC Initialization
     DAC_Init();                     // call the DAC_Init() function in DAC.c
     Index = 0;                      // init value of Index is 0
     // SysTick Initialization
-    NVIC_ST_CTRL_R = 0;             // disable SysTick during setup
-    NVIC_ST_RELOAD_R = 0x00FFFFFF;  // maximize the RELOAD value
+    NVIC_ST_CTRL_R    = 0;          // disable SysTick during setup
+    NVIC_ST_RELOAD_R  = 0x00FFFFFF; // maximize the RELOAD value
     NVIC_ST_CURRENT_R = 0;          // any write to CURRENT clears it
-    NVIC_ST_CTRL_R = 0x00000005;    // enable SysTick with core clock
+    NVIC_ST_CTRL_R    = 0x00000005; // enable SysTick with core clock
     // priority 1
     NVIC_SYS_PRI3_R = (NVIC_SYS_PRI3_R & 0x00FFFFFF) | 0x20000000;
-    NVIC_ST_CTRL_R = 0x0007;      // enable, source clock, and interrupts
+    NVIC_ST_CTRL_R  = 0x0007;       // enable, source clock, and interrupts
 }
 
-//***
-// Change SysTick periodic interrupts to start sound output
-//
-// @param   period    interrupt period
-//                    1 unit of period = 12.5ns
-//                    maximum is 2^24-1
-//                    minimum is determined by length of ISR
-//***
+/**
+ * Changes SysTick periodic interrupts to start sound output
+ *
+ * @param  period  interrupt period
+ *                 1 unit of period = 12.5 ns
+ *                 maximum is 2^24 - 1
+ *                 minimum is determined by the length of ISR
+ */
 void Sound_Tone(unsigned long period) {
     // reset the RELOAD value for different frequencies
     NVIC_ST_RELOAD_R = (period - 1) & 0x00FFFFFF;
 }
 
-//***
-// Stops outputing to DAC
-//***
+/**
+ * Stops outputing to DAC
+ */
 void Sound_Off(void) {
-    GPIO_PORTB_DATA_R &= ~0x0F;     // clear PB3-PB0
+    GPIO_PORTB_DATA_R &= ~0x0F; // clear PB3-PB0
 }
 
-//***
-// SysTick interrupt service routine
-// Executed every (12.5 ns)*(period)
-//
-// @assumption      80-MHz clock
-//***
+/**
+ * SysTick interrupt service routine
+ * Executed every (12.5 ns) * (period)
+ *
+ * @assumption    80-MHz clock
+ */
 void SysTick_Handler(void) {
     if (Freq_Index != 4) {
         // only executes if there is non-zero input

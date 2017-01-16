@@ -1,39 +1,28 @@
-//****************************************************************************
-//
-// UTAustinX: UT.6.03x Embedded Systems - Shape the World
-// Lab 11: UART - Serial Interface
-//
-// File Name: main.c
-//
-// Description:
-//     Convert numbers into ASCII strings and
-//     display on the UART0 (TExaSdisplay)
-//
-// Compatibility: EK-TM4C123GXL
-//
-// Phi Luu
-// Portland, Oregon, United States
-// Created April 07, 2016
-// Updated December 31, 2016
-//
-//****************************************************************************
+/**
+ * UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ * Lab 11: UART - Serial Interface
+ *
+ * File Name: main.c
+ *
+ * Description:
+ *   Convert numbers into ASCII strings and
+ *   display on the UART0 (TExaSdisplay)
+ *
+ * Compatibility: EK-TM4C123GXL
+ *
+ * Phi Luu
+ * Portland, Oregon, United States
+ * Created April 07, 2016
+ * Updated January 15, 2017
+ */
 
-//***
-// 1. Pre-processor section
-//***
-#include "UART.h"   // include all UART related functions
+#include "UART.h" // include all UART related functions
 #include "TExaS.h"
 
-//***
-// 2. Global declarations section
-//***
 // Function prototypes
-void EnableInterrupts(void);  // enable interrupts
+void EnableInterrupts(void); // enable interrupts
 
-//***
-// 3. Main function
-//***
-int main(void) {
+int  main(void) {
     // Setup
     unsigned long n;
 
@@ -45,10 +34,10 @@ int main(void) {
     // Loop
     while (1) {
         UART_OutString("\n\rInput:");
-        n = UART_InUDec();      // read n
+        n = UART_InUDec();   // read n
         UART_OutString(" UART_OutUDec = ");
-        UART_OutUDec(n);        // write n in number format
+        UART_OutUDec(n);     // write n in number format
         UART_OutString(",  UART_OutDistance ~ ");
-        UART_OutDistance(n);    // write n in distance format
+        UART_OutDistance(n); // write n in distance format
     }
 }
