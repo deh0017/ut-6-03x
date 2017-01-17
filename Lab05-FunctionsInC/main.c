@@ -41,7 +41,8 @@ int main(void) {
         printf("\nGive length: ");
         scanf("%ld", &length);
         // get width input
-        printf("\nGive width: "); scanf("%ld", &width);
+        printf("\nGive width: ");
+        scanf("%ld", &width);
         area = calc_area(length, width); // calulate the area
         // write the value on the screen
         printf("\nArea of the room = %ld\n", area);
