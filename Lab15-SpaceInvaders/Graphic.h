@@ -17,27 +17,16 @@
 typedef struct State Thing;
 
 /**
- * Detects whether two Things overlap
- *
- * @param   Thing1  a Thing
- * @param   Thing2  another Thing
- *
- * @return          0 if not collide
- * @return          1 if collide
- */
-unsigned char Check_Collision(Thing Thing1, Thing Thing2);
-
-/**
  * Draws a Thing on the buffer
  *
  * @param  aThing  a Thing, such as Ship, Bunker, Enemy, Mothership, and Laser
  */
-void          Draw(Thing aThing);
+void Draw(Thing aThing);
 
 /**
  * Draws all enemies on the screen
  */
-void          Draw_AllEnemies(void);
+void Draw_AllEnemies(void);
 
 /**
  * Changes the coordinate and moves a movable Thing on the buffer
@@ -46,52 +35,57 @@ void          Draw_AllEnemies(void);
  * @param  toX            x-coordinate that Thing is moving to
  * @param  toY            y-coordinate that Thing is moving to
  */
-void          Move(Thing *aMovableThing, unsigned char toX,
-                   unsigned char toY);
+void Move(Thing *aMovableThing, unsigned char toX,
+          unsigned char toY);
 
 /**
  * Destroys a Thing and plays an explosion sequence if available
  *
  * @param  aThing  a Thing, such as Ship, Enemy, Mothership, Missile, and Laser
  */
-void          Destroy(Thing *aThing);
+void Destroy(Thing *aThing);
 
 /**
  * Damages a Thing and destroys if neccessary
  *
  * @param  aThing  a Thing, such as Ship, Bunker, Enemy, Mothership, Missile, and Laser
  */
-void          Damage(Thing *aThing);
+void Damage(Thing *aThing);
 
 /**
  * Creates a laser when player fires, as long as under MAXLASER
  */
-void          Create_Laser(void);
+void Create_Laser(void);
 
 /**
  * Creates a missile when an enemy fires, as long as under MAXMISSILE
  */
-void          Create_Missile(void);
+void Create_Missile(void);
 
 /**
- * Checks the collision between a laser and other Things
- *
- * @param   aLaser  a laser in Laser[]
- *
- * @return          0 if missed
- * @return          1 if hit
+ * Checks the collisions which involve all lasers
  */
-unsigned char Laser_Is_Hit(Thing *aLaser);
+void Check_Laser_Collisions(void);
 
 /**
- * Checks the collision between a missile and other Things
- *
- * @param   aMissile  a missile in Missile[]
- *
- * @return            0 if missed
- * @return            1 if hit
+ * Checks the collisions which involve all missiles
  */
-unsigned char Missile_Is_Hit(Thing *aMissile);
+void Check_Missile_Collisions(void);
+
+
+/**
+ * Counts the number of active lasers on the field
+ *
+ * @return      the number of active lasers on the field
+ */
+unsigned char Count_Laser(void);
+
+/**
+ * Counts the number of active missiles on the field
+ *
+ * @return      the number of active missiles on the field
+ */
+unsigned char Count_Missile(void);
 
 /**
  * Moves all lasers 1 pixel downward at a time

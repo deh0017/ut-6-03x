@@ -48,8 +48,8 @@
 #define SHIPW                  ((unsigned char)PlayerShip0[18])
 #define SHIPH                  ((unsigned char)PlayerShip0[22])
 #define MAXENEMY               ((unsigned char)5)   // maximum 5 enemies available
-#define MAXLASER               ((unsigned char)10)  // player can fire 10 lasers
-#define MAXMISSILE             ((unsigned char)4)   // enemy can fire 4 missiles
+#define MAXLASER               ((unsigned char)4)   // player can fire 5 lasers
+#define MAXMISSILE             ((unsigned char)10)   // enemy can fire 4 missiles
 #define MOTHERSHIPSCORE        ((unsigned short)1000)
 #define DELTAEXPLODE           ((unsigned char)100) // time between two explosion frame
 

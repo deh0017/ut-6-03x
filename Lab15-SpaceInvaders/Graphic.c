@@ -175,75 +175,107 @@ void Create_Missile(void) {
 }
 
 /**
- * Checks the collision between a laser and other Things
- *
- * @param   aLaser  a laser in Laser[]
- *
- * @return          0 if missed
- * @return          1 if hit
+ * Checks the collisions which involve all lasers
  */
-unsigned char Laser_Is_Hit(Thing *aLaser) {
+void Check_Laser_Collisions(void) {
     unsigned char i;
 
-    // laser with bunker
-    if (Bunker.life && Check_Collision(*aLaser, Bunker)) {
-        Destroy(&*aLaser);
-        Damage(&Bunker);
-        return 1;
-    }
+    for (i = 0; i < MAXLASER; i++) {
+        if (Laser[i].life) {
+            // laser with bunker
+            if (Bunker.life && Check_Collision(Laser[i], Bunker)) {
+                Destroy(&Laser[i]);
+                Damage(&Bunker);
+                return;
+            }
 
-    // laser with enemy
-    for (i = 0; i < MAXENEMY; i++) {
-        if (Enemy[i].life && Check_Collision(*aLaser, Enemy[i])) {
-            Destroy(&*aLaser);
-            Destroy(&Enemy[i]);
-            return 1;
+            // laser with mothership
+            if (Mothership.life && Check_Collision(Laser[i], Mothership)) {
+                Destroy(&Laser[i]);
+                Damage(&Mothership);
+							  Ship.score += Mothership.score;
+                return;
+            }
+
+            // laser with enemy
+            for (i = 0; i < MAXENEMY; i++) {
+                if (Enemy[i].life && Check_Collision(Laser[i], Enemy[i])) {
+                    Destroy(&Laser[i]);
+                    Destroy(&Enemy[i]);
+									  Ship.score += Enemy[i].score;
+                    return;
+                }
+            }
         }
     }
-
-    // laser with mothership
-    if (Mothership.life && Check_Collision(*aLaser, Mothership)) {
-        Destroy(&*aLaser);
-        Damage(&Mothership);
-        return 1;
-    }
-    return 0;
 }
 
 /**
- * Checks the collision between a missile and other Things
- *
- * @param   aMissile  a missile in Missile[]
- *
- * @return            0 if missed
- * @return            1 if hit
+ * Checks the collisions which involve all missiles
  */
-unsigned char Missile_Is_Hit(Thing *aMissile) {
+void Check_Missile_Collisions(void) {
     unsigned char i;
 
-    // missile with lasers
-    for (i = 0; i < MAXLASER; i++) {
-        if (Laser[i].life && Check_Collision(*aMissile, Laser[i])) {
-            Destroy(&*aMissile);
-            Destroy(&Laser[i]);
-            return 1;
+    for (i = 0; i < MAXMISSILE; i++) {
+        if (Missile[i].life) {
+            // missile with bunker
+            if (Bunker.life && Check_Collision(Missile[i], Bunker)) {
+                Destroy(&Missile[i]);
+                Damage(&Bunker);
+                return;
+            }
+
+            // missile with ship
+            if (Ship.life && Check_Collision(Missile[i], Ship)) {
+                Destroy(&Missile[i]);
+                Damage(&Ship);
+                return;
+            }
+
+            // missile with lasers
+            for (i = 0; i < MAXLASER; i++) {
+                if (Laser[i].life && Check_Collision(Missile[i], Laser[i])) {
+                    Destroy(&Missile[i]);
+                    Destroy(&Laser[i]);
+                    return;
+                }
+            }
         }
     }
+}
 
-    // missile with bunker
-    if (Bunker.life && Check_Collision(*aMissile, Bunker)) {
-        Destroy(&*aMissile);
-        Damage(&Bunker);
-        return 1;
-    }
+/**
+ * Counts the number of active lasers on the field
+ *
+ * @return      the number of active lasers on the field
+ */
+unsigned char Count_Laser(void) {
+    unsigned char i;
+    unsigned char count = 0;
 
-    // missile with ship
-    if (Ship.life && Check_Collision(*aMissile, Ship)) {
-        Destroy(&*aMissile);
-        Damage(&Ship);
-        return 1;
+    for (i = 0; i < MAXLASER; i++) {
+        if (Laser[i].life) {
+            count++;
+        }
     }
-    return 0;
+    return count;
+}
+
+/**
+ * Counts the number of active missiles on the field
+ *
+ * @return      the number of active missiles on the field
+ */
+unsigned char Count_Missile(void) {
+    unsigned char i;
+    unsigned char count = 0;
+
+    for (i = 0; i < MAXMISSILE; i++) {
+        if (Missile[i].life) {
+            count++;
+        }
+    }
+    return count;
 }
 
 /**
@@ -253,14 +285,13 @@ void Move_Lasers(void) {
     unsigned char i;
 
     for (i = 0; i < MAXLASER; i++) {
-        if (Laser[i].life && !Laser_Is_Hit(&Laser[i])) {
+        if (Laser[i].life) {
             Move(&Laser[i], Laser[i].x, Laser[i].y - 1);
 
             if (Laser[i].y < Laser[i].height - 1) {
                 Destroy(&Laser[i]); // destroy if out of screen
             }
             Nokia5110_DisplayBuffer();
-            Delay(DELTAEXPLODE);
         }
     }
 }
@@ -272,7 +303,7 @@ void Move_Missiles(void) {
     unsigned char i;
 
     for (i = 0; i < MAXMISSILE; i++) {
-        if (Missile[i].life && !Missile_Is_Hit(&Missile[i])) {
+        if (Missile[i].life) {
             Missile[i].frame = Random() % 2;
             Move(&Missile[i], Missile[i].x, Missile[i].y + 1);
 
@@ -280,7 +311,6 @@ void Move_Missiles(void) {
                 Destroy(&Missile[i]); // destroy if out of sreen
             }
             Nokia5110_DisplayBuffer();
-            Delay(DELTAEXPLODE);
         }
     }
 }

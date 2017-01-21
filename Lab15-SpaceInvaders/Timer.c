@@ -18,13 +18,13 @@
 #include "tm4c123gh6pm.h"
 
 /**
- * Initialize 30-Hz software-triggered interrupt
+ * Initialize 120-Hz software-triggered interrupt
  *
  * @assumption      80-MHz clock
  */
 void Init_SysTick(void) {
     NVIC_ST_CTRL_R    = 0;       // disable SysTick during set up
-    NVIC_ST_RELOAD_R  = 2666665; // 30-Hz interrupt 2666665
+    NVIC_ST_RELOAD_R  = 666667;  // 120-Hz interrupt 666667
     NVIC_ST_CURRENT_R = 0;       // overwrite to CURRENT to clear it
     // priority 1
     NVIC_SYS_PRI3_R = (NVIC_SYS_PRI3_R & 0x00FFFFFF) | 0x20000000;

@@ -41,6 +41,7 @@
 void          EnableInterrupts(void);
 void          DisableInterrupts(void);
 void          Delay(unsigned long ms);
+void          Display_GameOver(void);
 unsigned char Enemy_Exist(void);
 void          SysTick_Handler(void);
 void          Timer2A_Handler(void);
@@ -65,14 +66,22 @@ int main(void) {
     Draw_AllEnemies();
     Nokia5110_DisplayBuffer();
     Init_SysTick();     // set up SysTick interrupt
-    Init_Timer2();      // set up Timer2A interrupt
+    // Init_Timer2();      // set up Timer2A interrupt
     EnableInterrupts(); // interrupts begin to tick
 
     // Loop
     // As long as the ship and the enemy are live, the game still runs
     while (Ship.life && Enemy_Exist()) {
+        // revise projectiles
+        Check_Laser_Collisions();
+        Check_Missile_Collisions();
+
+        // move projectiles
         Move_Lasers();
         Move_Missiles();
+
+				// smart delay: slow when less objects, fast when more objects
+        Delay(45 / (Count_Missile() + Count_Laser()));
     }
     // Otherwise, game over
     DisableInterrupts();
@@ -81,7 +90,7 @@ int main(void) {
 
 /**
  * SysTick interrupt service routine
- * 30-Hz interrupt, handling input and graphic data
+ * 60-Hz interrupt, handling input and graphic data
  *
  * @assumption    80-MHz clock
  */
@@ -107,7 +116,7 @@ void SysTick_Handler(void) {
     prevSwitchState = GPIO_PORTE_DATA_R & LSWITCHPIN;
 
     // create a laser and flash a LED if an enemy fires
-    if (Random() % 500 < 3) {
+    if (Random() % 500 < 5) {
         EnemyFire = 1;
         Create_Missile();
         Nokia5110_DisplayBuffer();
@@ -180,7 +189,7 @@ void Display_GameOver(void) {
     Nokia5110_OutString("Earthling!");
     Nokia5110_SetCursor(3, 4);
     Nokia5110_OutString("Score:");
-    Nokia5110_SetCursor(1, 5);
+    Nokia5110_SetCursor(3, 5);
     Nokia5110_OutUDec(Ship.score);
     Nokia5110_SetCursor(0, 0);
 }
