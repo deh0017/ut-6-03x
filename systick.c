@@ -1,5 +1,5 @@
 /**
- * File Name: SysTick.c
+ * File Name: systick.c
  *
  * Description: Initialize System Timer (SysTick) and create a delay function
  * This program assumes the clock is running at 80 MHz
@@ -11,7 +11,7 @@
  * Phi Luu
  * Portland, Oregon, United States
  * Created June 05, 2016
- * Updated January 15, 2017
+ * Updated June 03, 2017
  */
 
 #include "SysTick.h"

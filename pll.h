@@ -1,5 +1,5 @@
 /**
- * File Name: PLL.h
+ * File Name: pll.h
  *
  * Description: Phase-Locked Loop (PLL)
  * configures the crystal frequency to 16 MHz and
@@ -13,7 +13,7 @@
  * Phi Luu
  * Portland, Oregon, United States
  * Created June 05, 2016
- * Updated January 15, 2017
+ * Updated June 03, 2017
  */
 
 #define SYSCTL_RCC2_R             (*((volatile unsigned long *)0x400FE070))
