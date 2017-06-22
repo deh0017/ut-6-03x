@@ -1,18 +1,12 @@
 # ut-6-03x
 
-This repository contains all labs of the course UTAustinX: UT.6.03x Embedded Systems - Shape the World
+This repository contains my solutions to the labs of the course [UTAustinX: UT.6.03x Embedded Systems - Shape the World](https://edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-03x) during Spring 2016 session.
 
-## About the Course
-
-This course is instructed by Jonathan Valvano and Ramesh Yerraballi and can be found [here](https://edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-03x).
-
-Update: As of 2017, the course is split into two parts: [UT.6.10x Microcontroller Input/Output](https://www.edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-10x) and [UT.6.20x Multi-Threaded Interfacing](https://www.edx.org/course/embedded-systems-shape-world-multi-utaustinx-ut-6-20x).
+**Update**: As of 2017, the course is split into two parts: [UT.6.10x Microcontroller Input/Output](https://www.edx.org/course/embedded-systems-shape-world-utaustinx-ut-6-10x) and [UT.6.20x Multi-Threaded Interfacing](https://www.edx.org/course/embedded-systems-shape-world-multi-utaustinx-ut-6-20x).
 
 ## About My Labs
 
-From **Lab02-HelloLaunchPad** to **Lab14-AnalogDigitalConversion** and an additional **Lab16-IoT**, I got 100 out of 100 points on simulator and real board graders.
-
-For detailed information, see my lab progress [blog](https://philectron.github.io/tags/#ut-6-03x).
+See my blog about these labs at [Notes of PhiL](https://philectron.github.io/tags/#ut-6-03x).
 
 ## Software and Kit Requirements
 
