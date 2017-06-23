@@ -2,26 +2,23 @@
  * File Name: pll.c
  *
  * Description: Phase-Locked Loop (PLL)
- * configures the crystal frequency to 16 MHz and
- * sets the clock speed to run at 80 MHz
- * for more information, see
- *  page 256 (for crystal values) and
- *  page 224 (for divisor values) of the data sheet
+ * Configures the crystal frequency to 16 MHz and sets the clock speed to run
+ * at 80 MHz. For more information, see
+ *     page 256 (for crystal values)
+ *     page 224 (for divisor values) of the data sheet
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created June 05, 2016
- * Updated June 03, 2017
+ * Author: Phi Luu
+ * Location: Portland, Oregon, United States
+ * Created: June 05, 2016
+ * Updated: June 23, 2017
  */
 
-#include "PLL.h"
+#include "pll.h"
 
 /**
- * Sets the crystal frequency to 16 MHz and the clock speed to 80 MHz
+ * Sets the crystal frequency to 16 MHz and the clock speed to 80 MHz.
  */
-void PLL_XTAL_16_CLOCK_80(void) {
+void SetPll_Xtal_16_Clock_80(void) {
     // set SYSDIV2 value corresponding to 80-MHz clock, page 224
     // DIVISOR = SYSDIV2 + 1
     const unsigned char SYSDIV2 = 4;

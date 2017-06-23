@@ -6,12 +6,10 @@
  * The RELOAD value must be changed if the clock is running at
  * a different speed
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created June 05, 2016
- * Updated June 03, 2017
+ * Author: Phi Luu
+ * Location: Portland, Oregon, United States
+ * Created: June 05, 2016
+ * Updated: June 23, 2017
  */
 
 #define NVIC_ST_CTRL_R       (*((volatile unsigned long *)0xE000E010))
@@ -22,7 +20,7 @@
 /**
  * Activates the system timer of the microcontroller
  */
-void SysTick_Init(void);
+void InitSystick(void);
 
 /**
  * Delays the program for a number of milliseconds
@@ -33,4 +31,4 @@ void SysTick_Init(void);
  *
  * @notes        1 period = (real_time_delay seconds) * (80,000,000 Hz)
  */
-void SysTick_Delay(unsigned long ms);
+void SystickDelay(unsigned long ms);
