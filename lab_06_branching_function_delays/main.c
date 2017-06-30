@@ -35,7 +35,6 @@
 // Global variables
 unsigned long switch_input;              // input from PF4
 // Function prototypes
-void DisableInterrupts(void);            // disable interrupts
 void EnableInterrupts(void);             // enable interrupts
 void Delay100ms(unsigned long time);     // delay function
 void PortFInit(void);                    // port F initial function
