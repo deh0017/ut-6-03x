@@ -1,4 +1,4 @@
-MIT License
+# Released under MIT License
 
 Copyright (c) 2017 Phi Luu
 
