@@ -1,22 +1,20 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 7: Heart Block
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 09, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 07: Heart Block
  *
- * Description:
+ * @section  DESCRIPTION
+ *
+ * Simulates a pacemaker:
  *     SW1 is released: Green light turns on and waits
  *     SW1 is held: Green light goes off
  *     SW1 is released after being pressed: Red light goes on for 250ms,
- *      then it turns off, and Green light turns on again.
- *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 09, 2016
- * Updated: June 22, 2017
+ *     then it turns off, and Green light turns on again.
  */
+
 
 #include "TExaS.h" // lab grader functions
 
@@ -34,7 +32,7 @@
 #define SYSCTL_RCGC2_R        (*((volatile unsigned long *)0x400FE108))
 
 // Function prototypes
-void PortFInit(void);             // port F initial function
+void PortFInit(void);              // port F initial function
 void Delay1ms(unsigned long msec); // delay function
 void EnableInterrupts(void);       // enable interrupts
 void WaitForAsLow(void);           // sensor-off waiting function
@@ -44,11 +42,11 @@ void ClearVt(void);                // trigger clearing function
 void SetReady(void);               // indicator setting function
 void ClearReady(void);             // indicator clearing function
 
-int  main(void) {
+int main(void) {
     // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PF40, LED_PIN_PF31, ScopeOn);
-    PortFInit();       // port F initalization
+    PortFInit();        // port F initalization
     EnableInterrupts(); // enable interrupts for the grader
 
     // Loop
@@ -71,16 +69,16 @@ int  main(void) {
 void PortFInit(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R    |= 0x00000020;     // 1) F clock
-    delay              = SYSCTL_RCGC2_R; // delay to allow clock to stabilize
-    GPIO_PORTF_LOCK_R  = 0x4C4F434B;     // 2) unlock Port F
-    GPIO_PORTF_CR_R   |= 0x1A;           // allow changes to PF4, PF3, PF1
-    GPIO_PORTF_AMSEL_R = 0x00;           // 3) disable analog function
-    GPIO_PORTF_PCTL_R  = 0x00;           // 4) GPIO clear bit PCTL
-    GPIO_PORTF_DIR_R  |= 0x0A;           // 5) PF4 is input. PF3, PF1 are outputs
-    GPIO_PORTF_AFSEL_R = 0x00;           // 6) no alternate function
-    GPIO_PORTF_PUR_R  |= 0x10;           // enable pullup resistor on PF4
-    GPIO_PORTF_DEN_R  |= 0x1A;           // 7) enable digital pins PF4, PF3, PF1
+    SYSCTL_RCGC2_R |= 0x00000020;   // 1) F clock
+    delay = SYSCTL_RCGC2_R;         // delay to allow clock to stabilize
+    GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock Port F
+    GPIO_PORTF_CR_R |= 0x1A;        // allow changes to PF4, PF3, PF1
+    GPIO_PORTF_AMSEL_R = 0x00;      // 3) disable analog function
+    GPIO_PORTF_PCTL_R = 0x00;       // 4) GPIO clear bit PCTL
+    GPIO_PORTF_DIR_R |= 0x0A;       // 5) PF4 is input. PF3, PF1 are outputs
+    GPIO_PORTF_AFSEL_R = 0x00;      // 6) no alternate function
+    GPIO_PORTF_PUR_R |= 0x10;       // enable pullup resistor on PF4
+    GPIO_PORTF_DEN_R |= 0x1A;       // 7) enable digital pins PF4, PF3, PF1
 }
 
 /**

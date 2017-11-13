@@ -1,20 +1,18 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 6: Branching Functions Delays
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 07, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 06: Branching Function Delays
  *
- * Description:
- *   None of SW1 and SW2 is pressed: LED is steady blue
- *   SW1 is pressed: Blue LED is flashing each 100 milliseconds
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 07, 2016
- * Updated: June 22, 2017
+ * Calculates the area of a rectangle.
+ *     If 3 <= Lenght, Width <= 20, Area = Length * Width
+ *     Otherwise, Area = 0
  */
+
 
 #include "TExaS.h" // lab grader functions
 
@@ -39,7 +37,7 @@ void EnableInterrupts(void);             // enable interrupts
 void Delay100ms(unsigned long time);     // delay function
 void PortFInit(void);                    // port F initial function
 
-int  main(void) {
+int main(void) {
     // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PF4, LED_PIN_PF2);
@@ -65,17 +63,17 @@ int  main(void) {
 void PortFInit(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R    |= SYSCTL_RCGC2_GPIOF; // 1) F clock
-    delay              = SYSCTL_RCGC2_R;     // delay
-    GPIO_PORTF_LOCK_R  = 0x4C4F434B;         // 2) unlock PortF
-    GPIO_PORTF_CR_R   |= 0x14;               // allow changes to PF4 (SW1) and PF2 (Blue LED)
-    GPIO_PORTF_AMSEL_R = 0x00;               // 3) disable analog function
-    GPIO_PORTF_PCTL_R  = 0x00;               // 4) GPIO clear bit PCTL
-    GPIO_PORTF_DIR_R  |= 0x04;               // 5) PF4 (SW1) is input,
-                                             // PF2 (Blue LED) is output
-    GPIO_PORTF_AFSEL_R = 0x00;               // 6) no alternate function
-    GPIO_PORTF_PUR_R  |= 0x10;               // enable pullup resistor on PF4
-    GPIO_PORTF_DEN_R  |= 0x14;               // 7) enable digital pins PF4, PF2
+    SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOF; // 1) F clock
+    delay = SYSCTL_RCGC2_R;               // delay
+    GPIO_PORTF_LOCK_R = 0x4C4F434B;       // 2) unlock PortF
+    GPIO_PORTF_CR_R |= 0x14;              // allow changes to PF4 (SW1) and PF2 (Blue LED)
+    GPIO_PORTF_AMSEL_R = 0x00;            // 3) disable analog function
+    GPIO_PORTF_PCTL_R = 0x00;             // 4) GPIO clear bit PCTL
+    GPIO_PORTF_DIR_R |= 0x04;             // 5) PF4 (SW1) is input,
+                                          // PF2 (Blue LED) is output
+    GPIO_PORTF_AFSEL_R = 0x00;            // 6) no alternate function
+    GPIO_PORTF_PUR_R |= 0x10;             // enable pullup resistor on PF4
+    GPIO_PORTF_DEN_R |= 0x14;             // 7) enable digital pins PF4, PF2
 }
 
 /**

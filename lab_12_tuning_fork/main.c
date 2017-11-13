@@ -1,16 +1,15 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 12: Tuning Fork
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     April 16, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 12: Tuning Fork
  *
- * Description: Using SysTick periodic interrupt, creates a frequency of 440Hz
- * just as you do when striking a tuning fork.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 16, 2016
- * Updated: June 22, 2017
+ * Using SysTick periodic interrupt, creates a frequency of 440Hz just as we do
+ * when striking a tuning fork.
  */
 
 /**
@@ -52,7 +51,7 @@ unsigned short switch_state = 0; // input from the switch is stored here
 
 int main(void) {
     // Setup
-    unsigned long num_presses       = 0; // store the number of presses
+    unsigned long num_presses = 0;       // store the number of presses
     unsigned long prev_switch_state = 0; // store the last input of switch
 
     // use this to avoid miscounting when the switch is HOLD
@@ -107,21 +106,21 @@ void InitSound(void) {
     // Port A Initialization:
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R     |= 0x00000001;     // unlock port A clock
-    delay               = SYSCTL_RCGC2_R; // allow time for clock to start
-    GPIO_PORTA_LOCK_R  |= 0x4C4F434B;     // unlock GPIO Port A
-    GPIO_PORTA_CR_R    |= 0x0C;           // allow changes to PA3-PA2
-    GPIO_PORTA_AMSEL_R &= ~0x0C;          // disable analog function on PA3-PA2
-    GPIO_PORTA_PCTL_R   = 0;              // clear PCTL register on PA3-PA2
-    GPIO_PORTA_DIR_R   |= 0x04;           // PA2 output, PA3 input
-    GPIO_PORTA_AFSEL_R &= ~0x0C;          // disable alternate function on PA3-PA2
-    GPIO_PORTA_PUR_R   &= ~0x0C;          // disable pull-up resistors on PA3-PA2
-    GPIO_PORTA_DEN_R   |= 0x0C;           // enable digital I/O on PA3-PA2
+    SYSCTL_RCGC2_R |= 0x00000001;    // unlock port A clock
+    delay = SYSCTL_RCGC2_R;          // allow time for clock to start
+    GPIO_PORTA_LOCK_R |= 0x4C4F434B; // unlock GPIO Port A
+    GPIO_PORTA_CR_R |= 0x0C;         // allow changes to PA3-PA2
+    GPIO_PORTA_AMSEL_R &= ~0x0C;     // disable analog function on PA3-PA2
+    GPIO_PORTA_PCTL_R = 0;           // clear PCTL register on PA3-PA2
+    GPIO_PORTA_DIR_R |= 0x04;        // PA2 output, PA3 input
+    GPIO_PORTA_AFSEL_R &= ~0x0C;     // disable alternate function on PA3-PA2
+    GPIO_PORTA_PUR_R &= ~0x0C;       // disable pull-up resistors on PA3-PA2
+    GPIO_PORTA_DEN_R |= 0x0C;        // enable digital I/O on PA3-PA2
 
     // SysTick Initialization for periodic interrupts:
-    NVIC_ST_CTRL_R    = 0;                // disable SysTick during set up
-    NVIC_ST_RELOAD_R  = 90908;            // reload value for 440Hz
-    NVIC_ST_CURRENT_R = 0;                // clear current
-    NVIC_SYS_PRI3_R  &= 0x00FFFFFF;       // priority 0
-    NVIC_ST_CTRL_R    = 0x07;             // enable with core clock and interrupts
+    NVIC_ST_CTRL_R = 0;              // disable SysTick during set up
+    NVIC_ST_RELOAD_R = 90908;        // reload value for 440Hz
+    NVIC_ST_CURRENT_R = 0;           // clear current
+    NVIC_SYS_PRI3_R &= 0x00FFFFFF;   // priority 0
+    NVIC_ST_CTRL_R = 0x07;           // enable with core clock and interrupts
 }

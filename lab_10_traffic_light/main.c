@@ -1,19 +1,15 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 10: Traffic Light
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 31, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 10: Traffic Light
  *
- * Description:
- *     Simulates a traffic light system with three modes:
- *     Going South, Going West, and Pedestrians.
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 31, 2016
- * Updated: June 23, 2017
+ * Simulates a traffic light system with three modes: Going South, going West,
+ * and Pedestrian.
  */
 
 /**
@@ -71,18 +67,18 @@
 #define NVIC_ST_CURRENT_R     (*((volatile unsigned long *)0xE000E018))
 
 // Function prototypes
-void EnableInterrupts(void);                    // enable interrupts
-void PortsInit(void);                           // ports initialization
-void SystickInit(void);                         // SysTick initialization
-void SystickWait(unsigned long delay);          // SysTick wait function
+void EnableInterrupts(void);                     // enable interrupts
+void PortsInit(void);                            // ports initialization
+void SystickInit(void);                          // SysTick initialization
+void SystickWait(unsigned long delay);           // SysTick wait function
 void SystickWait1ms(unsigned long wait_time_ms); // SysTick delay function
 
 // Struct declaration
-struct FiniteStateMachine {                     // represents a state of the FSM
-    unsigned short port_b_out;                  // ouput of Port B for the state (cars output)
-    unsigned short port_f_out;                  // output of Port F for the state (pedestrian output)
-    unsigned short wait;                        // time to wait when in this state
-    unsigned char  next[5];                     // next state array
+struct FiniteStateMachine {                      // represents a state of the FSM
+    unsigned short port_b_out;                   // ouput of Port B for the state (cars output)
+    unsigned short port_f_out;                   // output of Port F for the state (pedestrian output)
+    unsigned short wait;                         // time to wait when in this state
+    unsigned char next[5];                       // next state array
 };
 
 // Shortcuts to refer to the various states in the FSM array
@@ -108,7 +104,7 @@ typedef const struct FiniteStateMachine STATE[NUM_STATES] = {
     },
     // 1) Wait South
     {
-        0x22, 0x02,  500,
+        0x22, 0x02, 500,
         { GO_WEST, GO_WEST, GO_WEST, GO_WALK, GO_WEST }
     },
     // 2) Go West
@@ -118,7 +114,7 @@ typedef const struct FiniteStateMachine STATE[NUM_STATES] = {
     },
     // 3) Wait West
     {
-        0x14, 0x02,  500,
+        0x14, 0x02, 500,
         { GO_SOUTH, GO_SOUTH, GO_SOUTH, GO_WALK, GO_WALK }
     },
     // 4) Go Pedestrian
@@ -128,33 +124,33 @@ typedef const struct FiniteStateMachine STATE[NUM_STATES] = {
     },
     // 5) Hurry Pedestrian 1
     {
-        0x24, 0x02,  250,
+        0x24, 0x02, 250,
         { OFF_WALK_1, OFF_WALK_1, OFF_WALK_1, OFF_WALK_1, OFF_WALK_1 }
     },
     // 6) Off Pedestrian 1
     {
-        0x24, 0x00,  250,
+        0x24, 0x00, 250,
         { HURRY_WALK_2, HURRY_WALK_2, HURRY_WALK_2, HURRY_WALK_2, HURRY_WALK_2 }
     },
     // 7) Hurry Pedestrian 2
     {
-        0x24, 0x02,  250,
+        0x24, 0x02, 250,
         { OFF_WALK_2, OFF_WALK_2, OFF_WALK_2, OFF_WALK_2, OFF_WALK_2 }
     },
     // 8) Off Pedestrian 2
     {
-        0x24, 0x00,  250,
+        0x24, 0x00, 250,
         { HURRY_WALK_3, HURRY_WALK_3, HURRY_WALK_3, HURRY_WALK_3, HURRY_WALK_3 }
     },
     // 9) Hurry Pedestrian 3:
     {
-        0x24, 0x02,  250,
+        0x24, 0x02, 250,
         { OFF_WALK_3, OFF_WALK_3, OFF_WALK_3, OFF_WALK_3, OFF_WALK_3 }
     },
     // 10) Off Pedestrian 3:
     {
-        0x24, 0x00,  250,
-        { GO_WEST, GO_SOUTH, GO_WEST, GO_SOUTH,  GO_SOUTH }
+        0x24, 0x00, 250,
+        { GO_WEST, GO_SOUTH, GO_WEST, GO_SOUTH, GO_SOUTH }
     }
 };
 
@@ -213,44 +209,44 @@ void PortsInit(void) {
 
     // 1) activate clock for Port F, Port B, and Port E
     SYSCTL_RCGC2_R |= 0x00000032;
-    delay           = SYSCTL_RCGC2_R; // allow time for clock to start
+    delay = SYSCTL_RCGC2_R;         // allow time for clock to start
     // Port F
-    GPIO_PORTF_LOCK_R  = 0x4C4F434B;  // 2) unlock GPIO Port F
-    GPIO_PORTF_CR_R   |= 0x0A;        // allow changes to PF3, PF1
-    GPIO_PORTF_AMSEL_R = 0x00;        // 3) disable analog function
-    GPIO_PORTF_PCTL_R  = 0x00;        // 4) PCTL GPIO on PF3, PF1
-    GPIO_PORTF_DIR_R  |= 0x0A;        // 5) PF3, PF1 are outputs
-    GPIO_PORTF_AFSEL_R = 0x00;        // 6) disable alternate function
-    GPIO_PORTF_PUR_R   = 0x00;        // disable pull-up resistor
-    GPIO_PORTF_DEN_R  |= 0x0A;        // 7) enable digital I/O on PF3, PF1
+    GPIO_PORTF_LOCK_R = 0x4C4F434B; // 2) unlock GPIO Port F
+    GPIO_PORTF_CR_R |= 0x0A;        // allow changes to PF3, PF1
+    GPIO_PORTF_AMSEL_R = 0x00;      // 3) disable analog function
+    GPIO_PORTF_PCTL_R = 0x00;       // 4) PCTL GPIO on PF3, PF1
+    GPIO_PORTF_DIR_R |= 0x0A;       // 5) PF3, PF1 are outputs
+    GPIO_PORTF_AFSEL_R = 0x00;      // 6) disable alternate function
+    GPIO_PORTF_PUR_R = 0x00;        // disable pull-up resistor
+    GPIO_PORTF_DEN_R |= 0x0A;       // 7) enable digital I/O on PF3, PF1
     // Port B
-    GPIO_PORTB_LOCK_R  = 0x4C4F434B;  // 2) unlock GPIO Port B
-    GPIO_PORTB_CR_R   |= 0x3F;        // allow changes to PB5-PB0
-    GPIO_PORTB_AMSEL_R = 0x00;        // 3) disable analog function
-    GPIO_PORTB_PCTL_R  = 0x00;        // 4) PCTL GPIO on PB5-PB0
-    GPIO_PORTB_DIR_R  |= 0x3F;        // 5) PB5-PB0 are outputs
-    GPIO_PORTB_AFSEL_R = 0x00;        // 6) disable alternate function
-    GPIO_PORTB_PUR_R   = 0x00;        // disable pull-up resistor
-    GPIO_PORTB_DEN_R  |= 0x3F;        // 7) enable digital I/O on PB5-PB0
+    GPIO_PORTB_LOCK_R = 0x4C4F434B; // 2) unlock GPIO Port B
+    GPIO_PORTB_CR_R |= 0x3F;        // allow changes to PB5-PB0
+    GPIO_PORTB_AMSEL_R = 0x00;      // 3) disable analog function
+    GPIO_PORTB_PCTL_R = 0x00;       // 4) PCTL GPIO on PB5-PB0
+    GPIO_PORTB_DIR_R |= 0x3F;       // 5) PB5-PB0 are outputs
+    GPIO_PORTB_AFSEL_R = 0x00;      // 6) disable alternate function
+    GPIO_PORTB_PUR_R = 0x00;        // disable pull-up resistor
+    GPIO_PORTB_DEN_R |= 0x3F;       // 7) enable digital I/O on PB5-PB0
     // Port E
-    GPIO_PORTE_LOCK_R  = 0x4C4F434B;  // 2) unlock GPIO Port E
-    GPIO_PORTE_CR_R   |= 0x07;        // allow changes to PE2-PE0
-    GPIO_PORTE_AMSEL_R = 0x00;        // 3) disable analog function
-    GPIO_PORTE_PCTL_R  = 0x00;        // 4) PCTL GPIO on PE2-PE0
-    GPIO_PORTE_DIR_R   = 0x00;        // 5) PE2-PE0 are inputs
-    GPIO_PORTE_AFSEL_R = 0x00;        // 6) disable alternate function
-    GPIO_PORTE_PUR_R   = 0x00;        // disable pull-up resistor
-    GPIO_PORTE_DEN_R  |= 0x07;        // 7) enable digital I/O on PE2-PE0
+    GPIO_PORTE_LOCK_R = 0x4C4F434B; // 2) unlock GPIO Port E
+    GPIO_PORTE_CR_R |= 0x07;        // allow changes to PE2-PE0
+    GPIO_PORTE_AMSEL_R = 0x00;      // 3) disable analog function
+    GPIO_PORTE_PCTL_R = 0x00;       // 4) PCTL GPIO on PE2-PE0
+    GPIO_PORTE_DIR_R = 0x00;        // 5) PE2-PE0 are inputs
+    GPIO_PORTE_AFSEL_R = 0x00;      // 6) disable alternate function
+    GPIO_PORTE_PUR_R = 0x00;        // disable pull-up resistor
+    GPIO_PORTE_DEN_R |= 0x07;       // 7) enable digital I/O on PE2-PE0
 }
 
 /**
  * Initializes SysTick timer
  */
 void SystickInit(void) {
-    NVIC_ST_CTRL_R    = 0;        // disable SysTick during set up
-    NVIC_ST_RELOAD_R  = 0xFFFFFF; // maximum value to RELOAD register
-    NVIC_ST_CURRENT_R = 0;        // overwrite to CURRENT to clear it
-    NVIC_ST_CTRL_R    = 0x05;     // enable CLK_SRC bit and ENABLE bit
+    NVIC_ST_CTRL_R = 0;          // disable SysTick during set up
+    NVIC_ST_RELOAD_R = 0xFFFFFF; // maximum value to RELOAD register
+    NVIC_ST_CURRENT_R = 0;       // overwrite to CURRENT to clear it
+    NVIC_ST_CTRL_R = 0x05;       // enable CLK_SRC bit and ENABLE bit
 }
 
 /**
@@ -263,8 +259,8 @@ void SystickInit(void) {
  * @notes         delay = Time_To_Delay_In_Seconds / 12.5 / 0.000000001
  */
 void SystickWait(unsigned long delay) {
-    NVIC_ST_RELOAD_R  = delay - 1; // number of counts to wait
-    NVIC_ST_CURRENT_R = 0;         // overwrite the CURRENT register
+    NVIC_ST_RELOAD_R = delay - 1; // number of counts to wait
+    NVIC_ST_CURRENT_R = 0;        // overwrite the CURRENT register
 
     // wait until COUNT is flagged:
     while ((NVIC_ST_CTRL_R & 0x00010000) == 0) {}

@@ -1,17 +1,15 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 11: UART - Serial Interface
+ * @file     uart.c
+ * @author   Phi Luu
+ * @date     April 07, 2016
  *
- * File Name: uart.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 11: UART - Serial Interface
  *
- * Description:
- *   Convert numbers into ASCII strings and
- *   display on the UART0 (TExaSdisplay)
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 07, 2016
- * Updated: June 22, 2017
+ * Initializes, convert numbers into ASCII strings and ASCII strings to numbers.
+ * Puts output into the UART buffer.
  */
 
 #include "tm4c123gh6pm.h"
@@ -21,24 +19,24 @@
  * Initializes the UART for 115,200 baud rates.
  * 8-bit word length, no parity bits, one stop bit, FIFOs enabled.
  *
- * @assumption    80-MHz clock
+ * Assumes that the clock is 80 MHz
  */
 void UartInit(void) {
     volatile unsigned long delay;
 
     SYSCTL_RCGC1_R |= SYSCTL_RCGC1_UART0; // activate UART0
     SYSCTL_RCGC2_R |= 0x03;               // activate port A and Port B
-    delay           = SYSCTL_RCGC2_R;     // allow time for clock to start
-    UART0_CTL_R    &= ~UART_CTL_UARTEN;   // disable UART
+    delay = SYSCTL_RCGC2_R;               // allow time for clock to start
+    UART0_CTL_R &= ~UART_CTL_UARTEN;      // disable UART
     // IBRD = int(80,000,000 / (16 * 115,200)) = int(43.402778):
     UART0_IBRD_R = 43;
     // FBRD = round(0.402778 * 64) = 26:
     UART0_FBRD_R = 26;
     // 8 bit word length (no parity bits, one stop bit, FIFOs)
-    UART0_LCRH_R        = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
-    UART0_CTL_R        |= UART_CTL_UARTEN; // enable UART
-    GPIO_PORTA_AFSEL_R |= 0x03;            // enable alt funct on PA1, PA0
-    GPIO_PORTA_DEN_R   |= 0x03;            // enable digital I/O on PA1, PA0
+    UART0_LCRH_R = (UART_LCRH_WLEN_8 | UART_LCRH_FEN);
+    UART0_CTL_R |= UART_CTL_UARTEN; // enable UART
+    GPIO_PORTA_AFSEL_R |= 0x03;     // enable alt funct on PA1, PA0
+    GPIO_PORTA_DEN_R |= 0x03;       // enable digital I/O on PA1, PA0
     // configure PA1, PA0 as UART0
     GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R & 0xFFFFFF00) + 0x00000011;
     // disable analog functionality on PA1, PA0:
@@ -63,7 +61,7 @@ unsigned char UartInChar(void) {
  * Gets oldest serial port input and returns immediately if there is no data.
  *
  * @return    ASCII code for key typed
- * @return    0 if there is no data
+ *       n    0 if there is no data
  */
 unsigned char UartInCharNonBlock(void) {
     // if the Receiver FIFO Empty Flag is full:
@@ -143,7 +141,7 @@ void UartOutString(unsigned char buffer[]) {
     }
 }
 
-unsigned char  out_str[15];
+unsigned char out_str[15];
 unsigned short out_str_len;
 
 /**
@@ -153,13 +151,13 @@ unsigned short out_str_len;
  */
 void PutIntoString(unsigned long n) {
     unsigned short i = 0;
-    unsigned char  reverse_str[15];
+    unsigned char reverse_str[15];
     short j = 0;
 
     // check the special case n = 0:
     if (!n) {
         out_str_len = 1;
-        out_str[0]  = 0x30;
+        out_str[0] = 0x30;
         return;
     }
 
@@ -167,10 +165,10 @@ void PutIntoString(unsigned long n) {
     while (n) {
         // store the number from right to left into reverse_str:
         reverse_str[j] = n % 10 + 0x30;
-        n             /= 10; // cut off the most right digit
-        j++;                 // prepare for next digit
+        n /= 10;     // cut off the most right digit
+        j++;         // prepare for next digit
     }
-    out_str_len = j;         // set out_str_len
+    out_str_len = j; // set out_str_len
 
     // move back to out_str in right order:
     for (j = out_str_len - 1; j >= 0; j--) {

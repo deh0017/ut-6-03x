@@ -1,20 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 8: Switch & LED Interface
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 22, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 08: Switch & LED Interface
  *
- * Description:
- * The first lab building the circuit on the breadboard
+ * @section  DESCRIPTION
+ *
+ * The first lab that builds a circuit on a breadboard
  * The switch is pressed: The LED flashes 5 Hz
  * The switch is released: The LED is steadily on.
- *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 22, 2016
- * Updated: June 22, 2017
  */
 
 /**
@@ -47,7 +43,7 @@ void EnableInterrupts(void);  // enable interrupts
 void PortEInit(void);         // port E initialization
 void Delay(unsigned long ms); // delay ms milliseconds
 
-int  main(void) {
+int main(void) {
     // Setup
     // activate grader and set system clock to 80 MHz
     TExaS_Init(SW_PIN_PE0, LED_PIN_PE1, ScopeOn);
@@ -73,15 +69,15 @@ int  main(void) {
 void PortEInit(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R    |= 0x00000010;     // 1) E clock
-    delay              = SYSCTL_RCGC2_R; // delay
-    GPIO_PORTE_LOCK_R  = 0x4C4F434B;     // 2) unlock PortE
-    GPIO_PORTE_CR_R   |= 0x03;           // allow changes to PE1, PE0
-    GPIO_PORTE_AMSEL_R = 0x00;           // 3) disable analog function
-    GPIO_PORTE_PCTL_R  = 0x00;           // 4) GPIO clear bit PCTL
-    GPIO_PORTE_DIR_R  |= 0x02;           // 5) PE0 input, PE1 output
-    GPIO_PORTE_AFSEL_R = 0x00;           // 6) no alternate function
-    GPIO_PORTE_DEN_R  |= 0x03;           // 7) enable digital pins PE1, PE0
+    SYSCTL_RCGC2_R |= 0x00000010;   // 1) E clock
+    delay = SYSCTL_RCGC2_R;         // delay
+    GPIO_PORTE_LOCK_R = 0x4C4F434B; // 2) unlock PortE
+    GPIO_PORTE_CR_R |= 0x03;        // allow changes to PE1, PE0
+    GPIO_PORTE_AMSEL_R = 0x00;      // 3) disable analog function
+    GPIO_PORTE_PCTL_R = 0x00;       // 4) GPIO clear bit PCTL
+    GPIO_PORTE_DIR_R |= 0x02;       // 5) PE0 input, PE1 output
+    GPIO_PORTE_AFSEL_R = 0x00;      // 6) no alternate function
+    GPIO_PORTE_DEN_R |= 0x03;       // 7) enable digital pins PE1, PE0
 }
 
 /**

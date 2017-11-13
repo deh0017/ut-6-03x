@@ -1,16 +1,14 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     sound.h
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: sound.h
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Create a sinusoid sound wave using 4-bit DAC
- * and simulate C, D, E, and G notes of the piano.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 22, 2016
- * Updated: June 23, 2017
+ * Takes data from piano.h and piano.c and uses DAC to play the sound.
  */
 
 // convert from the frequency of the SysTick

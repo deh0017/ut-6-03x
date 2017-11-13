@@ -1,21 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     piano.c
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: piano.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Create a sinusoid sound wave using 4-bit DAC
- * and simulate C, D, E, and G notes of the piano.
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created April 22, 2016
- * Updated May 30, 2017
+ * Takes inputs from switches and decides what note to output to the buzzer.
+ * Port E, bits 3-0 have 4 piano keys.
  */
-
-// Port E bits 3-0 have 4 piano keys
 
 #include "piano.h"
 #include "tm4c123gh6pm.h"
@@ -29,16 +24,16 @@ unsigned short freq_index;
 void InitPiano(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R     |= 0x10;           // unlock port E clock
-    delay               = SYSCTL_RCGC2_R; // allow time for clock to start
-    GPIO_PORTE_LOCK_R  |= 0x4C4F434B;     // unlock GPIO Port E
-    GPIO_PORTE_CR_R    |= 0x0F;           // allow change to PE3-PE0
-    GPIO_PORTE_AMSEL_R &= ~0x0F;          // disable analog function on PE3-PE0
-    GPIO_PORTE_PCTL_R   = 0x00;           // clear PCTL register on PE3-PE0
-    GPIO_PORTE_DIR_R   &= ~0x0F;          // PE3-PE0 inputs
-    GPIO_PORTE_AFSEL_R &= ~0x0F;          // disable alternate function on PE3-PE0
-    GPIO_PORTE_PUR_R   &= ~0x0F;          // disable pull-up resistors on PE3-PE0
-    GPIO_PORTE_DEN_R   |= 0x0F;           // enable digital pins on PE3-PE0
+    SYSCTL_RCGC2_R |= 0x10;          // unlock port E clock
+    delay = SYSCTL_RCGC2_R;          // allow time for clock to start
+    GPIO_PORTE_LOCK_R |= 0x4C4F434B; // unlock GPIO Port E
+    GPIO_PORTE_CR_R |= 0x0F;         // allow change to PE3-PE0
+    GPIO_PORTE_AMSEL_R &= ~0x0F;     // disable analog function on PE3-PE0
+    GPIO_PORTE_PCTL_R = 0x00;        // clear PCTL register on PE3-PE0
+    GPIO_PORTE_DIR_R &= ~0x0F;       // PE3-PE0 inputs
+    GPIO_PORTE_AFSEL_R &= ~0x0F;     // disable alternate function on PE3-PE0
+    GPIO_PORTE_PUR_R &= ~0x0F;       // disable pull-up resistors on PE3-PE0
+    GPIO_PORTE_DEN_R |= 0x0F;        // enable digital pins on PE3-PE0
 }
 
 /**

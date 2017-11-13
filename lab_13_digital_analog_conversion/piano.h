@@ -1,21 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     piano.h
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: piano.h
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Create a sinusoid sound wave using 4-bit DAC
- * and simulate C, D, E, and G notes of the piano.
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created April 22, 2016
- * Updated May 30, 2017
+ * Takes inputs from switches and decides what note to output to the buzzer.
+ * Port E, bits 3-0 have 4 piano keys.
  */
-
-// Port E bits 3-0 have 4 piano keys
 
 /**
  * Global variable which is accessable from other functions

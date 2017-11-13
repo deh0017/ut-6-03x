@@ -1,19 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 5: Functions in C
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 06, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 05: Functions in C
  *
- * Description: Calculates the area of a rectangle.
- *     If Length or Width is in the close interval [3,20], Area = Length * Width
+ * @section  DESCRIPTION
+ *
+ * Calculates the area of a rectangle.
+ *     If 3 <= Lenght, Width <= 20, Area = Length * Width
  *     Otherwise, Area = 0
- *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 06, 2016
- * Updated: June 22, 2017
  */
 
 #include <stdio.h> // standard C library
@@ -22,9 +19,9 @@
 
 // Function prototypes
 unsigned long Calculate_Area(unsigned long l, unsigned long w);
-void          EnableInterrupts(void);
+void EnableInterrupts(void);
 
-int           main(void) {
+int main(void) {
     // Setup
     unsigned long length, width, area;
 

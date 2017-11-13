@@ -1,19 +1,14 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 11: UART - Serial Interface
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     April 07, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 11: UART - Serial Interface
  *
- * Description:
- *   Convert numbers into ASCII strings and
- *   display on the UART0 (TExaSdisplay)
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 07, 2016
- * Updated: June 23, 2017
+ * Converts numbers into ASCII strings and display on the serial monitor.
  */
 
 #include "uart.h" // include all UART related functions
@@ -22,7 +17,7 @@
 // Function prototypes
 void EnableInterrupts(void);
 
-int  main(void) {
+int main(void) {
     // Setup
     unsigned long input_num;
 

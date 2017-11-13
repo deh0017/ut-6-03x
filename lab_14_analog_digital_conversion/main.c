@@ -1,16 +1,15 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 14: Analog-Digital Conversion
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     May 07, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 14: Analog-Digital Conversion
  *
- * Description: Captures analog signals of the slide potentiometer
- * and convert to digital signal, which is displayed by the Nokia5110.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: May 07, 2016
- * Updated: June 23, 2017
+ * Captures analog signals of the slide potentiometer and convert to digital
+ * signals, whose values are displayed on the Nokia5110 LCD.
  */
 
 /**

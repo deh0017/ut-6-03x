@@ -1,17 +1,15 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 14: Analog-Digital Conversion
+ * @file     adc.h
+ * @author   Phi Luu
+ * @date     May 07, 2016
  *
- * File Name: adc.h
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 14: Analog-Digital Conversion
  *
- * Description: Provides functions that initialize ADC0 SS3 to be triggered by
- * software and trigger a conversion, wait for it to finish,
- * and return the result.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: May 07, 2016
- * Updated: June 23, 2017
+ * Provides functions that initializes ADC0 SS3 to be triggered by software and
+ * trigger a conversion, wait for it to finish, and return the result
  */
 
 /**
@@ -21,7 +19,7 @@
  * SS3 1st sample source: channel 1
  * SS3 interrupts: enabled but not promoted to controller
  */
-void          InitAdcChannel0(void);
+void InitAdcChannel0(void);
 
 /**
  * Busy-wait Analog-Digital Conversion (ADC)

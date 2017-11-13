@@ -1,19 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     dac.c
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: dac.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Creates a sinusoid sound wave using 4-bit DAC
- * and simulate C, D, E, and G notes of the piano.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 22, 2016
- * Updated: June 23, 2017
+ * Initializes DAC and writes data into a 4-bit DAC.
+ * Note that 4-bit DAC connected to PB3-PB0.
  */
-
-// 4-bit DAC connected to PB3-PB0
 
 #include "dac.h"
 #include "tm4c123gh6pm.h"
@@ -24,16 +21,16 @@
 void InitDac(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R     |= 0x02;           // unlock port B clock
-    delay               = SYSCTL_RCGC2_R; // allow time for clock to start
-    GPIO_PORTB_LOCK_R  |= 0x4C4F434B;     // unlock GPIO Port B
-    GPIO_PORTB_CR_R    |= 0x0F;           // allow change to PB3-PB0
-    GPIO_PORTB_AMSEL_R &= ~0x0F;          // disable analog function on PB3-PB0
-    GPIO_PORTB_PCTL_R   = 0x00;           // clear PCTL register on PB3-PB0
-    GPIO_PORTB_DIR_R   |= 0x0F;           // PB3-PB0 outputs
-    GPIO_PORTB_AFSEL_R &= ~0x0F;          // disable alternate function on PB3-PB0
-    GPIO_PORTB_DEN_R   |= 0x0F;           // enable digital pins on PB3-PB0
-    GPIO_PORTB_DR8R_R  |= 0x0F;           // enable 8-mA drive select on PB3-PB0
+    SYSCTL_RCGC2_R |= 0x02;          // unlock port B clock
+    delay = SYSCTL_RCGC2_R;          // allow time for clock to start
+    GPIO_PORTB_LOCK_R |= 0x4C4F434B; // unlock GPIO Port B
+    GPIO_PORTB_CR_R |= 0x0F;         // allow change to PB3-PB0
+    GPIO_PORTB_AMSEL_R &= ~0x0F;     // disable analog function on PB3-PB0
+    GPIO_PORTB_PCTL_R = 0x00;        // clear PCTL register on PB3-PB0
+    GPIO_PORTB_DIR_R |= 0x0F;        // PB3-PB0 outputs
+    GPIO_PORTB_AFSEL_R &= ~0x0F;     // disable alternate function on PB3-PB0
+    GPIO_PORTB_DEN_R |= 0x0F;        // enable digital pins on PB3-PB0
+    GPIO_PORTB_DR8R_R |= 0x0F;       // enable 8-mA drive select on PB3-PB0
 }
 
 /**

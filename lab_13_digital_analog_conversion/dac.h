@@ -1,19 +1,16 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     dac.h
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: dac.h
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Creates a sinusoid sound wave using 4-bit DAC
- * and simulate C, D, E, and G notes of the piano.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 22, 2016
- * Updated: June 23, 2017
+ * Initializes DAC and writes data into a 4-bit DAC.
+ * Note that 4-bit DAC connected to PB3-PB0.
  */
-
-// 4-bit DAC connected to PB3-PB0
 
 /**
  * Initializes 4-bit DAC.

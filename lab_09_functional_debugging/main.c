@@ -1,22 +1,19 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 9: Functional Debugging
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     March 25, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 09: Functional Debugging
  *
- * Description:
- *   Learn how to debug using Logic Analyzer
- *   When either of SW1 and SW2 is pressed, the LED should flash red 10 Hz
- *   Otherwise, turn of the LED
- *   When the LED is flashing red,
- *   dumb data of PF4-PF0 to data[] array for visual observing
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: March 25, 2016
- * Updated: June 23, 2017
+ * A brief introduction to debug the circuit using high-precision oscilloscopes.
+ *     Learn how to debug using Logic Analyzer
+ *     When either of SW1 and SW2 is pressed, the LED should flash red 10 Hz
+ *     Otherwise, turn of the LED
+ *     When the LED is flashing red,
+ *     dumb data of PF4-PF0 to data[] array for visual observing
  */
 
 #include "TExaS.h"
@@ -55,7 +52,7 @@ void PortFInit(void);
 void Delay(void);
 void EnableInterrupts(void); // enable interrupts
 
-int  main(void) {
+int main(void) {
     // Setup
     unsigned long i = 0, last = NVIC_ST_CURRENT_R;
     unsigned long now;
@@ -72,10 +69,10 @@ int  main(void) {
             PF1 ^= 0x02;    // toggle the red LED
 
             if (i < 50) {
-                now             = NVIC_ST_CURRENT_R;
+                now = NVIC_ST_CURRENT_R;
                 time_counter[i] = (last - now) & 0x00FFFFFF; // 24-bit time difference
-                data[i]         = GPIO_PORTF_DATA_R & 0x13;  // record changes
-                last            = now;
+                data[i] = GPIO_PORTF_DATA_R & 0x13;          // record changes
+                last = now;
                 i++;
             }
         }
@@ -89,26 +86,26 @@ int  main(void) {
 void PortFInit(void) {
     volatile unsigned long delay;
 
-    SYSCTL_RCGC2_R    |= 0x00000020;     // 1) activate clock for Port F
-    delay              = SYSCTL_RCGC2_R; // allow time for clock to start
-    GPIO_PORTF_LOCK_R  = GPIO_LOCK_KEY;  // 2) unlock GPIO Port F
-    GPIO_PORTF_CR_R   |= 0x1F;           // allow changes to PF4-PF0
-    GPIO_PORTF_AMSEL_R = 0x00;           // 3) disable analog function
-    GPIO_PORTF_PCTL_R  = 0x00;           // 4) PCTL GPIO on PF4-PF0
-    GPIO_PORTF_DIR_R  |= 0x0E;           // 5) PF4, PF0 inputs, PF3-PF1 outputs
-    GPIO_PORTF_AFSEL_R = 0x00;           // 6) disable alternate function
-    GPIO_PORTF_PUR_R  |= 0x11;           // enable pull-up resistor on PF0 and PF4
-    GPIO_PORTF_DEN_R  |= 0x1F;           // 7) enable digital I/O on PF4-PF0
+    SYSCTL_RCGC2_R |= 0x00000020;      // 1) activate clock for Port F
+    delay = SYSCTL_RCGC2_R;            // allow time for clock to start
+    GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY; // 2) unlock GPIO Port F
+    GPIO_PORTF_CR_R |= 0x1F;           // allow changes to PF4-PF0
+    GPIO_PORTF_AMSEL_R = 0x00;         // 3) disable analog function
+    GPIO_PORTF_PCTL_R = 0x00;          // 4) PCTL GPIO on PF4-PF0
+    GPIO_PORTF_DIR_R |= 0x0E;          // 5) PF4, PF0 inputs, PF3-PF1 outputs
+    GPIO_PORTF_AFSEL_R = 0x00;         // 6) disable alternate function
+    GPIO_PORTF_PUR_R |= 0x11;          // enable pull-up resistor on PF0 and PF4
+    GPIO_PORTF_DEN_R |= 0x1F;          // 7) enable digital I/O on PF4-PF0
 }
 
 /**
  * Initializes the SysTick timer
  */
 void SystickInit(void) {
-    NVIC_ST_CTRL_R    = 0;          // disable SysTick during setup
-    NVIC_ST_RELOAD_R  = 0x00FFFFFF; // maximum reload value
-    NVIC_ST_CURRENT_R = 0;          // any write to current clears it
-    NVIC_ST_CTRL_R    = 0x00000005; // enable SysTick with core clock
+    NVIC_ST_CTRL_R = 0;            // disable SysTick during setup
+    NVIC_ST_RELOAD_R = 0x00FFFFFF; // maximum reload value
+    NVIC_ST_CURRENT_R = 0;         // any write to current clears it
+    NVIC_ST_CTRL_R = 0x00000005;   // enable SysTick with core clock
 }
 
 /**

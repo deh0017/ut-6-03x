@@ -1,18 +1,17 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 13: Digital-Analog Conversion
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     April 22, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 13: Digital-Analog Conversion
  *
- * Description: Creates a sinusoid sound wave using 4-bit DAC and simulate
- * C, D, E, and G notes of the piano.
- * Port B bits 3-0 have the 4-bit DAC.
- * Port E bits 3-0 have 4 piano keys.
+ * @section  DESCRIPTION
  *
- * Author: Phi Luu
- * Location: Portland, Oregon, United States
- * Created: April 22, 2016
- * Updated: June 23, 2017
+ * Creates a sinusoid sound wave using 4-bit DAC and simulate C, D, E, and G
+ * notes of the piano.
+ * Port B, bits 3-0 have the 4-bit DAC.
+ * Port E, bits 3-0 have 4 piano keys.
  */
 
 /**
@@ -34,7 +33,7 @@
 // Function prototypes:
 void EnableInterrupts(void); // Enable interrupts
 
-int  main(void) {
+int main(void) {
     // Setup
     // for the real board grader to work
     // activate grader and set system clock to 80 MHz
