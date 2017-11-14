@@ -329,61 +329,58 @@ char Screen[SCREENW*SCREENH/8]; // buffer stores the next image to be printed on
 //                     0 to 14
 //                     0 is fine for ships, explosions, projectiles, and bunkers
 // outputs: none
-void Nokia5110_PrintBMP(unsigned char xpos, unsigned char ypos, const unsigned char *ptr, unsigned char threshold){
-  long width = ptr[18], height = ptr[22], i, j;
-  unsigned short screenx, screeny;
-  unsigned char mask;
-  // check for clipping
-  if((height <= 0) ||              // bitmap is unexpectedly encoded in top-to-bottom pixel order
-     ((width%2) != 0) ||           // must be even number of columns
-     ((xpos + width) > SCREENW) || // right side cut off
-     (ypos < (height - 1)) ||      // top cut off
-     (ypos > SCREENH))           { // bottom cut off
-    return;
-  }
-  if(threshold > 14){
-    threshold = 14;             // only full 'on' turns pixel on
-  }
-  // bitmaps are encoded backwards, so start at the bottom left corner of the image
-  screeny = ypos/8;
-  screenx = xpos + SCREENW*screeny;
-  mask = ypos%8;                // row 0 to 7
-  mask = 0x01<<mask;            // now stores a mask 0x01 to 0x80
-  j = ptr[10];                  // byte 10 contains the offset where image data can be found
-  for(i=1; i<=(width*height/2); i=i+1){
-    // the left pixel is in the upper 4 bits
-    if(((ptr[j]>>4)&0xF) > threshold){
-      Screen[screenx] |= mask;
-    } else{
-      Screen[screenx] &= ~mask;
+void Nokia5110_PrintBMP(unsigned char xpos,
+                        unsigned char ypos,
+                        const unsigned char *ptr,
+                        unsigned char threshold) {
+    long width = ptr[BMP_WIDTH], height = ptr[BMP_HEIGHT], i, j;
+    unsigned short screenx, screeny;
+    unsigned char mask;
+
+    // check for clipping
+    if ((height <= 0)                 // bitmap is unexpectedly encoded in top-to-bottom pixel order
+        || ((width % 2) != 0)         // must be even number of columns
+        || ((xpos + width) > SCREENW) // right side cut off
+        || (ypos < (height - 1))      // top cut off
+        || (ypos > SCREENH)) {        // bottom cut off
+        return;
     }
-    screenx = screenx + 1;
-    // the right pixel is in the lower 4 bits
-    if((ptr[j]&0xF) > threshold){
-      Screen[screenx] |= mask;
-    } else{
-      Screen[screenx] &= ~mask;
+    if (threshold > 14) {
+        threshold = 14; // only full 'on' turns pixel on
     }
-    screenx = screenx + 1;
-    j = j + 1;
-    if((i%(width/2)) == 0){     // at the end of a row
-      if(mask > 0x01){
-        mask = mask>>1;
-      } else{
-        mask = 0x80;
-        screeny = screeny - 1;
-      }
-      screenx = xpos + SCREENW*screeny;
-      // bitmaps are 32-bit word aligned
-      switch((width/2)%4){      // skip any padding
-        case 0: j = j + 0; break;
-        case 1: j = j + 3; break;
-        case 2: j = j + 2; break;
-        case 3: j = j + 1; break;
-      }
+    // bitmaps are encoded backwards, so start at the bottom left corner of the image
+    screeny = ypos / 8;
+    screenx = xpos + SCREENW * screeny;
+    mask = ypos % 8;     // row 0 to 7
+    mask = 0x01 << mask; // now stores a mask 0x01 to 0x80
+    j = ptr[10];         // byte 10 contains the offset where image data can be found
+    for (i = 1; i <= (width * height / 2); i = i + 1) {
+        // the left pixel is in the upper 4 bits
+        if (((ptr[j] >> 4) & 0xF) > threshold) Screen[screenx] |= mask;
+        screenx = screenx + 1;
+        // the right pixel is in the lower 4 bits
+        if ((ptr[j] & 0xF) > threshold) Screen[screenx] |= mask;
+        screenx = screenx + 1;
+        j = j + 1;
+        if ((i % (width / 2)) == 0) { // at the end of a row
+            if (mask > 0x01) {
+                mask = mask >> 1;
+            } else {
+                mask = 0x80;
+                screeny = screeny - 1;
+            }
+            screenx = xpos + SCREENW * screeny;
+            // bitmaps are 32-bit word aligned
+            switch ((width / 2) % 4) { // skip any padding
+                case 0: j = j + 0; break;
+                case 1: j = j + 3; break;
+                case 2: j = j + 2; break;
+                case 3: j = j + 1; break;
+            }
+        }
     }
-  }
 }
+
 // There is a buffer in RAM that holds one screen
 // This routine clears this buffer
 void Nokia5110_ClearBuffer(void){int i;

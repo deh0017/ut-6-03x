@@ -1,78 +1,41 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 15: SpaceInvaders
+ * @file     timer.c
+ * @author   Phi Luu
+ * @date     May 20, 2016
  *
- * File Name: timer.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 15: SpaceInvaders
  *
- * Description: Contains SysTick, Timer2A, and the regular Delay initialization
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created May 20, 2016
- * Updated May 30, 2017
+ * This file contains functions that are responsible initializing interrupt
+ * service routines and delay functions.
  */
 
-#include "timer.h"
 #include "tm4c123gh6pm.h"
+#include "timer.h"
 
 /**
- * Initialize 120-Hz software-triggered interrupt
- *
- * @assumption      80-MHz clock
+ * Initializes Timer 2 used for main control loop.
  */
-void Init_SysTick(void) {
-    NVIC_ST_CTRL_R    = 0;       // disable SysTick during set up
-    NVIC_ST_RELOAD_R  = 666667;  // 120-Hz interrupt 666667
-    NVIC_ST_CURRENT_R = 0;       // overwrite to CURRENT to clear it
-    // priority 1
-    NVIC_SYS_PRI3_R = (NVIC_SYS_PRI3_R & 0x00FFFFFF) | 0x20000000;
-    // enable, source clock, and interrupts
-    NVIC_ST_CTRL_R = 0x0007;
-}
-
-/**
- * Initialize 11-kHz software-triggered interrupt
- *
- * @assumption      80-MHz clock
- */
-void Init_Timer2(void) {
+void InitTimer2(unsigned long period) {
     unsigned long volatile delay;
 
-    SYSCTL_RCGCTIMER_R |= 0x04;         // 0) activate timer2
-    delay               = SYSCTL_RCGCTIMER_R;
-    TIMER2_CTL_R        = 0x00000000;   // 1) disable timer2A during setup
-    TIMER2_CFG_R        = 0x00000000;   // 2) configure for 32-bit mode
-    TIMER2_TAMR_R       = 0x00000002;   // 3) configure for periodic mode
-    TIMER2_TAILR_R      = 7272;         // 4) 11-kHz interrupt 7272
-    TIMER2_TAPR_R       = 0;            // 5) bus clock resolution
-    TIMER2_ICR_R        = 0x00000001;   // 6) clear timer2A timeout flag
-    TIMER2_IMR_R        = 0x00000001;   // 7) arm timeout interrupt
-    NVIC_PRI5_R         = (NVIC_PRI5_R & 0x00FFFFFF)
-                          | 0x80000000; // 8) priority 4
-    // interrupts enabled in the main program after all devices initialized
+    SYSCTL_RCGCTIMER_R |= SYSCTL_RCGCTIMER_R2; // 0a) activate timer2
+    delay = SYSCTL_RCGCTIMER_R;
+    timer2a_count = 0;
+    semaphore2a = 0;
+    TIMER2_CTL_R = 0x00000000;               // 1a) disable timer2 during setup
+    TIMER2_CFG_R = TIMER_CFG_32_BIT_TIMER;   // 2a) configure timer2 for 32-bit mode
+    TIMER2_TAMR_R |= TIMER_TAMR_TAMR_PERIOD; // 3a) periodic count down is default but needed by simulator
+    TIMER2_TAILR_R = period - 1;             // 4a) timer2A reload value
+    TIMER2_TAPR_R = 0;                       // 5a) timer2A bus clock resolution
+    TIMER2_ICR_R |= TIMER_ICR_TATOCINT;      // 6a) clear timer2A timeout flag
+    TIMER2_IMR_R |= TIMER_IMR_TATOIM;        // 7a) arm timer2A timeout interrupt
+    TIMER2_CTL_R |= TIMER_CTL_TAEN;          // 10a) enable timer2A
+    // interrupts are enabled in the main program after all devices initialized
     // vector number 39, interrupt number 23
-    NVIC_EN0_R   = 1 << 23;             // 9) enable IRQ 23 in NVIC
-    TIMER2_CTL_R = 0x00000001;          // 10) enable timer2A
-}
-
-/**
- * Delays a number of times based on the clock speed of the LaunchPad
- *
- * @param  ms  number of milliseconds to delay
- *
- * @assumption 80-MHz clock
- */
-void Delay(unsigned long ms) {
-    unsigned long count;
-
-    while (ms) {
-        count = 16000; // 16000 = 1ms for 80 MHz
-
-        while (count) {
-            count--;
-        }
-        ms--;
-    }
+    NVIC_PRI5_R = (NVIC_PRI5_R & (~NVIC_PRI5_INT23_M))
+                  | (4UL << NVIC_PRI5_INT23_S); // 8) priority 4
+    NVIC_EN0_R = 1 << 23;                       // 9) enable IRQ 23 in NVIC
 }

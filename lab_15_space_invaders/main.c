@@ -1,18 +1,14 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 15: SpaceInvaders
+ * @file     main.c
+ * @author   Phi Luu
+ * @date     May 20, 2016
  *
- * File Name: main.c
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 15: SpaceInvaders
  *
- * Description: Mandatory file which contains interrupts routines and
- * the main thread
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created May 20, 2016
- * Updated May 30, 2017
+ * Mandatory file containing the main routine and interrupt service routines.
  */
 
 /**
@@ -28,158 +24,151 @@
  * 1*R resistor DAC bit 3 on PB3 (most significant bit)
  */
 
-#include "analogDigital.h"
 #include "data.h"
-#include "graphic.h"
+#include "led.h"
+#include "move.h"
 #include "nokia5110.h"
 #include "random.h"
-#include "TExaS.h"
+#include "sound.h"
+#include "sprites.h"
 #include "timer.h"
+#include "TExaS.h"
 #include "tm4c123gh6pm.h"
 
 // Function prototypes
-void          EnableInterrupts(void);
-void          DisableInterrupts(void);
-void          Delay(unsigned long ms);
-void          Display_GameOver(void);
-unsigned char Enemy_Exist(void);
-void          SysTick_Handler(void);
-void          Timer2A_Handler(void);
-
-// Global variables
-unsigned short ADCData;
-unsigned char  NewShipX;
-unsigned char  prevSwitchState = 0;
-unsigned char  EnemyFire;
+void EnableInterrupts(void);
+void DisableInterrupts(void);
+void WaitForInterrupt(void);
+void Delay100ms(unsigned long count);
+void SysTick_Handler(void);
+void Timer2A_Handler(void);
+void InitializeGame(void);
+void FinalizeGame(void);
 
 int main(void) {
-    // Setup
-    TExaS_Init(NoLCD_NoScope); // set system clock to 80 MHz
-    Random_Init(1);            // enable randomization
-    ADC0_Init();               // PE2 ADC input, PE1-PE0 switch input
-    DAC_Init();                // PB5-PB4 LED output, PB3-PB0 DAC output
-    Nokia5110_Init();          // Nokia5110 screen
-    Nokia5110_ClearBuffer();
-    Init_Thing();
-    Draw(Ship);
-    Draw(Bunker);
-    Draw_AllEnemies();
+    int i;
+
+    InitializeGame();
+
+    // display splash screen for 2 seconds
+    Nokia5110_PrintBMP(0, SCREEN_HEIGHT - 1, BMP_SPLASH_SCREEN, 0);
     Nokia5110_DisplayBuffer();
-    Init_SysTick();     // set up SysTick interrupt
-    // Init_Timer2();      // set up Timer2A interrupt
-    EnableInterrupts(); // interrupts begin to tick
+    Delay100ms(20);
 
-    // Loop
-    // As long as the ship and the enemy are live, the game still runs
-    while (Ship.life && Enemy_Exist()) {
-        // revise projectiles
-        Check_Laser_Collisions();
-        Check_Missile_Collisions();
+    // initialize game board
+    ResetBoard();
+    ShowLevel();
 
-        // move projectiles
-        Move_Lasers();
-        Move_Missiles();
+    // play until the player dies
+    while (lives > 0) {
+        player.exists = 1;
+        powerbar.exists = 1;
+        powerbar.bitmapn = power_level - 1;
+        while (player.exists) {
+            while (AliensExist() && player.exists) {
+                while (!semaphore_2a) {
+                    WaitForInterrupt();
+                }
 
-				// smart delay: slow when less objects, fast when more objects
-        Delay(45 / (Count_Missile() + Count_Laser()));
-    }
-    // Otherwise, game over
-    DisableInterrupts();
-    Display_GameOver();
-}
+                semaphore_2a = 0;
+                MoveSprites();
+                DrawBoard();
+            }
 
-/**
- * SysTick interrupt service routine
- * 60-Hz interrupt, handling input and graphic data
- *
- * @assumption    80-MHz clock
- */
-void SysTick_Handler(void) {
-    // read raw input from the slide pot
-    ADCData = ADC0_In();
-    // get new ship x-position (limit from 0 - 66)
-    NewShipX = 66 - ADCData * (SCREENW - SHIPW) / 4095;
+            if (!player.exists) {
+                Delay100ms(1); // delay 0.1 seconds
 
-    // move the ship if there is a change in x-coordinate
-    if (NewShipX != Ship.x) {
-        Move(&Ship, NewShipX, Ship.y);
-        Nokia5110_DisplayBuffer();
-    }
+                // remove a life and any missiles
+                for (i = 0; i < AMISSILES; i++) {
+                    DestroySprite(&alien_missiles[i]);
+                }
 
-    // create a missile and flash a LED if the ship fires
-    if (((GPIO_PORTE_DATA_R & LSWITCHPIN) != prevSwitchState)
-            && (GPIO_PORTE_DATA_R & LSWITCHPIN)) {
-        Create_Laser();
-        Nokia5110_DisplayBuffer();
-        GPIO_PORTB_DATA_R ^= LLEDPIN;
-    }
-    prevSwitchState = GPIO_PORTE_DATA_R & LSWITCHPIN;
+                for (i = 0; i < PMISSILES; i++) {
+                    DestroySprite(&player_missiles[i]);
+                }
+                lives--;
+            } else {
+                // Speed up the aliens and re-initialise the game board
+                if (--alien_init_speed == 1) {
+                    alien_init_speed = 2;
+                }
 
-    // create a laser and flash a LED if an enemy fires
-    if (Random() % 500 < 5) {
-        EnemyFire = 1;
-        Create_Missile();
-        Nokia5110_DisplayBuffer();
-        GPIO_PORTB_DATA_R ^= RLEDPIN;
-    } else {
-        EnemyFire = 0;
-    }
-}
-
-/**
- * Timer2A interrupt service routine
- * 11-kHz interrupt, handling sound output
- *
- * @assumption    80-MHz clock
- */
-void Timer2A_Handler(void) {
-    // ship fires sound
-    if (GPIO_PORTE_DATA_R & 0x02) {
-        PlaySound_Shoot();
-    }
-
-    // enemy fires sound
-    if (EnemyFire) {}
-
-    // ship destroyed sound
-    if (!Ship.life) {
-        PlaySound_Explosion();
-    }
-    // bunker destroyed sound
-
-    // enemy destroyed sound
-
-    // mothership destroyed sound
-
-    // acknowledge timer2A timeout
-    TIMER2_ICR_R = 0x00000001;
-}
-
-/**
- * Checks if all enemies are dead or not
- *
- * @return    0 if all enemies are dead
- * @return    1 if there is enemy
- */
-unsigned char Enemy_Exist(void) {
-    unsigned char i;
-
-    if (Mothership.life) {
-        return 1;
-    }
-
-    for (i = 0; i < MAXENEMY; i++) {
-        if (Enemy[i].life) {
-            return 1;
+                ResetBoard();
+                level += 1;
+                ShowLevel();
+            }
         }
     }
+    Delay100ms(5);
+    FinalizeGame();
     return 0;
 }
 
 /**
- * Displays the closure of the game
+ * Updates player position and ADC data and enables the main loop to run.
  */
-void Display_GameOver(void) {
+void Timer2A_Handler(void) {
+    TIMER2_ICR_R = TIMER_ICR_TATOCINT; // acknowledge timer2A timeout
+    timer2a_count++;
+    semaphore_2a = 1;                  // trigger
+    // adc_data = (((long)ReadAdc0()-515L)*28L)>>10;    // 3 - collect an ADC sample of player x pos
+    adc_data = 66 - ReadAdc0() * (SCREEN_WIDTH - BMP_WIDTH_INDEX) / 4095;
+}
+
+/**
+ * Combines active sounds and passes to DAC hardware. 11-kHz ISR.
+ */
+void SysTick_Handler(void) {
+    int i;
+    unsigned long dac_acc = 0;
+    int num_active_sounds = 0;
+
+    for (i = 0; i < MAX_SOUND; i++) {
+        if (sound_enabled[i]) {
+            unsigned char dac_val;
+            num_active_sounds++;
+            dac_val = *(WAV_DAC[i] + (dac_step[i] / 2));
+
+            if (dac_step[i] % 2) {
+                dac_acc += dac_val & 0xF;
+            } else {
+                dac_acc += dac_val >> 4;
+            }
+
+            if (dac_step[i] / 2 >= DAC_max[i]) {
+                StopSound(i);
+            }
+
+            dac_step[i]++;
+        }
+        if (num_active_sounds > 0) {
+            WriteDac(dac_acc / num_active_sounds);
+        }
+    }
+}
+
+/**
+ * Initializes hardware, game, and sprites.
+ */
+void InitializeGame(void) {
+    TExaS_Init(SSI0_Real_Nokia5110_Scope);
+    Random_Init(1);
+    Nokia5110_Init();
+    InitDac();
+    InitAdc0();
+    InitSound();
+    InitButton();
+    InitLed();
+    score = 0;
+    lives = 3;
+    InitSprites();
+    InitTimer2(CLOCK_SPEED / 60); // 60-Hz interrupt
+}
+
+/**
+ * Shows the game-over screen.
+ */
+void FinalizeGame(void) {
     Nokia5110_Clear();
     Nokia5110_SetCursor(1, 1);
     Nokia5110_OutString("GAME OVER");
@@ -187,9 +176,23 @@ void Display_GameOver(void) {
     Nokia5110_OutString("Nice try,");
     Nokia5110_SetCursor(1, 3);
     Nokia5110_OutString("Earthling!");
-    Nokia5110_SetCursor(3, 4);
-    Nokia5110_OutString("Score:");
-    Nokia5110_SetCursor(3, 5);
-    Nokia5110_OutUDec(Ship.score);
-    Nokia5110_SetCursor(0, 0);
+    Nokia5110_SetCursor(2, 4);
+    Nokia5110_OutUDec(score);
+}
+
+/**
+ * General-purpose 100ms delay that delays count times of each 100ms.
+ */
+void Delay100ms(unsigned long count) {
+    unsigned long time100ms;
+
+    while (count > 0) {
+        time100ms = 727240; // 100ms at 80 MHz
+
+        while (time100ms > 0) {
+            time100ms--;
+        }
+
+        count--;
+    }
 }

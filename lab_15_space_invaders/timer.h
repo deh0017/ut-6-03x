@@ -1,38 +1,22 @@
 /**
- * UTAustinX: UT.6.03x Embedded Systems - Shape the World
- * Lab 15: SpaceInvaders
+ * @file     timer.h
+ * @author   Phi Luu
+ * @date     May 20, 2016
  *
- * File Name: timer.h
+ * @brief    UTAustinX: UT.6.03x Embedded Systems - Shape the World
+ *           Lab 15: SpaceInvaders
  *
- * Description: Contains SysTick, Timer2A, and the regular Delay initialization
+ * @section  DESCRIPTION
  *
- * Compatibility: EK-TM4C123GXL
- *
- * Phi Luu
- * Portland, Oregon, United States
- * Created May 20, 2016
- * Updated May 30, 2017
+ * This file contains functions that are responsible initializing interrupt
+ * service routines and delay functions.
  */
 
-/**
- * Initialize 30-Hz software-triggered interrupt
- *
- * @assumption      80-MHz clock
- */
-void Init_SysTick(void);
+// Timer 2A flag
+extern unsigned long timer2a_count;
+extern unsigned long semaphore2a;
 
 /**
- * Initialize 11-kHz software-triggered interrupt
- *
- * @assumption      80-MHz clock
+ * Initializes Timer 2 used for main control loop.
  */
-void Init_Timer2(void);
-
-/**
- * Delays a number of times based on the clock speed of the LaunchPad
- *
- * @param  ms  number of milliseconds to delay
- *
- * @assumption 80-MHz clock
- */
-void Delay(unsigned long ms);
+void InitTimer2(unsigned long period);
