@@ -10,4 +10,4 @@ See my blog about these labs at [Notes of PhiL](https://philectron.github.io/tag
 
 ## Software and Kit Requirements
 
-To be able to debug and upload these projects to the LaunchPad, follow the instruction in [Software Requirements.pdf](/software_requirements.pdf) and [Kit Requirements.pdf](/kit_requirements.pdf). Click [here](https://drive.google.com/open?id=0B_BEuwvumKEUVURXRm5nRmZsWmM) to download **Keil uVision 4** and **TExaS**. If you follow the official instruction from [Texas Instruments](http://www.ti.com/ww/en/launchpad/software.html#tabs), you can upload and run your program on the LaunchPad.
+To be able to debug and upload these projects to the LaunchPad, follow the instruction in [Software Requirements.pdf](/software_requirements.pdf) and [Kit Requirements.pdf](/kit_requirements.pdf). If you follow the official instruction from [Texas Instruments](http://www.ti.com/ww/en/launchpad/software.html#tabs), you can upload and run your program on the LaunchPad.
