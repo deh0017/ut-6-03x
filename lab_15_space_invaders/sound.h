@@ -27,7 +27,7 @@ extern int sound_enabled[MAX_SOUND];
 extern unsigned long dac_step[MAX_SOUND];
 
 // maximum DAC step
-extern const unsigned long DAC_STEP_MAX[MAX_SOUND];
+extern unsigned long dac_step_max[MAX_SOUND];
 
 extern const unsigned char *WAV_DAC[];
 

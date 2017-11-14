@@ -11,6 +11,8 @@
  * This file contains functions that are responsible for sprites in the game.
  */
 
+#include "data.h"
+
 // Sprites data
 typedef struct Sprite {
     int x;

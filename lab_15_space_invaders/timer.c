@@ -39,3 +39,20 @@ void InitTimer2(unsigned long period) {
                   | (4UL << NVIC_PRI5_INT23_S); // 8) priority 4
     NVIC_EN0_R = 1 << 23;                       // 9) enable IRQ 23 in NVIC
 }
+
+/**
+ * General-purpose 100ms delay that delays count times of each 100ms.
+ */
+void Delay100ms(unsigned long count) {
+    unsigned long time100ms;
+
+    while (count > 0) {
+        time100ms = 727240; // 100ms at 80 MHz
+
+        while (time100ms > 0) {
+            time100ms--;
+        }
+
+        count--;
+    }
+}

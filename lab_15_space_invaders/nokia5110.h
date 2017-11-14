@@ -58,8 +58,10 @@
 #define MAX_X                   84
 #define MAX_Y                   48
 // *************************** Screen dimensions ***************************
-#define SCREENW     84
-#define SCREENH     48
+#define SCREENW          84
+#define SCREENH          48
+#define BMP_WIDTH        18
+#define BMP_HEIGHT       22
 
 // Contrast value 0xB1 looks good on red SparkFun
 // and 0xB8 looks good on blue Nokia 5110.

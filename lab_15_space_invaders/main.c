@@ -39,7 +39,7 @@
 void EnableInterrupts(void);
 void DisableInterrupts(void);
 void WaitForInterrupt(void);
-void Delay100ms(unsigned long count);
+
 void SysTick_Handler(void);
 void Timer2A_Handler(void);
 void InitializeGame(void);
@@ -66,11 +66,11 @@ int main(void) {
         powerbar.bitmapn = power_level - 1;
         while (player.exists) {
             while (AliensExist() && player.exists) {
-                while (!semaphore_2a) {
+                while (!semaphore2a) {
                     WaitForInterrupt();
                 }
 
-                semaphore_2a = 0;
+                semaphore2a = 0;
                 MoveSprites();
                 DrawBoard();
             }
@@ -110,7 +110,7 @@ int main(void) {
 void Timer2A_Handler(void) {
     TIMER2_ICR_R = TIMER_ICR_TATOCINT; // acknowledge timer2A timeout
     timer2a_count++;
-    semaphore_2a = 1;                  // trigger
+    semaphore2a = 1;                   // trigger
     // adc_data = (((long)ReadAdc0()-515L)*28L)>>10;    // 3 - collect an ADC sample of player x pos
     adc_data = 66 - ReadAdc0() * (SCREEN_WIDTH - BMP_WIDTH_INDEX) / 4095;
 }
@@ -135,7 +135,7 @@ void SysTick_Handler(void) {
                 dac_acc += dac_val >> 4;
             }
 
-            if (dac_step[i] / 2 >= DAC_max[i]) {
+            if (dac_step[i] / 2 >= dac_step_max[i]) {
                 StopSound(i);
             }
 
@@ -178,21 +178,4 @@ void FinalizeGame(void) {
     Nokia5110_OutString("Earthling!");
     Nokia5110_SetCursor(2, 4);
     Nokia5110_OutUDec(score);
-}
-
-/**
- * General-purpose 100ms delay that delays count times of each 100ms.
- */
-void Delay100ms(unsigned long count) {
-    unsigned long time100ms;
-
-    while (count > 0) {
-        time100ms = 727240; // 100ms at 80 MHz
-
-        while (time100ms > 0) {
-            time100ms--;
-        }
-
-        count--;
-    }
 }

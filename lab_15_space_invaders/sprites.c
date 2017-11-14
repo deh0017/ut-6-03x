@@ -12,12 +12,29 @@
  */
 
 #include "sprites.h"
-#include "data.h"
+#include "sound.h"
 #include "random.h"
+#include "timer.h"
+#include "led.h"
 #include "nokia5110.h"
 #include "tm4c123gh6pm.h"
 
-const int NUM_SPRITES = sizeof(sprite_list) / sizeof(spritelist[0]);
+const int NUM_SPRITES = sizeof(sprite_list) / sizeof(sprite_list[0]);
+
+// frames to make aliens move their body when they move
+const unsigned char *ALIENS_FRAME_A[ALIEN_ROWS] = {
+    BMP_SMALL_ENEMY_30_POINTS_A,
+    BMP_SMALL_ENEMY_20_POINTS_A,
+    BMP_SMALL_ENEMY_10_POINTS_A
+};
+
+const unsigned char *ALIENS_FRAME_B[ALIEN_ROWS] = {
+    BMP_SMALL_ENEMY_30_POINTS_B,
+    BMP_SMALL_ENEMY_20_POINTS_B,
+    BMP_SMALL_ENEMY_10_POINTS_B
+};
+
+const int ALIEN_POINTS[ALIEN_ROWS] = { 30, 20, 10 };
 
 // global game parameters
 int alien_init_speed = 16;
@@ -139,19 +156,6 @@ void InitSprites(void) {
     sprite_list[n++] = &mothership; // add mothership to list
 
     // aliens
-    // frames to make aliens move their body when they move
-    const unsigned char *ALIENS_FRAME_A[ALIEN_ROWS] = {
-        BMP_SMALL_ENEMY_30_POINTS_A,
-        BMP_SMALL_ENEMY_20_POINTS_A,
-        BMP_SMALL_ENEMY_10_POINTS_A
-    };
-    const unsigned char *ALIENS_FRAME_B[ALIEN_ROWS] = {
-        BMP_SMALL_ENEMY_30_POINTS_B,
-        BMP_SMALL_ENEMY_20_POINTS_B,
-        BMP_SMALL_ENEMY_10_POINTS_B
-    };
-    const int ALIEN_POINTS[ALIEN_ROWS] = { 30, 20, 10 };
-
     for (i = 0; i < ALIEN_COLS; i++) {
         for (j = 0; j < ALIEN_ROWS; j++) {
             aliens[i][j].height = ALIENS_FRAME_A[j][BMP_HEIGHT_INDEX];
@@ -592,7 +596,7 @@ void ChangeAlienDirection(int direction) {
     }
 
     if (max_y >= bunkers[0].y - bunkers[0].height) {
-        for (i = 0; i < BUNKERS; i++) {
+        for (i = 0; i < MAX_BUNKERS; i++) {
             DamageBunker(&bunkers[i]);
         }
     }
@@ -623,7 +627,7 @@ void MoveSprites(void) {
 
     // player missiles are updated every 3rd tick
     if (!(timer2a_count % 2)) {
-        MovePlayerMissiles();
+        MovePlayerMissile();
     }
 
     // alien positions are updated every ? tick

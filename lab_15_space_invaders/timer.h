@@ -20,3 +20,8 @@ extern unsigned long semaphore2a;
  * Initializes Timer 2 used for main control loop.
  */
 void InitTimer2(unsigned long period);
+
+/**
+ * General-purpose 100ms delay that delays count times of each 100ms.
+ */
+void Delay100ms(unsigned long count);

@@ -23,12 +23,12 @@ int sound_enabled[MAX_SOUND] = { 0 };
 unsigned long dac_step[MAX_SOUND] = { 0 };
 
 // maximum DAC step
-const unsigned long DAC_STEP_MAX[MAX_SOUND] = {
-    sizeof(WAV_EXPLOSION) / sizeof(WAV_EXPLOSION[0]),
-    sizeof(WAV_FAST_INVADER) / sizeof(WAV_FAST_INVADER[0]),
-    sizeof(WAV_INVADER_KILLED) / sizeof(WAV_INVADER_KILLED[0]),
-    sizeof(WAV_SHOOT) / sizeof(WAV_SHOOT[0]),
-    sizeof(WAV_UFO_HIGH_PITCH) / sizeof(WAV_UFO_HIGH_PITCH[0])
+unsigned long dac_step_max[MAX_SOUND] = {
+    2183, // sizeof(WAV_EXPLOSION) / sizeof(WAV_EXPLOSION[0]),
+    275,  // sizeof(WAV_FAST_INVADER) / sizeof(WAV_FAST_INVADER[0]),
+    844,  // sizeof(WAV_INVADER_KILLED) / sizeof(WAV_INVADER_KILLED[0]),
+    1020, // sizeof(WAV_SHOOT) / sizeof(WAV_SHOOT[0]),
+    451   // sizeof(WAV_UFO_HIGH_PITCH) / sizeof(WAV_UFO_HIGH_PITCH[0])
 };
 
 const unsigned char *WAV_DAC[] = {
@@ -62,7 +62,7 @@ void InitDac(void) {
  */
 void WriteDac(unsigned long data) {
     data = (data & (DAC_PINS)) | (GPIO_PORTB_DATA_R & ~(DAC_PINS));
-    GPIO_PORTB_DACOUT_R = data;
+    GPIO_PORTB_DATA_R = data;
 }
 
 /**
@@ -91,7 +91,7 @@ void PlaySound(enum SoundName sound) {
         SetLed2(1);
     }
 
-    DAC_step[sound] = 0;
+    dac_step[sound] = 0;
 }
 
 /**
