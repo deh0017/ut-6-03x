@@ -14,8 +14,8 @@
 
 #include "tm4c123gh6pm.h"
 #include "data.h"
-#include "sound.h"
 #include "led.h"
+#include "sound.h"
 
 int sound_enabled[MAX_SOUND] = { 0 };
 

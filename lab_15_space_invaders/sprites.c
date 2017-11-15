@@ -11,13 +11,13 @@
  * This file contains functions that are responsible for sprites in the game.
  */
 
-#include "sprites.h"
-#include "sound.h"
+#include "tm4c123gh6pm.h"
 #include "random.h"
+#include "nokia5110.h"
 #include "timer.h"
 #include "led.h"
-#include "nokia5110.h"
-#include "tm4c123gh6pm.h"
+#include "sound.h"
+#include "sprites.h"
 
 const int NUM_SPRITES = sizeof(sprite_list) / sizeof(sprite_list[0]);
 

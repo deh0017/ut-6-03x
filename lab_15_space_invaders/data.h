@@ -29,8 +29,8 @@
 // bitmap and screen limits
 #define BMP_WIDTH_INDEX        18
 #define BMP_HEIGHT_INDEX       22
-#define SCREEN_WIDTH           48
-#define SCREEN_HEIGHT          84
+#define SCREEN_WIDTH           84
+#define SCREEN_HEIGHT          48
 
 // Sprite limits
 #define ALIEN_ROWS             3  // number of aliens in each column

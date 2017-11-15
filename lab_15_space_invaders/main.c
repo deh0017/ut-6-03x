@@ -24,22 +24,45 @@
  * 1*R resistor DAC bit 3 on PB3 (most significant bit)
  */
 
-#include "data.h"
-#include "led.h"
-#include "move.h"
-#include "nokia5110.h"
+ #include "tm4c123gh6pm.h"
+#include "TExaS.h"
 #include "random.h"
+#include "nokia5110.h"
+#include "data.h"
+#include "timer.h"
+#include "move.h"
+#include "led.h"
 #include "sound.h"
 #include "sprites.h"
-#include "timer.h"
-#include "TExaS.h"
-#include "tm4c123gh6pm.h"
 
-// Function prototypes
+// global sprite structures
+Sprite score_digits[MAX_SCORE_DIGITS];
+Sprite player;
+Sprite powerbar;
+Sprite hearts;
+Sprite aliens[ALIEN_COLS][ALIEN_ROWS];
+Sprite mothership;
+Sprite bunkers[MAX_BUNKERS];
+Sprite player_missiles[PMISSILES];
+Sprite alien_missiles[AMISSILES];
+Sprite *sprite_list[MAX_SCORE_DIGITS + ALIEN_ROWS * ALIEN_COLS
+                    + PMISSILES + AMISSILES + MAX_HEARTS + MAX_POWERBAR];
+
+// global game parameters
+int alien_speed;
+int alien_direction;
+int score;
+int lives;
+long adc_data;
+
+// timer 2A flag
+unsigned long timer2a_count;
+unsigned long semaphore2a;
+
+// function prototypes
 void EnableInterrupts(void);
 void DisableInterrupts(void);
 void WaitForInterrupt(void);
-
 void SysTick_Handler(void);
 void Timer2A_Handler(void);
 void InitializeGame(void);
