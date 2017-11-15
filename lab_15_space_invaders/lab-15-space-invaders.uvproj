@@ -406,24 +406,14 @@
           <GroupName>Source</GroupName>
           <Files>
             <File>
-              <FileName>startup.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\startup.s</FilePath>
-            </File>
-            <File>
-              <FileName>Nokia5110.c</FileName>
+              <FileName>data.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Nokia5110.c</FilePath>
+              <FilePath>.\data.c</FilePath>
             </File>
             <File>
-              <FileName>random.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\random.s</FilePath>
-            </File>
-            <File>
-              <FileName>TExaS.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\TExaS.c</FilePath>
+              <FilePath>.\led.c</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
@@ -431,24 +421,44 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>AnalogDigital.c</FileName>
+              <FileName>move.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\AnalogDigital.c</FilePath>
+              <FilePath>.\move.c</FilePath>
             </File>
             <File>
-              <FileName>Data.c</FileName>
+              <FileName>nokia5110.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Data.c</FilePath>
+              <FilePath>.\nokia5110.c</FilePath>
             </File>
             <File>
-              <FileName>Graphic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Graphic.c</FilePath>
+              <FileName>random.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\random.s</FilePath>
             </File>
             <File>
-              <FileName>Timer.c</FileName>
+              <FileName>sound.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Timer.c</FilePath>
+              <FilePath>.\sound.c</FilePath>
+            </File>
+            <File>
+              <FileName>sprites.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sprites.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\startup.s</FilePath>
+            </File>
+            <File>
+              <FileName>TExaS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TExaS.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\timer.c</FilePath>
             </File>
           </Files>
         </Group>
