@@ -23,7 +23,7 @@ typedef struct Sprite {
     int score;
     int bitmapn;
     int exploding_at;
-    const unsigned char *bitmap[MAX_BITMAPS];
+    const unsigned char* bitmap[MAX_BITMAPS];
 } Sprite;
 
 extern Sprite score_digits[MAX_SCORE_DIGITS];
@@ -35,7 +35,7 @@ extern Sprite mothership;
 extern Sprite bunkers[MAX_BUNKERS];
 extern Sprite player_missiles[PMISSILES];
 extern Sprite alien_missiles[AMISSILES];
-extern Sprite *sprite_list[MAX_SCORE_DIGITS + ALIEN_ROWS * ALIEN_COLS
+extern Sprite* sprite_list[MAX_SCORE_DIGITS + ALIEN_ROWS * ALIEN_COLS
                            + PMISSILES + AMISSILES + MAX_HEARTS + MAX_POWERBAR];
 
 extern const int NUM_SPRITES;
@@ -134,7 +134,7 @@ int AliensExist(void);
 /**
  * Starts the destruction of an alien ship.
  */
-void ExplodeAlien(Sprite *alien);
+void ExplodeAlien(Sprite* alien);
 
 /**
  * Starts the destruction of the player's ship.
@@ -149,12 +149,12 @@ void UpdateScore(int value);
 /**
  * Updates the appearance of a bunker as it takes damage.
  */
-void DamageBunker(Sprite *bunker);
+void DamageBunker(Sprite* bunker);
 
 /**
  * Starts the destruction of a sprite.
  */
-void DestroySprite(Sprite *s);
+void DestroySprite(Sprite* s);
 
 /**
  * Shows the level on the screen before starting the round.
@@ -165,24 +165,24 @@ void ShowLevel(void);
  * Checks if two sprites collide.
  * Two sprite collide if their coordinates overlap.
  */
-int SpriteCollision(Sprite *s1, Sprite *s2);
+int SpriteCollision(Sprite* s1, Sprite* s2);
 
 /**
  * Tests whether the player is hit by an alien missile.
  */
-void CheckPlayerHit(Sprite *missile);
+void CheckPlayerHit(Sprite* missile);
 
 /**
  * Tests whether an alien is hit by a player missile.
  */
-void CheckAlienHit(Sprite *missile);
+void CheckAlienHit(Sprite* missile);
 
 /**
  * Tests whether a bunker is hit by an alien missile.
  */
-void CheckBunkerHit(Sprite *missile);
+void CheckBunkerHit(Sprite* missile);
 
 /**
  * Tests whether a player missile and an alien missile collide.
  */
-void CheckMissileCollision(Sprite *missile);
+void CheckMissileCollision(Sprite* missile);

@@ -29,7 +29,7 @@ extern unsigned long dac_step[MAX_SOUND];
 // maximum DAC step
 extern unsigned long dac_step_max[MAX_SOUND];
 
-extern const unsigned char *WAV_DAC[];
+extern const unsigned char* WAV_DAC[];
 
 /**
  * Initializes 4-bit DAC on PB3-PB0 and two LEDs on PB5-PB4.

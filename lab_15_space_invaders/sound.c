@@ -31,7 +31,7 @@ unsigned long dac_step_max[MAX_SOUND] = {
     451   // sizeof(WAV_UFO_HIGH_PITCH) / sizeof(WAV_UFO_HIGH_PITCH[0])
 };
 
-const unsigned char *WAV_DAC[] = {
+const unsigned char* WAV_DAC[] = {
     WAV_EXPLOSION,
     WAV_FAST_INVADER,
     WAV_INVADER_KILLED,

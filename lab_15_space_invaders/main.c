@@ -45,7 +45,7 @@ Sprite mothership;
 Sprite bunkers[MAX_BUNKERS];
 Sprite player_missiles[PMISSILES];
 Sprite alien_missiles[AMISSILES];
-Sprite *sprite_list[MAX_SCORE_DIGITS + ALIEN_ROWS * ALIEN_COLS
+Sprite* sprite_list[MAX_SCORE_DIGITS + ALIEN_ROWS * ALIEN_COLS
                     + PMISSILES + AMISSILES + MAX_HEARTS + MAX_POWERBAR];
 
 // global game parameters

@@ -22,13 +22,13 @@
 const int NUM_SPRITES = sizeof(sprite_list) / sizeof(sprite_list[0]);
 
 // frames to make aliens move their body when they move
-const unsigned char *ALIENS_FRAME_A[ALIEN_ROWS] = {
+const unsigned char* ALIENS_FRAME_A[ALIEN_ROWS] = {
     BMP_SMALL_ENEMY_30_POINTS_A,
     BMP_SMALL_ENEMY_20_POINTS_A,
     BMP_SMALL_ENEMY_10_POINTS_A
 };
 
-const unsigned char *ALIENS_FRAME_B[ALIEN_ROWS] = {
+const unsigned char* ALIENS_FRAME_B[ALIEN_ROWS] = {
     BMP_SMALL_ENEMY_30_POINTS_B,
     BMP_SMALL_ENEMY_20_POINTS_B,
     BMP_SMALL_ENEMY_10_POINTS_B
@@ -505,20 +505,20 @@ void MoveAliens(void) {
                     ChangeAlienDirection(-1);
                 }
                 switch (aliens[i][j].bitmapn) {
-                    case 0:
-                        aliens[i][j].bitmapn = 1;
-                        break;
-                    case 1:
-                        aliens[i][j].bitmapn = 0;
-                        break;
-                    case 2:
-                        aliens[i][j].bitmapn = 3;
-                        break;
-                    case 3:
-                        DestroySprite(&aliens[i][j]);
-                        break;
-                    default:
-                        break; // Should never get here!!
+                case 0:
+                    aliens[i][j].bitmapn = 1;
+                    break;
+                case 1:
+                    aliens[i][j].bitmapn = 0;
+                    break;
+                case 2:
+                    aliens[i][j].bitmapn = 3;
+                    break;
+                case 3:
+                    DestroySprite(&aliens[i][j]);
+                    break;
+                default:
+                    break; // Should never get here!!
                 }
                 aliens[i][j].x += alien_direction;
             }
@@ -670,7 +670,7 @@ int AliensExist(void) {
 /**
  * Starts the destruction of an alien ship.
  */
-void ExplodeAlien(Sprite *alien) {
+void ExplodeAlien(Sprite* alien) {
     int alien_count = CountAliens() - mothership.exists;
 
     alien->bitmapn = alien->exploding_at;
@@ -678,19 +678,19 @@ void ExplodeAlien(Sprite *alien) {
     PlaySound(INVADER_KILLED_SOUND);
     if (alien != &mothership) {
         switch (alien_count - 1) {
-            case 1:
-            case 2:
-                alien_speed = alien_speed / 2 + 1;
-                break;
-            case ALIEN_COLS * ALIEN_ROWS * 1 / 3:
-            case ALIEN_COLS * ALIEN_ROWS * 1 / 2:
-            case ALIEN_COLS * ALIEN_ROWS * 3 / 4:
-                if (alien_speed > 2) {
-                    alien_speed--;
-                }
-                break;
-            default:
-                break;
+        case 1:
+        case 2:
+            alien_speed = alien_speed / 2 + 1;
+            break;
+        case ALIEN_COLS * ALIEN_ROWS * 1 / 3:
+        case ALIEN_COLS * ALIEN_ROWS * 1 / 2:
+        case ALIEN_COLS * ALIEN_ROWS * 3 / 4:
+            if (alien_speed > 2) {
+                alien_speed--;
+            }
+            break;
+        default:
+            break;
         }
     }
 }
@@ -724,7 +724,7 @@ void UpdateScore(int value) {
 /**
  * Updates the appearance of a bunker as it takes damage.
  */
-void DamageBunker(Sprite *bunker) {
+void DamageBunker(Sprite* bunker) {
     if (bunker->exists) {
         if (bunker->bitmapn < 2) {
             bunker->bitmapn++;
@@ -737,7 +737,7 @@ void DamageBunker(Sprite *bunker) {
 /**
  * Starts the destruction of a sprite.
  */
-void DestroySprite(Sprite *s) {
+void DestroySprite(Sprite* s) {
     s->exists = 0;
     s->bitmapn = 0;
 }
@@ -759,7 +759,7 @@ void ShowLevel(void) {
  * Checks if two sprites collide.
  * Two sprite collide if their coordinates overlap.
  */
-int SpriteCollision(Sprite *s1, Sprite *s2) {
+int SpriteCollision(Sprite* s1, Sprite* s2) {
     if ((s1->x < s2->x + s2->width) && (s1->x + s1->width > s2->x)
         && (s1->y > s2->y - s2->height) && (s1->y - s1->height < s2->y)) {
         return 1;
@@ -770,7 +770,7 @@ int SpriteCollision(Sprite *s1, Sprite *s2) {
 /**
  * Tests whether the player is hit by an alien missile.
  */
-void CheckPlayerHit(Sprite *missile) {
+void CheckPlayerHit(Sprite* missile) {
     if (player.bitmapn < player.exploding_at) {
         if (SpriteCollision(missile, &player)) {
             ExplodePlayer();
@@ -782,7 +782,7 @@ void CheckPlayerHit(Sprite *missile) {
 /**
  * Tests whether an alien is hit by a player missile.
  */
-void CheckAlienHit(Sprite *missile) {
+void CheckAlienHit(Sprite* missile) {
     int i, j;
 
     for (i = 0; i < ALIEN_COLS; i++) {
@@ -809,7 +809,7 @@ void CheckAlienHit(Sprite *missile) {
 /**
  * Tests whether a bunker is hit by an alien missile.
  */
-void CheckBunkerHit(Sprite *missile) {
+void CheckBunkerHit(Sprite* missile) {
     int i;
 
     for (i = 0; i < MAX_BUNKERS; i++) {
@@ -826,7 +826,7 @@ void CheckBunkerHit(Sprite *missile) {
 /**
  * Tests whether a player missile and an alien missile collide.
  */
-void CheckMissileCollision(Sprite *missile) {
+void CheckMissileCollision(Sprite* missile) {
     int i;
 
     for (i = 0; i < AMISSILES; i++) {
