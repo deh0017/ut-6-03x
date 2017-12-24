@@ -11,6 +11,11 @@
 *.obj
 *.elf
 
+# Linker output
+*.ilk
+*.map
+*.exp
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -38,10 +43,24 @@
 # Debug files
 *.dSYM/
 *.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
 
 # =========================
 # C++
 # =========================
+
+# Prerequisites
+*.d
 
 # Compiled Object files
 *.slo
@@ -74,52 +93,6 @@
 *.app
 
 # =========================
-# EAGLE
-# =========================
-
-# Backup files
-*.s#?
-*.b#?
-*.l#?
-
-# Eagle project file
-# It contains a serial number and references to the file structure
-# on your computer.
-# comment the following line if you want to have your project file included.
-eagle.epf
-
-# Autorouter files
-*.pro
-*.job
-
-# CAM files
-*.$$$
-*.cmp
-*.ly2
-*.l15
-*.sol
-*.plc
-*.stc
-*.sts
-*.crc
-*.crs
-
-*.dri
-*.drl
-*.gpi
-*.pls
-
-*.drd
-*.drd.*
-
-*.info
-
-*.eps
-
-# file locks introduced since 7.x
-*.lck
-
-# =========================
 # Keil
 # =========================
 
@@ -148,41 +121,19 @@ eagle.epf
 *.uvopt
 
 # =========================
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# =========================
 # Windows
 # =========================
 
-# Windows image file caches
+# Windows thumbnail cache files
 Thumbs.db
 ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
 
 # Folder config file
-Desktop.ini
+[Dd]esktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
